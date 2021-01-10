@@ -1,5 +1,6 @@
 ﻿import React, { Component } from 'react';
 import Adapter from '../../Adapter';
+import { Link } from 'react-router-dom';
 
 export default class ProductItems extends Component {
     constructor(props) {
@@ -58,9 +59,7 @@ export default class ProductItems extends Component {
                             <img src={"/images/" + (product.productImage)} alt="book" className="primary" />
                         </a>
                         <div className="quick-view">
-                            <a className="action-view" data-target="#productModal" data-toggle="modal" title="Quick View">
-                                <i className="fa fa-search-plus" />
-                            </a>
+                            <Link  title="Quick View" to={"/product/" + (product.productID)}><i className="fa fa-search-plus" /></Link>
                         </div>
                         <div className="product-flag">
                             <ul>
@@ -92,7 +91,7 @@ export default class ProductItems extends Component {
                         </div>
                         <div className="add-to-link">
                             <ul>
-                                <li><a title="Details"><i className="fa fa-external-link" /></a></li>
+                                <li><Link to={"/product/" + (product.productID)}><i className="fa fa-external-link" /></Link></li>
                             </ul>
                         </div>
                     </div>

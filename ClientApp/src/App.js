@@ -11,6 +11,7 @@ import Adapter from './components/Adapter';
 import API from './components/API';
 import Checkout from './components/Checkout/Checkout';
 import ProFile from './components/Profile/ProFile';
+import ProductDetail from './components/ProductDetail/ProductDetail';
 
 export default class App extends Component {
     static displayName = App.name;
@@ -78,6 +79,7 @@ export default class App extends Component {
         <Layout cart={cart}>
             <Route exact path='/' component={Home} />
             <Route exact path='/product' component={() => <Product updateCartState={this.updateCartState } cart={ cart} products={products} />} />
+            <Route path='/product/:id' component={() => <ProductDetail products={products} updateCartState={this.updateCartState} cart={cart} />} />
             <Route exact path='/cart' component={() => <Cart updateCartState={this.updateCartState} cart={cart} />} />
             <AuthorizeRoute path='/check-out' component={() => <Checkout currentUser={currentUser} updateCartState={this.updateCartState} cart={cart} />} />
             <AuthorizeRoute path='/profile' component={() => <ProFile currentUser={currentUser} />} />

@@ -97,7 +97,7 @@ export class NavMenu extends Component {
                       <div className="row">
                           <div className="col-lg-3 col-md-6 col-12">
                               <div className="logo-area logo-xs-mrg-bottom">
-                                  <img style={{ width: "230px", position: "absolute", top: "-92px" }} src="img/logo/logo.png" />
+                                  <Link to="/"><img style={{ width: "230px", position: "absolute", top: "-92px" }} src="img/logo/logo.png" /></Link>
                               </div>
                           </div>
                           <div className="col-lg-6">
