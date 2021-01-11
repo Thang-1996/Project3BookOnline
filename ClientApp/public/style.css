@@ -472,7 +472,7 @@ body {
 
 .language-area ul>li:last-child,
 .account-area ul>li:last-child {
-    margin-right: 0px;
+    margin-right: 50px;
 }
 
 .language-area ul li img {
@@ -653,8 +653,8 @@ body {
     display: inline-block;
     font-size: 16px;
     font-weight: 700;
-    line-height: 30px;
-    padding: 10px 0;
+    line-height: 15px;
+    padding: 15px 0;
     text-transform: uppercase;
     text-decoration: none;
     transition: .3s;
@@ -665,24 +665,24 @@ body {
 }
 
 .header-mid-area .my-cart ul li>a>i {
-    font-size: 40px;
+    font-size: 30px;
     padding-right: 30px;
 }
 
-.header-mid-area .my-cart ul li>span {
-    background: #f07c29 none repeat scroll 0 0;
-    border-radius: 50%;
-    bottom: 0;
-    color: #fff;
-    display: inline-block;
-    font-size: 18px;
-    height: 30px;
-    left: 24px;
-    line-height: 30px;
-    position: absolute;
-    text-align: center;
-    width: 30px;
-}
+    .header-mid-area .my-cart ul li > span {
+        background: #25efef none repeat scroll 0 0;
+        border-radius: 50%;
+        bottom: 0;
+        color: #fff;
+        display: inline-block;
+        font-size: 18px;
+        height: 25px;
+        left: 20px;
+        line-height: 25px;
+        position: absolute;
+        text-align: center;
+        width: 25px;
+    }
 
 .mini-cart-sub {
     position: absolute;
@@ -4508,6 +4508,7 @@ nav.menu .cr-dropdown ul {
     line-height: 35px;
     font-family: 'Rufina', serif;
     font-weight: 400;
+    padding-right: 10px;
 }
 
 .toolbar-sorter .sorter-options {
