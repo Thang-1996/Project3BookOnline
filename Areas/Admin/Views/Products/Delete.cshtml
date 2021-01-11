@@ -110,6 +110,15 @@
                         </span>
 
                     }
+                    </dd>
+                    @foreach (var item in product.PublisherProducts)
+                    {
+
+                        <span>
+                            @item.Publisher.PublisherName ,
+                        </span>
+
+                    }
                 </dl>
 
                 <form asp-action="Delete">

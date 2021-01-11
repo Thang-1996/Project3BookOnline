@@ -70,13 +70,24 @@
                             Tên sản phẩm
                         </th>
                         <th>
+<<<<<<< HEAD
                             Code
+=======
+                            Product Code
+>>>>>>> eb59b6156a9975c9d1a9203779ec0c866de4378c
                         </th>
                         <th>
                             Thumbnail
                         </th>
                         <th>
+<<<<<<< HEAD
                             Mô tả
+=======
+                            Product Description
+                        </th>
+                        <th>
+                            Product Content
+>>>>>>> eb59b6156a9975c9d1a9203779ec0c866de4378c
                         </th>
                         <th>
                             Giá tiền
@@ -97,7 +108,14 @@
                             Thể loại
                         </th>
                         <th>
+<<<<<<< HEAD
                             Tác giả
+=======
+                            Authors
+                        </th>
+                        <th>
+                            Publishers
+>>>>>>> eb59b6156a9975c9d1a9203779ec0c866de4378c
                         </th>
                         <th>
                             
@@ -122,6 +140,9 @@
                             </td>
                             <td>
                                 @item.ProductDescription
+                            </td>
+                            <td>
+                                @item.ProductContent
                             </td>
                             <td>
                                 @item.Price
@@ -152,6 +173,9 @@
                             </td>
                             <th>
                                 @string.Join(", ", item.AuthorProducts.Select(p => p.Author.AuthorName))
+                            </th>
+                            <th>
+                                @string.Join(", ", item.PublisherProducts.Select(p => p.Publisher.PublisherName))
                             </th>
                             <th></th>
 

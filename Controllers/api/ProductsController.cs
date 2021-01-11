@@ -53,6 +53,8 @@ namespace BookOnlineShop.Controllers.api
                 .Include(c => c.Category)
                 .Include(at=>at.AuthorProducts)
                 .ThenInclude(a=>a.Author)
+                .Include(pp=>pp.PublisherProducts)
+                .ThenInclude(pb=>pb.Publisher)
                 .Where(p => p.ProductID == id).FirstOrDefaultAsync();
 
             if (products == null)

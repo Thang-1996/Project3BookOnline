@@ -5,12 +5,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-
-@{
-    ViewData["Title"] = "Index";
-    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
-}
-
+aa
 <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
     <div class="kt-portlet kt-portlet--mobile">
         <div class="kt-portlet__head kt-portlet__head--lg">
@@ -22,7 +17,7 @@
                     </a>
                     &nbsp;
                     <div class="dropdown dropdown-inline">
-                        <a asp-action="Create" asp-area="admin" asp-controller="publishers" class="btn btn-brand btn-icon-sm"  aria-haspopup="true" aria-expanded="false">
+                        <a asp-action="Create" asp-area="admin" asp-controller="publishers" class="btn btn-brand btn-icon-sm" aria-haspopup="true" aria-expanded="false">
                             <i class="flaticon2-plus"></i> Add New
                         </a>
 
@@ -33,7 +28,7 @@
         <div class="kt-portlet__body">
 
             <!--begin: Search Form -->
-            @*<div class="kt-form kt-form--label-right kt-margin-t-20 kt-margin-b-10">
+            <div class="kt-form kt-form--label-right kt-margin-t-20 kt-margin-b-10">
                     <div class="row align-items-center">
                         <div class="col-xl-8 order-2 order-xl-1">
                             <div class="row align-items-center">
@@ -49,7 +44,7 @@
                             </div>
                         </div>
                     </div>
-                </div>*@
+                </div>
 
             <!--end: Search Form -->
         </div>
@@ -62,7 +57,14 @@
                         <tr>
                             <th>STT</th>
                             <th>
+<<<<<<< HEAD
                                 Nhà xuất bản
+=======
+                                STT
+                            </th>
+                            <th>
+                                Publisher Name
+>>>>>>> eb59b6156a9975c9d1a9203779ec0c866de4378c
                             </th>
                             <th>
                                 Email
@@ -71,7 +73,11 @@
                                 Địa chỉ
                             </th>
                             <th>
+<<<<<<< HEAD
                                 Số điện thoại
+=======
+                                Phone Number
+>>>>>>> eb59b6156a9975c9d1a9203779ec0c866de4378c
                             </th>
                             <th>
                                 Trạng thái
@@ -83,6 +89,7 @@
                         @{ var index = 1;} 
                         @foreach (var item in Model)
                         {
+<<<<<<< HEAD
                             <tr>
                                 <td>@index</td>
                                 <td>
@@ -115,6 +122,42 @@
                                 </td>
                             </tr>
                             index++;
+=======
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PublisherID)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PublisherName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Email)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Address)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PhoneNumber)
+                            </td>
+                            <td>
+                                @if (item.Status == 1)
+                                {
+                                    <span class="kt-badge  kt-badge--success kt-badge--inline kt-badge--pill">Active</span>
+                                }
+                                else
+                                {
+                                    <span class="kt-badge  kt-badge--danger kt-badge--inline kt-badge--pill">Lock</span>
+
+                                }
+                            </td>
+                            <td>
+                                <a class="btn btn-sm btn-clean btn-icon btn-icon-md" asp-area="admin" asp-action="Edit" asp-route-id="@item.PublisherID"><i class="la la-edit"></i></a> |
+                                <a class="btn btn-sm btn-clean btn-icon btn-icon-md" asp-area="admin" asp-action="Details" asp-route-id="@item.PublisherID"><i class="la la-info"></i></a> |
+                                <a class="btn btn-sm btn-clean btn-icon btn-icon-md" asp-area="admin" asp-action="Delete" asp-route-id="@item.PublisherID"><i class="la la-remove"></i></a>
+                            </td>
+                        </tr>
+>>>>>>> eb59b6156a9975c9d1a9203779ec0c866de4378c
                         }
                     </tbody>
                 </table>

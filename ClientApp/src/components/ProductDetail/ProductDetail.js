@@ -11,9 +11,11 @@ class ProductDetail extends Component {
             products: props.products,
             productID: this.props.match.params.id,
             product: null,
+          
         };
         
-        this.updateCartState = this.updateCartState.bind(this);
+   
+        this.addToCart = this.addToCart.bind(this);
     }
     componentDidMount() {
         let products = this.state.products;
@@ -32,7 +34,7 @@ class ProductDetail extends Component {
                 cart: nextProps.cart,
             };
         }
-        return null;
+        return null;;
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -44,12 +46,47 @@ class ProductDetail extends Component {
             });
         }
     }
-    updateCartState() {
+    addToCart() {
+     const product = this.state.products;
+        console.log(this.state);
+
+        let cart = localStorage.getItem("cart");
+        if (cart === null) cart = [];
+        else cart = JSON.parse(cart);
+        let count = 0;
+        for (let i = 0; i < cart.length; i++) {
+            if (cart[i].product.productID === product.productID) {
+                if (cart[i].quantity < product.quantity) {
+                    cart[i].quantity++;
+                } else {
+                    alert("Hàng trong kho không đủ");
+                }
+                count++;
+            }
+        }
+        if (count === 0) {
+            cart.push({ product: product, quantity: 1 });
+            alert("Thêm hàng vào giỏ thành công")
+        }
+
+        localStorage.setItem("cart", JSON.stringify(cart));
+
+
         this.props.updateCartState();
+    }
+
+    changeQuantity = (event) => {
+        let cart = this.state.cart;
+        console.log(cart.quantity)
+        this.setState({
+            cart: cart
+        });
+        this.props.updateCartState();
+        
     }
     render() {
         const { products, cart, product } = this.state;
-        console.log(product)
+        console.log(cart)
         return (
             <div>
                 <div className="breadcrumbs-area mb-70">
@@ -110,9 +147,9 @@ class ProductDetail extends Component {
                                                 <div className="product-add-form">
                                                     <form action="#">
                                                         <div className="quality-button">
-                                                            <input className="qty" type="number" defaultValue={1} />
+                                                            <input className="qty" onChange={this.changeQuantity} type="number" defaultValue={1} />
                                                         </div>
-                                                        <a href="#">Add to cart</a>
+                                                        <a onClick={this.addToCart} style={{ cursor: "pointer", color:"white" }} title="Add to cart" >Thêm vào giỏ hàng</a>
                                                     </form>
                                                 </div>
                                                 <div className="product-social-links">
