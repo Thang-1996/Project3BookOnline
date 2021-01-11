@@ -57,14 +57,7 @@ aa
                         <tr>
                             <th>STT</th>
                             <th>
-<<<<<<< HEAD
                                 Nhà xuất bản
-=======
-                                STT
-                            </th>
-                            <th>
-                                Publisher Name
->>>>>>> eb59b6156a9975c9d1a9203779ec0c866de4378c
                             </th>
                             <th>
                                 Email
@@ -73,11 +66,7 @@ aa
                                 Địa chỉ
                             </th>
                             <th>
-<<<<<<< HEAD
                                 Số điện thoại
-=======
-                                Phone Number
->>>>>>> eb59b6156a9975c9d1a9203779ec0c866de4378c
                             </th>
                             <th>
                                 Trạng thái
@@ -89,7 +78,6 @@ aa
                         @{ var index = 1;} 
                         @foreach (var item in Model)
                         {
-<<<<<<< HEAD
                             <tr>
                                 <td>@index</td>
                                 <td>
@@ -122,42 +110,6 @@ aa
                                 </td>
                             </tr>
                             index++;
-=======
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.PublisherID)
-                            </td>
-
-                            <td>
-                                @Html.DisplayFor(modelItem => item.PublisherName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Email)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Address)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.PhoneNumber)
-                            </td>
-                            <td>
-                                @if (item.Status == 1)
-                                {
-                                    <span class="kt-badge  kt-badge--success kt-badge--inline kt-badge--pill">Active</span>
-                                }
-                                else
-                                {
-                                    <span class="kt-badge  kt-badge--danger kt-badge--inline kt-badge--pill">Lock</span>
-
-                                }
-                            </td>
-                            <td>
-                                <a class="btn btn-sm btn-clean btn-icon btn-icon-md" asp-area="admin" asp-action="Edit" asp-route-id="@item.PublisherID"><i class="la la-edit"></i></a> |
-                                <a class="btn btn-sm btn-clean btn-icon btn-icon-md" asp-area="admin" asp-action="Details" asp-route-id="@item.PublisherID"><i class="la la-info"></i></a> |
-                                <a class="btn btn-sm btn-clean btn-icon btn-icon-md" asp-area="admin" asp-action="Delete" asp-route-id="@item.PublisherID"><i class="la la-remove"></i></a>
-                            </td>
-                        </tr>
->>>>>>> eb59b6156a9975c9d1a9203779ec0c866de4378c
                         }
                     </tbody>
                 </table>
