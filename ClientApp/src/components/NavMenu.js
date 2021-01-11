@@ -50,7 +50,7 @@ export class NavMenu extends Component {
     removeCart = (item) => {
         let cart = this.state.cart;
         let cartStorage = localStorage.getItem("cart");
-        if (cartStorage === null) cartStorage = [];
+        if (cartStorage === null || cart.trim() === "" ) cartStorage = [];
         else cartStorage = JSON.parse(cartStorage);
         console.log(cartStorage);
    
@@ -97,7 +97,7 @@ export class NavMenu extends Component {
                       <div className="row">
                           <div className="col-lg-3 col-md-6 col-12">
                               <div className="logo-area logo-xs-mrg-bottom">
-                                  <Link to="/"><img style={{ width: "230px", position: "absolute", top: "-92px" }} src="img/logo/logo.png" /></Link>
+                                  <Link to="/"><img style={{ width: "230px", position: "absolute", top: "-92px", marginLeft:"-50px" }} src="img/logo/logo.png" /></Link>
                               </div>
                           </div>
                           <div className="col-lg-6">
@@ -107,7 +107,7 @@ export class NavMenu extends Component {
                           <div className="col-lg-3 col-md-3 col-12">
                               <div className="my-cart">
                                   <ul>
-                                      <li style={{position: "absolute", top: "-61px"}}>
+                                      <li style={{ position: "absolute", top: "-61px", marginLeft:"-50px" }}>
                                           <Link to="/cart"> <i className="fa fa-shopping-cart" /></Link>
                                               <span>{cart ? cart.length : 0}</span>
                                           <div className="mini-cart-sub">
