@@ -50,7 +50,7 @@ export class NavMenu extends Component {
     removeCart = (item) => {
         let cart = this.state.cart;
         let cartStorage = localStorage.getItem("cart");
-        if (cartStorage === null) cartStorage = [];
+        if (cartStorage === null || cart.trim() === "" ) cartStorage = [];
         else cartStorage = JSON.parse(cartStorage);
         console.log(cartStorage);
    
