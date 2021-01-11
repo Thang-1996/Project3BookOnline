@@ -76,13 +76,16 @@
                             Product Name
                         </th>
                         <th>
-                            ProductCode
+                            Product Code
                         </th>
                         <th>
                             Product Image
                         </th>
                         <th>
-                            ProductDescription
+                            Product Description
+                        </th>
+                        <th>
+                            Product Content
                         </th>
                         <th>
                             Price
@@ -103,7 +106,10 @@
                             Category
                         </th>
                         <th>
-                            Author
+                            Authors
+                        </th>
+                        <th>
+                            Publishers
                         </th>
                         <th>
                             Action
@@ -128,6 +134,9 @@
                             </td>
                             <td>
                                 @item.ProductDescription
+                            </td>
+                            <td>
+                                @item.ProductContent
                             </td>
                             <td>
                                 @item.Price
@@ -158,6 +167,9 @@
                             </td>
                             <th>
                                 @string.Join(", ", item.AuthorProducts.Select(p => p.Author.AuthorName))
+                            </th>
+                            <th>
+                                @string.Join(", ", item.PublisherProducts.Select(p => p.Publisher.PublisherName))
                             </th>
                             <th></th>
 

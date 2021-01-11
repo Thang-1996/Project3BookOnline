@@ -39,5 +39,14 @@
     format_money: function (money) {
         return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(money);
     },
+    getAuthor: {
+        url: "api/author/detail",
+        params: {
+
+        },
+        method: "GET"
+    },
+    
+    
 };
 export default Adapter;

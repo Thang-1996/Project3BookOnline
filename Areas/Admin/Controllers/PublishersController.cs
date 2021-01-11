@@ -23,7 +23,11 @@ namespace BookOnlineShop.Areas.Admin.Controllers
         /*[Authorize(Roles = "Admin, Manager")]*/
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Publishers.ToListAsync());
+            var publishers = _context.Publishers.
+               Include(p => p.PublisherProducts)
+               .ThenInclude(a => a.Product)
+               .OrderByDescending(p => p.PublisherID);
+            return View(await publishers.ToListAsync());
         }
 
         // GET: Admin/Publishers/Details/5
@@ -34,8 +38,10 @@ namespace BookOnlineShop.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var publishers = await _context.Publishers
-                .FirstOrDefaultAsync(m => m.PublisherID == id);
+            var publishers = await _context.Publishers.
+               Include(pd => pd.PublisherProducts)
+               .ThenInclude(p => p.Product)
+               .FirstOrDefaultAsync(pl => pl.PublisherID == id);
             if (publishers == null)
             {
                 return NotFound();

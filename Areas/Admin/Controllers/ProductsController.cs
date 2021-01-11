@@ -30,9 +30,11 @@ namespace BookOnlineShop.Areas.Admin.Controllers
         /*[Authorize(Roles = "Admin, Manager")]*/
         public async Task<IActionResult> Index()
         {
-            var products = _context.Products.Include(c => c.Category).
-                Include(p => p.AuthorProducts)
+            var products = _context.Products.Include(c => c.Category)
+                .Include(p => p.AuthorProducts)
                 .ThenInclude(a => a.Author)
+                .Include(p => p.PublisherProducts)
+                .ThenInclude(a => a.Publisher)
                 .OrderByDescending(p => p.ProductID);
             return View(await products.ToListAsync());
         }
@@ -48,6 +50,8 @@ namespace BookOnlineShop.Areas.Admin.Controllers
                 .Include(c => c.Category)
                 .Include(ap => ap.AuthorProducts)
                 .ThenInclude(a => a.Author)
+                .Include(p => p.PublisherProducts)
+                .ThenInclude(a => a.Publisher)
                 .FirstOrDefaultAsync(m => m.ProductID == id);
             if (products == null)
             {
@@ -78,7 +82,9 @@ namespace BookOnlineShop.Areas.Admin.Controllers
         {
             var products = new ProductViewModel();
             products.Authors = _context.Authors.ToList();
+            products.Publishers = _context.Publishers.ToList();
             ViewBag.Authors = new SelectList(_context.Authors, "AuthorID", "AuthorName");
+            ViewBag.Publishers = new SelectList(_context.Publishers, "PublisherID", "PublisherName");
             ViewData["CategoryID"] = new SelectList(_context.Categories, "CategoryID", "CategoryName");
             return View(products);
         }
@@ -118,12 +124,22 @@ namespace BookOnlineShop.Areas.Admin.Controllers
                     _context.Add(authorProducts);
                     _context.SaveChanges();
                 }
+                foreach (var publisher in model.SelectedPublisher)
+                {
+                    PublisherProducts publisherProducts = new PublisherProducts();
+                    publisherProducts.ProductID = product.ProductID;
+                    publisherProducts.PublisherID = publisher;
+                    _context.Add(publisherProducts);
+                    _context.SaveChanges();
+                }
 
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             ViewBag.Authors = new SelectList(_context.Authors, "AuthorID", "AuthorName");
+            ViewBag.Publishers = new SelectList(_context.Publishers, "PublisherID", "PublisherName");
             ViewData["CategoryID"] = new SelectList(_context.Categories, "CategoryID", "CategoryName", model.CategoryID);
+
             return View();
         }
 
@@ -139,7 +155,6 @@ namespace BookOnlineShop.Areas.Admin.Controllers
             {
                 ProductID = product.ProductID,
                 ProductName = product.ProductName,
-       
                 ProductDescription = product.ProductDescription,
                 ProductContent = product.ProductContent,
                 ProductCode = product.ProductCode,
@@ -149,7 +164,8 @@ namespace BookOnlineShop.Areas.Admin.Controllers
                 PublishingTime = product.PublishingTime,
                 Reprinttimes = product.Reprinttimes,
                 CategoryID = product.CategoryID,
-                SelectedAuthor = product.AuthorProducts.Select(au => au.AuthorID).ToList()
+                SelectedAuthor = product.AuthorProducts.Select(au => au.AuthorID).ToList(),
+                SelectedPublisher = product.PublisherProducts.Select(pp => pp.PublisherID).ToList()
             };
 
             if (product == null)
@@ -157,6 +173,7 @@ namespace BookOnlineShop.Areas.Admin.Controllers
                 return NotFound();
             }
             ViewBag.Authors = new SelectList(_context.Authors, "AuthorID", "AuthorName");
+            ViewBag.Publishers = new SelectList(_context.Publishers, "PublisherID", "PublisherName");
             ViewData["CategoryID"] = new SelectList(_context.Categories, "CategoryID", "CategoryName", product.CategoryID);
             return View(newProduct);
         }
@@ -193,6 +210,10 @@ namespace BookOnlineShop.Areas.Admin.Controllers
                     {
                         product.AuthorProducts.Add(new AuthorProducts { AuthorID = AuthorID });
                     }
+                    foreach (var PublisherID in model.SelectedPublisher)
+                    {
+                        product.PublisherProducts.Add(new PublisherProducts { PublisherID = PublisherID });
+                    }
                     _context.Update(product);
                     await _context.SaveChangesAsync();
                 }
@@ -210,6 +231,7 @@ namespace BookOnlineShop.Areas.Admin.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewBag.Authors = new SelectList(_context.Authors, "AuthorID", "AuthorName");
+            ViewBag.Publishers = new SelectList(_context.Publishers, "PublisherID", "PublisherName");
             ViewData["CategoryID"] = new SelectList(_context.Categories, "CategoryID", "CategoryName", model.CategoryID);
             return View();
         }
@@ -223,10 +245,12 @@ namespace BookOnlineShop.Areas.Admin.Controllers
             }
 
             var products = await _context.Products
-                .Include(p => p.Category)
-                .Include(p => p.AuthorProducts)
-                .ThenInclude(a => a.Author)
-                .FirstOrDefaultAsync(m => m.ProductID == id);
+               .Include(c => c.Category)
+               .Include(ap => ap.AuthorProducts)
+               .ThenInclude(a => a.Author)
+               .Include(p => p.PublisherProducts)
+               .ThenInclude(a => a.Publisher)
+               .FirstOrDefaultAsync(m => m.ProductID == id);
             if (products == null)
             {
                 return NotFound();

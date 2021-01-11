@@ -112,6 +112,17 @@
                         </span>
 
                     }
+                     <dt class="col-sm-2">
+                        Authors
+                    </dt>
+                    @foreach (var item in product.PublisherProducts)
+                    {
+
+                        <span>
+                            @item.Publisher.PublisherName ,
+                        </span>
+
+                    }
 
                 </dl>
             </div>
