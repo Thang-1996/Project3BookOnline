@@ -43,10 +43,8 @@ export default class ProductItems extends Component {
             cart.push({ product: product, quantity: 1 });
             alert("Thêm hàng vào giỏ thành công")
         }
-       
         localStorage.setItem("cart", JSON.stringify(cart));
    
-    
         this.props.updateCartState();
     }
     render() {
