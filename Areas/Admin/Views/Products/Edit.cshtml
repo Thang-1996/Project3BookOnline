@@ -39,22 +39,22 @@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" asp-for="ProductID" />
                 <div class="form-group">
-                    <label asp-for="ProductName" class="control-label"></label>
+                    <label asp-for="ProductName" class="control-label">Product Name</label>
                     <input asp-for="ProductName" class="form-control" />
                     <span asp-validation-for="ProductName" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="ProductImage" class="control-label"></label>
+                    <label asp-for="ProductImage" class="control-label"> Product Image</label>
                     <input asp-for="ProductImage" class="form-control" />
                     <span asp-validation-for="ProductImage" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="ProductCode" class="control-label"></label>
+                    <label asp-for="ProductCode" class="control-label"> Product Code</label>
                     <input asp-for="ProductCode" class="form-control" />
                     <span asp-validation-for="ProductCode" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="ProductDescription" class="control-label"></label>
+                    <label asp-for="ProductDescription" class="control-label">Product Description</label>
                     <input asp-for="ProductDescription" class="form-control" />
                     <span asp-validation-for="ProductDescription" class="text-danger"></span>
                 </div>
@@ -77,7 +77,7 @@
                     <span asp-validation-for="Status" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="PublishingTime" class="control-label"></label>
+                    <label asp-for="PublishingTime" class="control-label"> Publishing Time</label>
                     <input asp-for="PublishingTime" class="form-control" />
                     <span asp-validation-for="PublishingTime" class="text-danger"></span>
                 </div>
@@ -91,9 +91,15 @@
                     <select asp-for="CategoryID" class="form-control" asp-items="ViewBag.CategoryID"></select>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Authors" class="control-label">Author</label>-->
+                    <label asp-for="Authors" class="control-label">Authors</label>-->
                     @*@Html.ListBox("SelectedCategor", (MultiSelectList)ViewBag.Roles, new { size = 8 }) *@
                     <select asp-for="SelectedAuthor" asp-items="ViewBag.Authors" class="custom-select mt-5 pt-3 ">
+                    </select>
+                </div> 
+                <div class="form-group">
+                    <label asp-for="Publishers" class="control-label">Publishers</label>-->
+                    @*@Html.ListBox("SelectedCategor", (MultiSelectList)ViewBag.Roles, new { size = 8 }) *@
+                    <select asp-for="SelectedPublisher" asp-items="ViewBag.Publishers" class="custom-select mt-5 pt-3 ">
                     </select>
                 </div>
                 <div class="form-group">

@@ -54,8 +54,10 @@
                     <span asp-validation-for="ProductDescription " class="text-danger"></span>
                 </div>
                 <div class="form-group">
+                    <label asp-for="ProductContent " class="control-label">Product Content</label>
                     <textarea asp-for="ProductContent" id="content" class="form-control"></textarea>
                     <span asp-validation-for="ProductContent " class="text-danger"></span>
+
                 </div>
                 <div class="form-group">
                     <label asp-for="Quantity " class="control-label"></label>
@@ -98,6 +100,12 @@
                     <label asp-for="Authors" class="control-label">Author</label>
                     @* @Html.ListBox("SelectedCategor", (MultiSelectList)ViewBag.Roles, new { size = 8 }) *@
                     <select asp-for="SelectedAuthor" asp-items="ViewBag.Authors" class="custom-select mt-5 pt-3 ">
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Publishers" class="control-label">Publishers</label>
+                    @* @Html.ListBox("SelectedCategor", (MultiSelectList)ViewBag.Roles, new { size = 8 }) *@
+                    <select asp-for="SelectedPublisher" asp-items="ViewBag.Publishers" class="custom-select mt-5 pt-3 ">
                     </select>
                 </div>
                 <div class="form-group">

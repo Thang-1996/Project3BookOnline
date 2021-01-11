@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Delete";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var publisher = Model as Publishers;
 }
 <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
     <div class="kt-portlet kt-portlet--mobile">
@@ -34,7 +35,7 @@
                 <hr />
                 <dl class="row">
                     <dt class="col-sm-2">
-                        @Html.DisplayNameFor(model => model.PublisherName)
+                        Publisher Name
                     </dt>
                     <dd class="col-sm-10">
                         @Html.DisplayFor(model => model.PublisherName)
@@ -52,7 +53,7 @@
                         @Html.DisplayFor(model => model.Address)
                     </dd>
                     <dt class="col-sm-2">
-                        @Html.DisplayNameFor(model => model.PhoneNumber)
+                        Phone Number
                     </dt>
                     <dd class="col-sm-10">
                         @Html.DisplayFor(model => model.PhoneNumber)
@@ -63,6 +64,18 @@
                     <dd class="col-sm-10">
                         @Html.DisplayFor(model => model.Status)
                     </dd>
+
+                    <dt class="col-sm-2">
+                        Products
+                    </dt>
+                    @foreach (var item in publisher.PublisherProducts)
+                    {
+
+                        <span>
+                            @item.Product.ProductName ,
+                        </span>
+
+                    }
                 </dl>
 
                 <form asp-action="Delete">
