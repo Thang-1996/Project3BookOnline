@@ -23,6 +23,7 @@ namespace BookOnlineShop.Areas.Admin.ViewModels
 
         public string EditImagePath { get; set; }
         public string ProductDescription { get; set; }
+
         public string ProductContent { get; set; }
         public double Price { get; set; }
         [Range(1, int.MaxValue)]
