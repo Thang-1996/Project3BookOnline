@@ -8,6 +8,20 @@
         },
         method: "GET"
     },
+    getCategories: {
+        url: "api/Categories/GetCategories",
+        params: {
+            
+        },
+        method: "GET"
+    },
+    getCategoriesID: {
+        url: "api/Categories/GetCategoriesbyID",
+        params: {
+            
+        },
+        method: "GET"
+    },
     currentUserInfo: {
         url: "api/Payment/getUserInfo",
         params: {

@@ -1,20 +1,21 @@
 ﻿import React, {Component} from 'react';
 import ProductItems from './components/ProductItems';
 import { Link } from 'react-router-dom';
-
+import API from '../API';
+import Adapter from '../Adapter';
 export default class Product extends Component {
     constructor(props) {
         super(props);
         this.state = {
             cart: props.cart,
             products: props.products,
+            categories: props.categories,
         };
         this.updateCartState = this.updateCartState.bind(this);
     }
     static getDerivedStateFromProps(nextProps, prevState) {
-        if (nextProps.products !== prevState.products || nextProps.cart !== prevState.cart) {
+        if (nextProps.cart !== prevState.cart) {
             return {
-                products: nextProps.products,
                 cart: nextProps.cart,
             };
         }
@@ -22,10 +23,8 @@ export default class Product extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (prevProps.products !== this.props.products || prevProps.cart !== this.props.cart) {
-     
+        if (prevProps.cart !== this.props.cart) {
             this.setState({
-                products: this.props.products,
                 cart: this.props.cart,
             });
         }
@@ -33,8 +32,76 @@ export default class Product extends Component {
     updateCartState() {
         this.props.updateCartState();
     }
+    selectCategory = (item) => {
+         API.get(Adapter.getCategoriesID.url, {
+            params: {
+                id: item
+            }
+        }).then(res => {
+                this.setState({
+                    products: res.data,
+                });
+                console.log(res.data);
+                console.log(this.state.products)
+            }).catch(err => {
+
+            });
+    }
+  /*  sortOnKey = (key, string, desc) => {
+        const caseInsensitive = string && string === "CI";
+        return (a, b) => {
+            a = caseInsensitive ? a[key].toLowerCase() : a[key];
+            b = caseInsensitive ? b[key].toLowerCase() : b[key];
+            if (string) {
+                return desc ? b.localeCompare(a) : a.localeCompare(b);
+            }
+            return desc ? b - a : a - b;
+        }
+    };*/
+    sortProduct = async (event) => {
+        let value = event.target.value;
+        let products = this.state.products;
+
+        switch (value) {
+            case "priceUp":
+                await products.sort(function (a, b) {
+                    return parseFloat(a.price) - parseFloat(b.price);
+                });
+                break;
+            case "priceDown":
+                await products.sort(function (a, b) {
+                    return -parseFloat(a.price) + parseFloat(b.price);
+                });
+                break;
+            case "nameAZ":
+                products.sort(function (a, b) {
+                    if (a.productName < b.productName) { return -1; }
+                    if (a.productName > b.productName) { return 1; }
+                    return 0;
+                })
+                break;
+            case "nameZA":
+                products.sort(function (a, b) {
+                    if (a.productName < b.productName) { return 1; }
+                    if (a.productName > b.productName) { return -1; }
+                    return 0;
+                })
+                break;
+            case "count":
+                break;
+            case "view":
+                break;
+            default:
+                break;
+        }
+        console.log(products)
+        this.setState({
+            products: products,
+        })
+    }
     render() {
-        const { products } = this.state;
+        let { products, categories } = this.state;
+        let count = 0;
         return (
             <div>
                 <div className="breadcrumbs-area mb-70">
@@ -62,10 +129,13 @@ export default class Product extends Component {
                                     </div>
                                     <div className="left-menu mb-30">
                                         <ul>
-                                            <li><a>Jackets<span>(15)</span></a></li>
-                                            <li><a>weaters<span>(9)</span></a></li>
-                                            <li><a>Bottoms<span>(12)</span></a></li>
-                                            <li><a>Jeans Pants<span>(6)</span></a></li>
+                                            {
+                                                categories ? categories.map((e, index) => {
+                                                    return <li key={index}><a onClick={this.selectCategory.bind(this, e.categoryID)} style={{cursor: "pointer"}}>{e.categoryName}</a></li>
+                                                }) : null
+                                            }
+                                            
+                                        
                                         </ul>
                                     </div>
                                 </div>
@@ -74,17 +144,16 @@ export default class Product extends Component {
                                 <div className="category-image mb-30">
                                     <a><img src="img/banner/32.jpg" alt="banner" /></a>
                                 </div>
-                                <div className="section-title-5 mb-30">
-                                    <h2>Book</h2>
-                                </div>
                                 <div className="toolbar mb-30">
                                     <div className="toolbar-sorter">
                                         <span>Lọc theo</span>
-                                        <select id="sorter" className="sorter-options" data-role="sorter">
-                                            <option value="name">Tên sản phẩm</option>
-                                            <option value="price">Giá tiền</option>
-                                            <option value="count">Lượng mua</option>
-                                            <option value="xem">Người xem</option>
+                                        <select onChange={ this.sortProduct} id="sorter" className="sorter-options" data-role="sorter">
+                                            <option value="nameAZ">Tên sản phẩm A-Z</option>
+                                            <option value="nameZA">Tên sản phẩm Z-A</option>
+                                            <option value="priceUp">Giá tiền từ thấp đến cao</option>
+                                            <option value="priceDown">Giá tiền từ cao đến thấp</option>
+                                            <option value="count">Bán chạy</option>
+                                            <option value="view">Phổ biến</option>
                                         </select>
                                     </div>
                                 </div>
@@ -93,6 +162,7 @@ export default class Product extends Component {
                                         <div className="row">
                                             {
                                                 products ? products.map((product, index) => {
+                                                    count++;
                                                     return <ProductItems updateCartState={this.updateCartState} product={product} key={index} />
                                                 }) : null
                                             }
@@ -339,7 +409,7 @@ export default class Product extends Component {
                              
                                 <div className="pagination-area mt-50">
                                     <div className="list-page-2">
-                                        <p>Items 1-9 of 11</p>
+                                        <p>Items 1-9 of {count }</p>
                                     </div>
                                     <div className="page-number">
                                         <ul>

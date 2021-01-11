@@ -49,12 +49,13 @@ export default class ProductItems extends Component {
     }
     render() {
         let product = this.state.product;
+        
         return (
             <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6">
                 <div className="product-wrapper mb-40">
                     <div className="product-img">
                         <a>
-                            <img src={"/images/" + (product.productImage)} alt="book" className="primary" />
+                            <img src={"/images/" + (product.productImage)} alt="book" className="primary" style={{ width: "400px", height: "250px" }} />
                         </a>
                         <div className="quick-view">
                             <Link  title="Quick View" to={"/product/" + (product.productID)}><i className="fa fa-search-plus" /></Link>

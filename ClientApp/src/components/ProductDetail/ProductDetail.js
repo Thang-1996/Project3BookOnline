@@ -55,7 +55,7 @@ class ProductDetail extends Component {
         for (let i = 0; i < cart.length; i++) {
             if (cart[i].product.productID === product.productID) {
                 if (cart[i].quantity < product.quantity) {
-                    cart[i].quantity++;
+                   cart[i].quantity += Number(quantity);
                 } else {
                     alert("Hàng trong kho không đủ");
                 }
