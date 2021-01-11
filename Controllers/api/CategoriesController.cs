@@ -10,7 +10,7 @@ using BookOnlineShop.Models;
 
 namespace BookOnlineShop.Controllers.api
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class CategoriesController : ControllerBase
     {
@@ -23,23 +23,25 @@ namespace BookOnlineShop.Controllers.api
 
         // GET: api/Categories
         [HttpGet]
+        [ActionName("GetCategories")]
         public async Task<ActionResult<IEnumerable<Categories>>> GetCategories()
         {
             return await _context.Categories.ToListAsync();
         }
 
         // GET: api/Categories/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Categories>> GetCategories(int id)
+        [HttpGet]
+        [ActionName("GetCategoriesbyID")]
+        public async Task<ActionResult<IEnumerable<Products>>> GetCategories(int id)
         {
-            var categories = await _context.Categories.FindAsync(id);
+            var products = await _context.Products.Where(b=>b.CategoryID == id).ToListAsync();
 
-            if (categories == null)
+            if (products == null)
             {
                 return NotFound();
             }
 
-            return categories;
+            return products;
         }
         [HttpGet("Detail/{id}")]
         public async Task<ActionResult<Categories>> Detail(int id)

@@ -17,16 +17,14 @@ export default class App extends Component {
     static displayName = App.name;
     constructor(props) {
         super(props);
-
         let cart = localStorage.getItem("cart");
-
         if (cart === null || cart.trim() === "") cart = [];
         else cart = JSON.parse(cart);
-
         this.state = {
             cart: cart,
             products: [],
-            currentUser : null,
+            currentUser: null,
+            categories: [],
         };
         this.updateCartState = this.updateCartState.bind(this);
     }
@@ -35,6 +33,14 @@ export default class App extends Component {
             .then(res => {
                 this.setState({
                     products: res.data,
+                });
+            }).catch(err => {
+
+            });
+        API.get(Adapter.getCategories.url)
+            .then(res => {
+                this.setState({
+                    categories: res.data,
                 });
             }).catch(err => {
 
@@ -73,12 +79,12 @@ export default class App extends Component {
     }
    
     render() {
-        const { products, currentUser } = this.state;
+        const { products, currentUser, categories } = this.state;
         const cart = this.state.cart;
     return (
         <Layout cart={cart}>
             <Route exact path='/' component={Home} />
-            <Route exact path='/product' component={() => <Product updateCartState={this.updateCartState } cart={ cart} products={products} />} />
+            <Route exact path='/product' component={() => <Product categories={categories} updateCartState={this.updateCartState} cart={cart} products={products} />} />
             <Route path='/product/:id' component={() => <ProductDetail products={products} updateCartState={this.updateCartState} cart={cart} />} />
             <Route exact path='/cart' component={() => <Cart updateCartState={this.updateCartState} cart={cart}/>} />
             <AuthorizeRoute path='/check-out' component={() => <Checkout currentUser={currentUser} updateCartState={this.updateCartState} cart={cart} />} />
