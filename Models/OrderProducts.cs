@@ -13,6 +13,8 @@ namespace BookOnlineShop.Models
         public int ProductID { get; set; }
         public int OrderID { get; set; }
 
+        public int quantity { get; set; }
+
 
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         [Required(AllowEmptyStrings = true)]

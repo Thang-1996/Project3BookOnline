@@ -70,12 +70,39 @@ namespace BookOnlineShop.Controllers.api
         }
         [HttpPost]
         [ActionName("saveOrder")]
-        public async Task<ActionResult<Orders>> saveOrder(Orders orders)
+        public async Task<ActionResult<Payment>> saveOrder(Payment payment)
         {
-            _context.Orders.Add(orders);
-            await _context.SaveChangesAsync();
+            var cart = payment.carts;
+            var orders = payment.orders;
+       
+            Console.WriteLine(JsonConvert.SerializeObject(payment));
 
-            return CreatedAtAction("GetOrders", new { id = orders.ID }, orders);
+            Orders orders1 = new Orders
+            {
+                Address = orders.Address,
+                paymenttype = orders.paymenttype,
+                Telephone = orders.Telephone,
+                OrderNote = orders.OrderNote,
+                Status = orders.Status,
+                GrandTotal = orders.GrandTotal,
+                UserID = orders.UserID,
+                CreateAt = DateTime.Now,
+                UpdateAt = DateTime.Now
+            };
+            _context.Orders.Add(orders1);
+            _context.SaveChanges();
+            foreach (var item in cart)
+            {
+                OrderProducts orderProducts = new OrderProducts();
+                orderProducts.OrderID = orders1.ID;
+                orderProducts.ProductID = item.product.ProductID;
+                orderProducts.UserID = orders.UserID;
+                orderProducts.quantity = item.quantity;
+                _context.Add(orderProducts);
+                _context.SaveChanges();
+            }
+            await _context.SaveChangesAsync();
+            return Ok();
         }
 
     }

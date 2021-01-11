@@ -1,15 +1,40 @@
 ﻿import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import Adapter from '../Adapter';
 import API from '../API';
 export default class Checkout extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            orders: {
+                CreateAt: '',
+                UpdateAt: '',
+                Telephone: '',
+                Address: '',
+                Status: 1,
+                GrandTotal: 0,
+                OrderNote: '',
+                paymenttype: 1,
+                UserID: '',
+          
+            },
             cart: props.cart,
-            currentUser : props.currentUser
+            currentUser: props.currentUser,
+            redirect: false,
         };
         this.checkOut = this.checkOut.bind(this);
         
+    }
+    handleOnChange = event => {
+        let orders = this.state.orders;
+        let currentUser = this.props.currentUser;
+        let nameValue = event.target.name;
+        orders[nameValue] = event.target.value;
+        if (currentUser) {
+            orders.UserID = currentUser.id;
+        }
+      
+        this.setState({ orders: orders })
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
@@ -27,32 +52,45 @@ export default class Checkout extends Component {
     }
     checkOut() {
         let cart = this.state.cart;
+        let orders = this.state.orders;
+        let redirect = this.state.redirect;
+        let grandTotal = 0;
+        if (cart) {
+           
+            cart.forEach(item => {
+                return grandTotal += item.product.price * item.quantity;
+            })
+        }
+        orders.GrandTotal = grandTotal;
+        this.setState({ orders: orders })
+      
+        let payment = {
+            orders: orders,
+            carts: cart,
+        }
 
-        API.post(Adapter.order.url, cart )
-
-       /* API.post(Adapter.checkOut.url, {
-            params: { cart: this.state.cart} 
-        })
-
+        API.post(Adapter.saveOrder.url, payment)
             .then(res => {
-                localStorage.setItem("cart", null);
-                alert("Thành công")
+                if (res.status == 200) {
+                    localStorage.removeItem("cart");
+
+                    alert('Đặt hàng thành công!');
+                    this.setState({ redirect: true })
+                    this.props.cartState();
+                
+                }
             }).catch(err => {
-                alert("Thất bại")
-            });*/
-        this.setState({
-            cart: []
-        });
+               
+            });
 
-        cart = [];
-
-        localStorage.clear();
-        alert("Thành công")
-        window.location.reload();
     }
     render() {
-        const { cart, currentUser } = this.state;
-        console.log(currentUser);
+        const { cart, currentUser, orders, redirect } = this.state;
+        if (redirect) {
+            return <Redirect to='/' />;
+        }
+
+        
         let total = 0;
         return (
             <div>
@@ -81,29 +119,25 @@ export default class Checkout extends Component {
                                                 <div className="row">
                                                     <div className="col-lg-12 col-md-12 col-12">
                                                         <div className="checkout-form-list">
-                                                            <label>Address <span className="required">*</span></label>
-                                                            <input type="text" placeholder="Street address" />
+                                                        <label>Địa chỉ nhận hàng <span className="required">*</span></label>
+                                                        <input onChange={this.handleOnChange} required value={orders.Address} name="Address" type="text" placeholder="Street address" />
                                                         </div>
+                                                </div>
+                                                <div className="col-lg-12 col-md-12 col-12">
+                                                    <div className="checkout-form-list">
+                                                        <label>Số điện thoại: <span className="required">*</span></label>
+                                                        <input onChange={this.handleOnChange} type="text" value={orders.Telephone} name="Telephone" placeholder="Số điện thoại" />
                                                     </div>
-                                                    <div className="col-lg-12 col-md-12 col-12">
-                                                        <div className="checkout-form-list">
-                                                            <input type="text" placeholder="Apartment, suite, unit etc. (optional)" />
-                                                        </div>
-                                                    </div>  
-                                                    <div className="col-lg-12 col-md-12 col-12">
-                                                       
-                                                        <div className="checkout-form-list create-account" id="cbox_info" style={{ display: 'none' }}>
-                                                            <p>Create an account by entering the information below. If you are a returning customer please login at the top of the page.</p>
-                                                            <label>Account password  <span className="required">*</span></label>
-                                                            <input type="password" placeholder="password" />
-                                                        </div>
-                                                    </div>
+                                                </div>
+                                         
+                                                   
+                          
                                                 </div>
                                                 <div className="different-address">
                                                     <div className="order-notes">
                                                         <div className="checkout-form-list">
-                                                            <label>Order Notes</label>
-                                                            <textarea placeholder="Notes about your order, e.g. special notes for delivery." rows={10} cols={30} id="checkout-mess" defaultValue={""} />
+                                                        <label>Order Notes</label>
+                                                        <textarea onChange={this.handleOnChange} value={orders.OrderNote} name="OrderNote" placeholder="Notes about your order, e.g. special notes for delivery." rows={10} cols={30} id="checkout-mess"  />
                                                         </div>
                                                     </div>
                                                 </div>
