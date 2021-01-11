@@ -9,14 +9,6 @@ aa
 <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
     <div class="kt-portlet kt-portlet--mobile">
         <div class="kt-portlet__head kt-portlet__head--lg">
-            <div class="kt-portlet__head-label">
-                <span class="kt-portlet__head-icon">
-                    <i class="kt-font-brand flaticon2-line-chart"></i>
-                </span>
-                <h3 class="kt-portlet__head-title">
-                    List Publishers
-                </h3>
-            </div>
             <div class="kt-portlet__head-toolbar">
                 <div class="kt-portlet__head-wrapper">
                     <a asp-action="Index" asp-area="admin" asp-controller="publishers" class="btn btn-clean btn-icon-sm">
@@ -63,30 +55,74 @@ aa
                 <table class="table">
                     <thead>
                         <tr>
+                            <th>STT</th>
                             <th>
+<<<<<<< HEAD
+                                Nhà xuất bản
+=======
                                 STT
                             </th>
                             <th>
                                 Publisher Name
+>>>>>>> eb59b6156a9975c9d1a9203779ec0c866de4378c
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.Email)
+                                Email
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.Address)
+                                Địa chỉ
                             </th>
                             <th>
+<<<<<<< HEAD
+                                Số điện thoại
+=======
                                 Phone Number
+>>>>>>> eb59b6156a9975c9d1a9203779ec0c866de4378c
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.Status)
+                                Trạng thái
                             </th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
+                        @{ var index = 1;} 
                         @foreach (var item in Model)
                         {
+<<<<<<< HEAD
+                            <tr>
+                                <td>@index</td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PublisherName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Email)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Address)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                                </td>
+                                <td>
+                                    @if (item.Status == 1)
+                                    {
+                                        <span class="kt-badge  kt-badge--success kt-badge--inline kt-badge--pill">Active</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="kt-badge  kt-badge--danger kt-badge--inline kt-badge--pill">Lock</span>
+
+                                    }
+                                </td>
+                                <td>
+                                    <a class="btn btn-sm btn-clean btn-icon btn-icon-md" asp-area="admin" asp-action="Edit" asp-route-id="@item.PublisherID"><i class="la la-edit"></i></a> |
+                                    <a class="btn btn-sm btn-clean btn-icon btn-icon-md" asp-area="admin" asp-action="Details" asp-route-id="@item.PublisherID"><i class="la la-info"></i></a> |
+                                    <a class="btn btn-sm btn-clean btn-icon btn-icon-md" asp-area="admin" asp-action="Delete" asp-route-id="@item.PublisherID"><i class="la la-remove"></i></a>
+                                </td>
+                            </tr>
+                            index++;
+=======
                         <tr>
                             <td>
                                 @Html.DisplayFor(modelItem => item.PublisherID)
@@ -121,6 +157,7 @@ aa
                                 <a class="btn btn-sm btn-clean btn-icon btn-icon-md" asp-area="admin" asp-action="Delete" asp-route-id="@item.PublisherID"><i class="la la-remove"></i></a>
                             </td>
                         </tr>
+>>>>>>> eb59b6156a9975c9d1a9203779ec0c866de4378c
                         }
                     </tbody>
                 </table>

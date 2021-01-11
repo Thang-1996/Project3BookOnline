@@ -20,7 +20,10 @@ namespace BookOnlineShop.Models
         [Required(AllowEmptyStrings = true)]
         public string ProductImage { get; set; }
         public string ProductDescription { get; set; }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 2406a320e1af9e582a573fd8e9d5322ec28c43bd
         public string ProductContent { get; set; }
         public double Price { get; set; }
         [Range(1, int.MaxValue)]

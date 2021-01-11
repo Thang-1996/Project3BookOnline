@@ -7,11 +7,10 @@ class ProductDetail extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            cart: props.cart,
             products: props.products,
             productID: this.props.match.params.id,
             product: null,
-          
+            quantity: 1
         };
         
    
@@ -47,11 +46,10 @@ class ProductDetail extends Component {
         }
     }
     addToCart() {
-     const product = this.state.products;
-        console.log(this.state);
-
+        const product = this.state.product;
+        let quantity = this.state.quantity;
         let cart = localStorage.getItem("cart");
-        if (cart === null) cart = [];
+        if (cart === null || cart.trim() === "") cart = [];
         else cart = JSON.parse(cart);
         let count = 0;
         for (let i = 0; i < cart.length; i++) {
@@ -65,7 +63,7 @@ class ProductDetail extends Component {
             }
         }
         if (count === 0) {
-            cart.push({ product: product, quantity: 1 });
+            cart.push({ product: product, quantity: quantity });
             alert("Thêm hàng vào giỏ thành công")
         }
 
@@ -76,17 +74,15 @@ class ProductDetail extends Component {
     }
 
     changeQuantity = (event) => {
-        let cart = this.state.cart;
-        console.log(cart.quantity)
-        this.setState({
-            cart: cart
-        });
-        this.props.updateCartState();
-        
+        let quantity = this.state.quantity;
+        quantity < 1 ? quantity = 1 : quantity = event.target.value
+        this.setState({quantity : quantity})
+    
     }
+
     render() {
-        const { products, cart, product } = this.state;
-        console.log(cart)
+        const { product } = this.state;
+       
         return (
             <div>
                 <div className="breadcrumbs-area mb-70">
@@ -112,7 +108,7 @@ class ProductDetail extends Component {
                                     <div className="row">
                                         <div className="col-lg-5 col-md-6 col-12">
                                             <div className="flexslider">
-                                                <img style={{}} src={product ? "images/" + (product.productImage) : ""} alt="woman" />
+                                                <img  src={product ? "images/" + (product.productImage) : ""} alt="woman" />
                                             </div>
                                         </div>
                                         <div className="col-lg-7 col-md-6 col-12">
@@ -147,7 +143,7 @@ class ProductDetail extends Component {
                                                 <div className="product-add-form">
                                                     <form action="#">
                                                         <div className="quality-button">
-                                                            <input className="qty" onChange={this.changeQuantity} type="number" defaultValue={1} />
+                                                            <input className="qty" value={this.state.quantity} onChange={this.changeQuantity} type="number" />
                                                         </div>
                                                         <a onClick={this.addToCart} style={{ cursor: "pointer", color:"white" }} title="Add to cart" >Thêm vào giỏ hàng</a>
                                                     </form>
