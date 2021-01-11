@@ -20,7 +20,7 @@ namespace BookOnlineShop.Models
         [Required(AllowEmptyStrings = true)]
         public string ProductImage { get; set; }
         public string ProductDescription { get; set; }
-        [Required(ErrorMessage = "The Price field is required"), Range(1, double.MaxValue)]
+   
         public string ProductContent { get; set; }
         public double Price { get; set; }
         [Range(1, int.MaxValue)]
