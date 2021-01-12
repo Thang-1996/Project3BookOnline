@@ -5,6 +5,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
+ 
     <div class="kt-portlet kt-portlet--mobile">
         <div class="kt-portlet__head kt-portlet__head--lg">
             <div class="kt-portlet__head-label">
@@ -36,17 +37,17 @@
                 <div class="row align-items-center">
                     <div class="col-xl-8 order-2 order-xl-1">
                         <div class="row align-items-center">
-                            <form asp-action="Index" method="GET">
-                                <div class="col-md-4 kt-margin-b-20-tablet-and-mobile">
-                                    <div class="kt-input-icon kt-input-icon--left">
-                                        <input style="width: 400px" type="text" class="form-control" name="search" placeholder="Search..." id="generalSearch">
-                                        <span class="kt-input-icon__icon kt-input-icon__icon--left">
-                                            <span><i class="la la-search"></i></span>
-                                        </span>
+                            @*              <form asp-action="Index" method="GET">
+                                    <div class="col-md-4 kt-margin-b-20-tablet-and-mobile">
+                                        <div class="kt-input-icon kt-input-icon--left">
+                                            <input style="width: 400px" type="text" class="form-control" name="search" placeholder="Search..." id="generalSearch">
+                                            <span class="kt-input-icon__icon kt-input-icon__icon--left">
+                                                <span><i class="la la-search"></i></span>
+                                            </span>
+                                        </div>
+                                        <button type="submit" class="btn btn-sm btn-primary" style="margin-top: 15px">Tìm kiếm...</button>
                                     </div>
-                                    <button type="submit" class="btn btn-sm btn-primary" style="margin-top: 15px">Tìm kiếm...</button>
-                                </div>
-                            </form>
+                                </form>*@
 
                         </div>
                     </div>
@@ -55,53 +56,54 @@
             </div>
         </div>
         <div class="kt-portlet__body kt-portlet__body--fit">
-            <table class="table table-striped">
-                <thead class="thead-light">
-                    <tr>
-                        <td>STT</td>
-                        <td>Thể loại</td>
-                        <td>Code</td>
-                        <td>Trạng thái</td>
-                        <td></td>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
+            <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
+                <table class="table table-striped">
+                    <thead>
                         <tr>
-                            <td>@item.CategoryID</td>
-                            <td>@item.CategoryName</td>
-                            <td>@item.CategoryCode</td>
-                            <td>
-                                @if (item.Status == 1)
-                                {
-                                    <span class="kt-badge  kt-badge--success kt-badge--inline kt-badge--pill">Active</span>
-                                }
-                                else
-                                {
-                                    <span class="kt-badge  kt-badge--danger kt-badge--inline kt-badge--pill">Lock</span>
-
-                                }
-
-                            </td>
-                            <td>
-                                <span style="overflow: visible; position: relative; width: 110px;">
-                                    <a asp-action="Details" asp-route-id="@item.CategoryID" title="View details" class="btn btn-sm btn-clean btn-icon btn-icon-md">
-                                        <i class="la la-folder"></i>
-                                    </a>
-                                    <a asp-action="Edit" asp-route-id="@item.CategoryID" title="Edit details" class="btn btn-sm btn-clean btn-icon btn-icon-md">
-                                        <i class="la la-edit"></i>
-                                    </a>
-                                    <a asp-action="Delete" asp-route-id="@item.CategoryID" title="Delete" class="btn btn-sm btn-clean btn-icon btn-icon-md">
-                                        <i class="la la-trash"></i>
-
-                                    </a>
-                                </span>
-                            </td>
+                            <td>STT</td>
+                            <td>Thể loại</td>
+                            <td>Code</td>
+                            <td>Trạng thái</td>
+                            <td></td>
                         </tr>
-                    }
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.CategoryID</td>
+                                <td>@item.CategoryName</td>
+                                <td>@item.CategoryCode</td>
+                                <td>
+                                    @if (item.Status == 1)
+                                    {
+                                        <span class="kt-badge  kt-badge--success kt-badge--inline kt-badge--pill">Active</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="kt-badge  kt-badge--danger kt-badge--inline kt-badge--pill">Lock</span>
+
+                                    }
+
+                                </td>
+                                <td>
+                                    <span style="overflow: visible; position: relative; width: 110px;">
+                                        <a asp-action="Details" asp-route-id="@item.CategoryID" title="View details" class="btn btn-sm btn-clean btn-icon btn-icon-md">
+                                            <i class="la la-folder"></i>
+                                        </a>
+                                        <a asp-action="Edit" asp-route-id="@item.CategoryID" title="Edit details" class="btn btn-sm btn-clean btn-icon btn-icon-md">
+                                            <i class="la la-edit"></i>
+                                        </a>
+                                        <a asp-action="Delete" asp-route-id="@item.CategoryID" title="Delete" class="btn btn-sm btn-clean btn-icon btn-icon-md">
+                                            <i class="la la-trash"></i>
+
+                                        </a>
+                                    </span>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-</div>

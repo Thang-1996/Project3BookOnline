@@ -1,0 +1,101 @@
+﻿@model BookOnlineShop.Models.Orders
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
+ 
+    <div class="kt-portlet kt-portlet--mobile">
+        <div class="kt-portlet__head kt-portlet__head--lg">
+            <div class="kt-portlet__head-label">
+                <span class="kt-portlet__head-icon">
+                    <i class="kt-font-brand flaticon2-line-chart"></i>
+                </span>
+                <h3 class="kt-portlet__head-title">
+                    Chi tiết đơn hàng
+                </h3>
+            </div>
+            <div class="kt-portlet__head-toolbar">
+                <div class="kt-portlet__head-wrapper">
+                    <a asp-action="Index" asp-area="admin" asp-controller="orders" class="btn btn-clean btn-icon-sm">
+                        <i class="la la-long-arrow-left"></i>
+                        Trở về
+                    </a>
+                    &nbsp;
+
+                </div>
+            </div>
+        </div>
+
+        <div class="kt-portlet__body">
+
+            <dl class="row">
+                <dt class="col-sm-2">
+                    Địa chỉ giao hàng :
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Address)
+                </dd>
+                <dt class="col-sm-2">
+                    Số điện thoại người nhận:
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Telephone)
+                </dd>
+                <dt class="col-sm-2">
+                    Ghi chú đơn hàng :
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.OrderNote)
+                </dd>
+                <dt class="col-sm-2">
+                    Ngày đặt hàng :
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.CreateAt)
+                </dd>
+
+            </dl>
+
+        </div>
+        <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
+
+            <table class="table">
+                <thead>
+
+                    <tr>
+                 
+                        <td>Tên sản phẩm</td>
+                        <td>Giá tiền</td>
+                        <td>Số lượng</td>
+                        <td>Thành tiền</td>
+                    </tr>
+                </thead>
+           
+                @foreach (var item in Model.OrderProducts)
+                {
+                    <tbody>
+                        <tr>
+                            <td>@item.Products.ProductName</td>
+                            <td>@item.Products.Price đ</td>
+                            <td>@item.quantity</td>
+                            <td>@(item.quantity * item.Products.Price) đ</td>
+                        </tr>
+      
+                    </tbody>
+                }
+            </table>
+            <div class="row">
+                <div class="col-lg-8">
+
+                </div>
+                <div class="col-lg-4">
+                    <p class="text-black-50" style="font-size: 14px; font-weight: bold">Tổng tiền : @Math.Round(Model.GrandTotal) đ</p>    
+                </div>
+            </div>
+           
+        </div>
+    </div>

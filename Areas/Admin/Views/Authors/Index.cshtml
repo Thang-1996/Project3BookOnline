@@ -5,13 +5,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
-    <div class="alert alert-light alert-elevate" role="alert">
-        <div class="alert-icon"><i class="la la-folder kt-font-brand"></i></div>
-        <div class="alert-text">
-            List Of Authors
-        </div>
-    </div>
+<div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid"> 
     <div class="kt-portlet kt-portlet--mobile">
         <div class="kt-portlet__head kt-portlet__head--lg">
             <div class="kt-portlet__head-label">
@@ -19,19 +13,19 @@
                     <i class="kt-font-brand flaticon2-line-chart"></i>
                 </span>
                 <h3 class="kt-portlet__head-title">
-                    Authors List
+                    Danh sách tác giả
                 </h3>
             </div>
             <div class="kt-portlet__head-toolbar">
                 <div class="kt-portlet__head-wrapper">
                     <a href="#" class="btn btn-clean btn-icon-sm">
                         <i class="la la-long-arrow-left"></i>
-                        Back
+                        Trở về
                     </a>
                     &nbsp;
                     <div class="dropdown dropdown-inline">
                         <a asp-action="Create" asp-area="admin" asp-controller="authors" class="btn btn-brand btn-icon-sm" aria-haspopup="true" aria-expanded="false">
-                            <i class="flaticon2-plus"></i> Add New Author
+                            <i class="flaticon2-plus"></i> Thêm mới tác giả
                         </a>
 
                     </div>
@@ -45,7 +39,7 @@
                 <div class="row align-items-center">
                     <div class="col-xl-8 order-2 order-xl-1">
                         <div class="row align-items-center">
-                            <form asp-action="Index" method="GET">
+                   @*         <form asp-action="Index" method="GET">
                                 <div class="col-md-4 kt-margin-b-20-tablet-and-mobile">
                                     <div class="kt-input-icon kt-input-icon--left">
                                         <input style="width: 400px" type="text" class="form-control" name="search" placeholder="Search..." id="generalSearch">
@@ -55,7 +49,7 @@
                                     </div>
                                     <button type="submit" class="btn btn-sm btn-primary" style="margin-top: 15px">Search</button>
                                 </div>
-                            </form>
+                            </form>*@
 
                         </div>
                     </div>
@@ -66,83 +60,83 @@
             <!--end: Search Form -->
         </div>
         <div class="kt-portlet__body kt-portlet__body--fit">
-
-            <!--begin: Datatable -->
-            <table class="table table-striped">
-                <thead class="thead-light">
-                    <tr>
-                        <th>STT</th>
-                        <th>
-                            Author Name
-                        </th>
-                        <th>
-                            Email
-                        </th>
-                        <th>
-                            Address
-                        </th>
-                        <th>
-                            PhoneNumber
-                        </th>
-                        <th>
-                            Status
-                        </th>
-                        <th>
-                            Action
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
+            <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
+                <!--begin: Datatable -->
+                <table class="table table-striped">
+                    <thead>
                         <tr>
-                            <td>
-                                @item.AuthorID
-                            </td>
-                            <td>
-                                @item.AuthorName
-                            </td>
-                            <td>
-                                @item.Email
-                            </td>
-                            <td>
-                                @item.Address
-                            </td>
-                            <td>
-                                @item.PhoneNumber
-                            </td>
-
-                            <td>
-                                @if (item.Status == 1)
-                                {
-                                    <span class="kt-badge  kt-badge--success kt-badge--inline kt-badge--pill">Active</span>
-                                }
-                                else
-                                {
-                                    <span class="kt-badge  kt-badge--danger kt-badge--inline kt-badge--pill">Lock</span>
-                                }
-
-                            </td>
-                            <td>
-                                <span style="overflow: visible; position: relative; width: 110px;">
-                                    <a asp-action="Details" asp-route-id="@item.AuthorID" title="View details" class="btn btn-sm btn-clean btn-icon btn-icon-md">
-                                        <i class="la la-folder"></i>
-                                    </a>
-                                    <a asp-action="Edit" asp-route-id="@item.AuthorID" title="Edit details" class="btn btn-sm btn-clean btn-icon btn-icon-md">
-                                        <i class="la la-edit"></i>
-                                    </a>
-                                    <a asp-action="Delete" asp-route-id="@item.AuthorID" title="Delete" class="btn btn-sm btn-clean btn-icon btn-icon-md">
-                                        <i class="la la-trash"></i>
-
-                                    </a>
-                                </span>
-                            </td>
+                            <th>STT</th>
+                            <th>
+                                Tên tác giả
+                            </th>
+                            <th>
+                                Email
+                            </th>
+                            <th>
+                                Địa chỉ
+                            </th>
+                            <th>
+                                Số điện thoại
+                            </th>
+                            <th>
+                                Trạng thái
+                            </th>
+                            <th>
+                              
+                            </th>
                         </tr>
-                    }
-                </tbody>
-            </table>
-            <!--end: Datatable -->
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @item.AuthorID
+                                </td>
+                                <td>
+                                    @item.AuthorName
+                                </td>
+                                <td>
+                                    @item.Email
+                                </td>
+                                <td>
+                                    @item.Address
+                                </td>
+                                <td>
+                                    @item.PhoneNumber
+                                </td>
+
+                                <td>
+                                    @if (item.Status == 1)
+                                    {
+                                        <span class="kt-badge  kt-badge--success kt-badge--inline kt-badge--pill">Active</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="kt-badge  kt-badge--danger kt-badge--inline kt-badge--pill">Lock</span>
+                                    }
+
+                                </td>
+                                <td>
+                                    <span style="overflow: visible; position: relative; width: 110px;">
+                                        <a asp-action="Details" asp-route-id="@item.AuthorID" title="View details" class="btn btn-sm btn-clean btn-icon btn-icon-md">
+                                            <i class="la la-folder"></i>
+                                        </a>
+                                        <a asp-action="Edit" asp-route-id="@item.AuthorID" title="Edit details" class="btn btn-sm btn-clean btn-icon btn-icon-md">
+                                            <i class="la la-edit"></i>
+                                        </a>
+                                        <a asp-action="Delete" asp-route-id="@item.AuthorID" title="Delete" class="btn btn-sm btn-clean btn-icon btn-icon-md">
+                                            <i class="la la-trash"></i>
+
+                                        </a>
+                                    </span>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <!--end: Datatable -->
+            </div>
         </div>
-    </div>
 </div>
 
