@@ -54,31 +54,20 @@ namespace BookOnlineShop.Controllers.api
         }
         [HttpGet]
         [ActionName("GetOrdersByUser")]
-        public async Task<ActionResult<Orders>> GetOrdersByUser(string id)
+        public async Task<ActionResult<IEnumerable<Orders>>> GetOrdersByUser(string id)
         {
-            var order = await _context.Orders
+            var orders = await _context.Orders
                 .Include(od => od.OrderProducts)
                 .ThenInclude(p => p.Products)
-                .Where(o => o.UserID == id).FirstOrDefaultAsync();
-
-            if (order == null) { 
+                .Where(od => od.UserID == id).ToListAsync();
+            if (orders == null) { 
             
                 return NotFound();
             }
-
-            return order;
+            return orders;
         }
         [HttpPost]
         [ActionName("saveOrder")]
-<<<<<<< HEAD
-        public void saveOrder([FromBody] dynamic payment)
-        {
-            /*_context.Orders.Add(checkout);
-            await _context.SaveChangesAsync();*/
-            Console.WriteLine(JsonConvert.SerializeObject(payment));
-            
-            /*return CreatedAtAction("GetOrders", new { id = orders.ID }, orders);*/
-=======
         public async Task<ActionResult<Payment>> saveOrder(Payment payment)
         {
             var cart = payment.carts;
@@ -112,7 +101,6 @@ namespace BookOnlineShop.Controllers.api
             }
             await _context.SaveChangesAsync();
             return Ok();
->>>>>>> d1b2b74dcf632e536e675b7663004d4dd49df9a0
         }
 
     }

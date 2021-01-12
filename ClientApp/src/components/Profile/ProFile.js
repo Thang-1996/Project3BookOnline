@@ -1,25 +1,43 @@
 ﻿import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import Adapter from '../Adapter';
 export default class ProFile extends Component {
     constructor(props) {
         super(props);
+        let orders = props.orders;
         this.state = {
+            currentUser: props.currentUser,
+            orders: orders,
+            order: orders.length !== 0 ? orders[0] : null,
         };
     }
-  /*  static getDerivedStateFromProps(nextProps, prevState) {
-        if (nextProps.product !== prevState.product) {
-            return { product: nextProps.product };
+    static getDerivedStateFromProps(nextProps, prevState) {
+        if (nextProps.currentUser !== prevState.currentUser || nextProps.orders !== prevState.orders) {
+            return {
+                currentUser: nextProps.currentUser,
+                orders: nextProps.orders
+            };
         }
         return null;
     }
+
     componentDidUpdate(prevProps, prevState) {
-        if (prevProps.product !== this.props.product) {
-            //Perform some operation here
-            this.setState({ product: this.props.product });
+        if (prevProps.currentUser !== this.props.currentUser || prevProps.orders !== this.props.orders) {
+            this.setState({
+                currentUser: this.props.currentUser,
+                orders: this.props.orders
+            });
         }
-    }*/
+    }
     
+    orderDetails = (event) => {
+        this.setState({
+            order: event
+        })
+    }
     render() {
+        const { currentUser, orders, order } = this.state;
+        let total = 0;
         return (
             <div>
                 <div className="breadcrumbs-area mb-70">
@@ -58,7 +76,7 @@ export default class ProFile extends Component {
                                             <div className="col-lg-9 col-md-8">
                                                 <div className="tab-content" id="myaccountContent">
                                                
-                                                    <div className="tab-pane fade" id="orders" role="tabpanel">
+                                                    <div className="tab-pane active" id="orders" role="tabpanel">
                                                         <div className="myaccount-content">
                                                             <h5>Đơn hàng</h5>
                                                             <div className="myaccount-table table-responsive text-center">
@@ -73,14 +91,22 @@ export default class ProFile extends Component {
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
-                                                                        <tr>
-                                                                            <td>1</td>
-                                                                            <td>June 12, 2017</td>
-                                                                            <td>On Hold</td>
-                                                                            <td>$990</td>
-                                                                            <td><a href="cart.html" className="btn btn-sqr">View</a>
-                                                                            </td>
-                                                                        </tr>
+                                                                        {
+                                                                            orders ? orders.map((e, index) => {
+                                                                                return (
+                                                                                    <tr key={ index}>
+                                                                                        <td>{ ++index }</td>
+                                                                                        <td>{e.createAt}</td>
+                                                                                        <td>Đang giao</td>
+                                                                                        <td>{Adapter.format_money(e.grandTotal)}</td>
+                                                                                        <td>
+                                                                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg" onClick={ this.orderDetails.bind(this, e)}>Chi tiết</button>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                )
+                                                                            }) : null
+                                                                        }
+                                                                        
                                                                     </tbody>
                                                                 </table>
                                                             </div>
@@ -90,13 +116,13 @@ export default class ProFile extends Component {
                                                         <div className="myaccount-content">
                                                             <h5>Địa chỉ</h5>
                                                             <address>
-                                                                <p><strong>Erik Jhonson</strong></p>
+                                                                <p><strong>{currentUser ? currentUser.userName : ""}</strong></p>
                                                                 <p>1355 Market St, Suite 900 <br />
                                   San Francisco, CA 94103</p>
-                                                                <p>Mobile: (123) 456-7890</p>
+                                                                <p>Số điện thoại: {currentUser ? currentUser.phoneNumber : "" }</p>
                                                             </address>
                                                             <a href="#" className="btn btn-sqr"><i className="fa fa-edit" />
-                                Edit Address</a>
+                                Thay đổi địa chỉ</a>
                                                         </div>
                                                     </div>
                                                     <div className="tab-pane fade" id="account-info" role="tabpanel">
@@ -104,56 +130,37 @@ export default class ProFile extends Component {
                                                             <h5>Thông tin cá nhân</h5>
                                                             <div className="account-details-form">
                                                                 <form action="#">
-                                                                    <div className="row">
-                                                                        <div className="col-lg-6">
-                                                                            <div className="single-input-item">
-                                                                                <label htmlFor="first-name" className="required">First
-                                          Name</label>
-                                                                                <input type="text" id="first-name" placeholder="First Name" />
-                                                                            </div>
-                                                                        </div>
-                                                                        <div className="col-lg-6">
-                                                                            <div className="single-input-item">
-                                                                                <label htmlFor="last-name" className="required">Last
-                                          Name</label>
-                                                                                <input type="text" id="last-name" placeholder="Last Name" />
-                                                                            </div>
-                                                                        </div>
+                                                                    <div className="single-input-item">
+                                                                        <label htmlFor="display-name" className="required">Tên </label>
+                                                                        <input type="text" name="userName" defaultValue={currentUser ? currentUser.userName : "" } id="display-name" placeholder="Display Name" />
                                                                     </div>
                                                                     <div className="single-input-item">
-                                                                        <label htmlFor="display-name" className="required">Display Name</label>
-                                                                        <input type="text" id="display-name" placeholder="Display Name" />
-                                                                    </div>
-                                                                    <div className="single-input-item">
-                                                                        <label htmlFor="email" className="required">Email Addres</label>
-                                                                        <input type="email" id="email" placeholder="Email Address" />
+                                                                        <label htmlFor="email" className="required">Email</label>
+                                                                        <input type="email" defaultValue={currentUser ? currentUser.userName : "" } id="email" placeholder="Email Address" />
                                                                     </div>
                                                                     <fieldset>
                                                                         <legend>Password change</legend>
                                                                         <div className="single-input-item">
-                                                                            <label htmlFor="current-pwd" className="required">Current
-                                        Password</label>
-                                                                            <input type="password" id="current-pwd" placeholder="Current Password" />
+                                                                            <label htmlFor="current-pwd" className="required">Mật khẩu hiện tại</label>
+                                                                            <input type="password" id="current-pwd" placeholder="Mật khẩu hiện tại" />
                                                                         </div>
                                                                         <div className="row">
                                                                             <div className="col-lg-6">
                                                                                 <div className="single-input-item">
-                                                                                    <label htmlFor="new-pwd" className="required">New
-                                            Password</label>
-                                                                                    <input type="password" id="new-pwd" placeholder="New Password" />
+                                                                                    <label htmlFor="new-pwd" className="required">Mật khẩu mới</label>
+                                                                                    <input type="password" id="new-pwd" placeholder="Mật khẩu mới" />
                                                                                 </div>
                                                                             </div>
                                                                             <div className="col-lg-6">
                                                                                 <div className="single-input-item">
-                                                                                    <label htmlFor="confirm-pwd" className="required">Confirm
-                                            Password</label>
-                                                                                    <input type="password" id="confirm-pwd" placeholder="Confirm Password" />
+                                                                                    <label htmlFor="confirm-pwd" className="required">Xác nhận</label>
+                                                                                    <input type="password" id="confirm-pwd" placeholder="Xác nhận lại mật khẩu" />
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                     </fieldset>
                                                                     <div className="single-input-item">
-                                                                        <button className="btn btn-sqr">Save Changes</button>
+                                                                        <button className="btn btn-sqr">Lưu</button>
                                                                     </div>
                                                                 </form>
                                                             </div>
@@ -165,6 +172,40 @@ export default class ProFile extends Component {
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content p-5">
+                            <table className="table">
+                                <thead>
+                                    <tr>
+                                        <th>Tên sách</th>
+                                        <th>Ảnh bìa</th>
+                                        <th>Số lượng</th>
+                                        <th>Giá tiền</th>
+                                        <th>Tổng tiền</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        order ? order.orderProducts.map((e, index) => {
+                                            total += e.quantity * e.products.price;
+                                            return (
+                                                <tr key={index}>
+                                                    <td>{e.products.productName}</td>
+                                                    <td><img style={{ width: "100px", height: "80px" }} src={"/images/" + e.products.productImage} /></td>
+                                                    <td>{e.quantity}</td>
+                                                    <td>{Adapter.format_money(e.products.price)}</td>
+                                                    <td>{Adapter.format_money(e.quantity * e.products.price)}</td>
+                                                </tr>
+                                                )
+                                        }) : null
+                                    }
+                                </tbody>
+                            </table>
+                            <h4 className="text-right">Tổng tiền đơn hàng : {Adapter.format_money(total)} </h4>
                         </div>
                     </div>
                 </div>
