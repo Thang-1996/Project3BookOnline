@@ -70,15 +70,6 @@ namespace BookOnlineShop.Controllers.api
         }
         [HttpPost]
         [ActionName("saveOrder")]
-<<<<<<< HEAD
-        public void saveOrder([FromBody] dynamic payment)
-        {
-            /*_context.Orders.Add(checkout);
-            await _context.SaveChangesAsync();*/
-            Console.WriteLine(JsonConvert.SerializeObject(payment));
-            
-            /*return CreatedAtAction("GetOrders", new { id = orders.ID }, orders);*/
-=======
         public async Task<ActionResult<Payment>> saveOrder(Payment payment)
         {
             var cart = payment.carts;
@@ -112,7 +103,7 @@ namespace BookOnlineShop.Controllers.api
             }
             await _context.SaveChangesAsync();
             return Ok();
->>>>>>> d1b2b74dcf632e536e675b7663004d4dd49df9a0
+
         }
 
     }

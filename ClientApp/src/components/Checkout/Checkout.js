@@ -53,40 +53,7 @@ export default class Checkout extends Component {
     }
     checkOut() {
         let cart = this.state.cart;
-<<<<<<< HEAD
-        let orders = [];
-        let payment = 1;
-        API.post(Adapter.saveOrder.url, {
-            params: {
-             /*   cart: this.state.cart,
-                orders: orders,*/
-                payment: payment
-            } 
-        }).then(res => {
-                /*localStorage.setItem("cart", null);
-                alert("Thành công")*/
-            console.log(res.data)
-            }).catch(err => {
-            /*alert("Thất bại")*/
-                console.log(err)
-            });
-
-      /*  this.setState({
-            cart: []
-        });
-=======
         let orders = this.state.orders;
-        let redirect = this.state.redirect;
-        let grandTotal = 0;
-        if (cart) {
-           
-            cart.forEach(item => {
-                return grandTotal += item.product.price * item.quantity;
-            })
-        }
-        orders.GrandTotal = grandTotal;
-        this.setState({ orders: orders })
-      
         let payment = {
             orders: orders,
             carts: cart,
@@ -96,8 +63,6 @@ export default class Checkout extends Component {
             .then(res => {
                 if (res.status == 200) {
                     localStorage.removeItem("cart");
->>>>>>> d1b2b74dcf632e536e675b7663004d4dd49df9a0
-
                     alert('Đặt hàng thành công!');
                     this.setState({ redirect: true })
                     this.props.cartState();
@@ -107,15 +72,10 @@ export default class Checkout extends Component {
                
             });
 
-<<<<<<< HEAD
-        localStorage.clear();
-        alert("Thành công")
-        window.location.reload();*/
-=======
->>>>>>> d1b2b74dcf632e536e675b7663004d4dd49df9a0
     }
     render() {
         const { cart, currentUser, orders, redirect } = this.state;
+        console.log(orders);
         if (redirect) {
             return <Redirect to='/' />;
         }
@@ -149,23 +109,11 @@ export default class Checkout extends Component {
                                                 <div className="row">
                                                     <div className="col-lg-12 col-md-12 col-12">
                                                         <div className="checkout-form-list">
-<<<<<<< HEAD
                                                             <label>Địa chỉ <span className="required">*</span></label>
-                                                            <input type="text" placeholder="Địa chỉ nhận hàng" />
+                                                        <input onChange={this.handleOnChange} required value={orders.Address} name="Address" type="text" placeholder="Địa chỉ nhận hàng" />
                                                         </div>
                                                     </div>
-                                                    <div className="col-lg-12 col-md-12 col-12">
-                                                       
-                                                        <div className="checkout-form-list create-account" id="cbox_info" style={{ display: 'none' }}>
-                                                            <p>Create an account by entering the information below. If you are a returning customer please login at the top of the page.</p>
-                                                            <label>Account password  <span className="required">*</span></label>
-                                                            <input type="password" placeholder="password" />
-=======
-                                                        <label>Địa chỉ nhận hàng <span className="required">*</span></label>
-                                                        <input onChange={this.handleOnChange} required value={orders.Address} name="Address" type="text" placeholder="Street address" />
->>>>>>> d1b2b74dcf632e536e675b7663004d4dd49df9a0
-                                                        </div>
-                                                </div>
+                                             
                                                 <div className="col-lg-12 col-md-12 col-12">
                                                     <div className="checkout-form-list">
                                                         <label>Số điện thoại: <span className="required">*</span></label>
@@ -179,13 +127,8 @@ export default class Checkout extends Component {
                                                 <div className="different-address">
                                                     <div className="order-notes">
                                                         <div className="checkout-form-list">
-<<<<<<< HEAD
                                                             <label>Ghi chú</label>
                                                         <textarea placeholder="Ghi chú về đơn đặt hàng của bạn, ví dụ: Lưu ý đặc biệt để giao hàng." rows={10} cols={30} id="checkout-mess" defaultValue={""} />
-=======
-                                                        <label>Order Notes</label>
-                                                        <textarea onChange={this.handleOnChange} value={orders.OrderNote} name="OrderNote" placeholder="Notes about your order, e.g. special notes for delivery." rows={10} cols={30} id="checkout-mess"  />
->>>>>>> d1b2b74dcf632e536e675b7663004d4dd49df9a0
                                                         </div>
                                                     </div>
                                                 </div>
