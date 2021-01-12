@@ -70,12 +70,13 @@ namespace BookOnlineShop.Controllers.api
         }
         [HttpPost]
         [ActionName("saveOrder")]
-        public async Task<ActionResult<Orders>> saveOrder(Orders orders)
+        public void saveOrder([FromBody] dynamic payment)
         {
-            _context.Orders.Add(orders);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetOrders", new { id = orders.ID }, orders);
+            /*_context.Orders.Add(checkout);
+            await _context.SaveChangesAsync();*/
+            Console.WriteLine(JsonConvert.SerializeObject(payment));
+            
+            /*return CreatedAtAction("GetOrders", new { id = orders.ID }, orders);*/
         }
 
     }

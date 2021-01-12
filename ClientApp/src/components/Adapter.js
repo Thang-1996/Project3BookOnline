@@ -44,7 +44,7 @@
         method : "GET",
     },
     saveOrder: {
-        url: "api/saveOrder",
+        url: "api/Payment/saveOrder",
         params: {
             
         },

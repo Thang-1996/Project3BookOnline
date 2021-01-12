@@ -54,6 +54,7 @@ export default class App extends Component {
             });
         API.get(Adapter.getOrders.url)
             .then(res => {
+                console.log(res.data)
             }).catch(err => {
 
             });
