@@ -83,7 +83,7 @@ namespace BookOnlineShop.Areas.Admin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(OrderViewModel model)
+/*        public async Task<IActionResult> Create(OrderViewModel model)
         {
             var currentUser = await _userManager.GetUserAsync(User);
             if (currentUser == null) return Challenge();
@@ -119,9 +119,9 @@ namespace BookOnlineShop.Areas.Admin.Controllers
             ViewData["UserID"] = new SelectList(_context.Users, "UserID", "Name", model.UserID);
             return View();
         }
-
+*/
         // GET: Admin/Orders/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+/*        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
@@ -145,12 +145,12 @@ namespace BookOnlineShop.Areas.Admin.Controllers
             ViewBag.Products = new SelectList(_context.Products, "ProductID", "ProductName");
             return View(newOrder);
         }
-
+*/
         // POST: Admin/Orders/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+       /* [HttpPost]
+   *//*     [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, OrderViewModel model)
         {
             if (ModelState.IsValid)
@@ -206,12 +206,12 @@ namespace BookOnlineShop.Areas.Admin.Controllers
             }
 
 
-            return View(orders);
-        }
+            return View(orde*//*rs);
+        }*/
 
         // POST: Admin/Orders/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+/*        [ValidateAntiForgeryToken]*/
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var orders = await _context.Orders.FindAsync(id);

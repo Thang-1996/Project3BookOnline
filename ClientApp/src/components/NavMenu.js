@@ -2,6 +2,7 @@
 import { Container} from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { LoginMenu } from './api-authorization/LoginMenu';
+import Adapter from './Adapter';
 
 export class NavMenu extends Component {
   static displayName = NavMenu.name;
@@ -50,7 +51,7 @@ export class NavMenu extends Component {
     removeCart = (item) => {
         let cart = this.state.cart;
         let cartStorage = localStorage.getItem("cart");
-        if (cartStorage === null || cart.trim() === "" ) cartStorage = [];
+        if (cartStorage === null || cartStorage.trim() === "" ) cartStorage = [];
         else cartStorage = JSON.parse(cartStorage);
         console.log(cartStorage);
    
@@ -123,7 +124,7 @@ export class NavMenu extends Component {
                                                                   </div>
                                                                   <div className="cart-info">
                                                                       <h5><a >{e.product.productName}</a></h5>
-                                                                      <p>{e.quantity} x {e.product.price}</p>
+                                                                      <p>{e.quantity} x {Adapter.format_money(e.product.price)}</p>
                                                                   </div>
                                                                   <div className="cart-icon">
                                                                       <a ><i className="fa fa-remove" onClick={this.removeCart.bind(this,e)} /></a>
@@ -134,7 +135,7 @@ export class NavMenu extends Component {
                                                   }
                                               </div>
                                               <div className="cart-totals">
-                                                  <h5>Tổng <span>{total ? total : 0}</span></h5>
+                                                  <h5>Tổng <span>{total ? Adapter.format_money(total) : 0}</span></h5>
                                               </div>
                                               <div className="cart-bottom">
                                                   <Link className="mb-2" to="/cart"> Xem giỏ hàng</Link>

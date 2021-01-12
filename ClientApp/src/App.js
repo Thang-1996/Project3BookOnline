@@ -88,7 +88,7 @@ export default class App extends Component {
             <Route exact path='/product' component={() => <Product categories={categories} updateCartState={this.updateCartState} cart={cart} products={products} />} />
             <Route path='/product/:id' component={() => <ProductDetail products={products} updateCartState={this.updateCartState} cart={cart} />} />
             <Route exact path='/cart' component={() => <Cart updateCartState={this.updateCartState} cart={cart}/>} />
-            <AuthorizeRoute path='/check-out' component={() => <Checkout currentUser={currentUser} updateCartState={this.updateCartState} cart={cart} />} />
+            <AuthorizeRoute path='/check-out' component={() => <Checkout currentUser={currentUser} cartState={this.updateCartState} cart={cart} />} />
             <AuthorizeRoute path='/profile' component={() => <ProFile currentUser={currentUser} />} />
 
             <Route path={ApplicationPaths.ApiAuthorizationPrefix} component={ApiAuthorizationRoutes} />
