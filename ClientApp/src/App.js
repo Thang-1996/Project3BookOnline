@@ -25,10 +25,12 @@ export default class App extends Component {
             products: [],
             currentUser: null,
             categories: [],
+            orders: [],
         };
         this.updateCartState = this.updateCartState.bind(this);
     }
-    componentDidMount() {
+    async componentDidMount() {
+        let id = 0;
         API.get(Adapter.getProducts.url)
             .then(res => {
                 this.setState({
@@ -45,26 +47,24 @@ export default class App extends Component {
             }).catch(err => {
 
             });
-        API.get(Adapter.currentUserInfo.url)
+        await API.get(Adapter.currentUserInfo.url)
             .then(res => {
-              
-                this.setState({ currentUser : res.data })
+                id = res.data.id;
+                this.setState({ currentUser: res.data })
+               
             }).catch(err => {
 
             });
-        API.get(Adapter.getOrders.url)
-            .then(res => {
-            }).catch(err => {
-
-            });
-        // test by userID
+       
         API.get(Adapter.getOrderByUser.url, {
             params: {
-                id: "97d042fa-267d-48d1-b703-ef54e760af0c"
+                id: id
             }
-        })
-            .then(res => {
-              
+        }).then(res => {
+            this.setState({
+                orders : res.data
+            })
+            console.log(res.data)
             }).catch(err => {
 
             });
@@ -79,7 +79,7 @@ export default class App extends Component {
     }
    
     render() {
-        const { products, currentUser, categories } = this.state;
+        const { products, currentUser, categories, orders } = this.state;
         const cart = this.state.cart;
     return (
         <Layout cart={cart}>
@@ -88,7 +88,7 @@ export default class App extends Component {
             <Route path='/product/:id' component={() => <ProductDetail products={products} updateCartState={this.updateCartState} cart={cart} />} />
             <Route exact path='/cart' component={() => <Cart updateCartState={this.updateCartState} cart={cart}/>} />
             <AuthorizeRoute path='/check-out' component={() => <Checkout currentUser={currentUser} cartState={this.updateCartState} cart={cart} />} />
-            <AuthorizeRoute path='/profile' component={() => <ProFile currentUser={currentUser} />} />
+            <AuthorizeRoute path='/profile' component={() => <ProFile currentUser={currentUser} orders={orders} />} />
 
             <Route path={ApplicationPaths.ApiAuthorizationPrefix} component={ApiAuthorizationRoutes} />
       </Layout>

@@ -2,6 +2,7 @@
 import { Redirect } from 'react-router-dom';
 import Adapter from '../Adapter';
 import API from '../API';
+import { Link } from 'react-router-dom';
 export default class Checkout extends Component {
     constructor(props) {
         super(props);
@@ -53,17 +54,6 @@ export default class Checkout extends Component {
     checkOut() {
         let cart = this.state.cart;
         let orders = this.state.orders;
-        let redirect = this.state.redirect;
-        let grandTotal = 0;
-        if (cart) {
-           
-            cart.forEach(item => {
-                return grandTotal += item.product.price * item.quantity;
-            })
-        }
-        orders.GrandTotal = grandTotal;
-        this.setState({ orders: orders })
-      
         let payment = {
             orders: orders,
             carts: cart,
@@ -73,7 +63,6 @@ export default class Checkout extends Component {
             .then(res => {
                 if (res.status == 200) {
                     localStorage.removeItem("cart");
-
                     alert('Đặt hàng thành công!');
                     this.setState({ redirect: true })
                     this.props.cartState();
@@ -82,10 +71,10 @@ export default class Checkout extends Component {
             }).catch(err => {
                
             });
-
     }
     render() {
         const { cart, currentUser, orders, redirect } = this.state;
+        console.log(orders);
         if (redirect) {
             return <Redirect to='/' />;
         }
@@ -100,8 +89,8 @@ export default class Checkout extends Component {
                             <div className="col-lg-12">
                                 <div className="breadcrumbs-menu">
                                     <ul>
-                                        <li><a href="#">Home</a></li>
-                                        <li><a href="#" className="active">checkout</a></li>
+                                        <li><Link to="/">Home</Link></li>
+                                        <li><Link to="/check-out">Thanh toán</Link></li>
                                     </ul>
                                 </div>
                             </div>
@@ -115,14 +104,22 @@ export default class Checkout extends Component {
                                     <div className="row">
                                         <div className="col-lg-6 col-md-12 col-12">
                                             <div className="checkbox-form">
-                                                <h3>Billing Details</h3>
+                                                <h3>Chi tiết hóa đơn</h3>
                                                 <div className="row">
                                                     <div className="col-lg-12 col-md-12 col-12">
                                                         <div className="checkout-form-list">
+<<<<<<< HEAD
                                                         <label>Địa chỉ nhận hàng <span className="required">*</span></label>
                                                         <input onChange={this.handleOnChange} required value={orders.Address} name="Address" type="text" placeholder="Street address" />
                                                         </div>
                                                 </div>
+=======
+                                                            <label>Địa chỉ <span className="required">*</span></label>
+                                                        <input onChange={this.handleOnChange} required value={orders.Address} name="Address" type="text" placeholder="Địa chỉ nhận hàng" />
+                                                        </div>
+                                                    </div>
+                                             
+>>>>>>> 2f7f5a64882ba109ff64e66b5c6313b842776f55
                                                 <div className="col-lg-12 col-md-12 col-12">
                                                     <div className="checkout-form-list">
                                                         <label>Số điện thoại: <span className="required">*</span></label>
@@ -136,8 +133,13 @@ export default class Checkout extends Component {
                                                 <div className="different-address">
                                                     <div className="order-notes">
                                                         <div className="checkout-form-list">
+<<<<<<< HEAD
                                                         <label>Order Notes</label>
                                                         <textarea onChange={this.handleOnChange} value={orders.OrderNote} name="OrderNote" placeholder="Notes about your order, e.g. special notes for delivery." rows={10} cols={30} id="checkout-mess"  />
+=======
+                                                            <label>Ghi chú</label>
+                                                        <textarea placeholder="Ghi chú về đơn đặt hàng của bạn, ví dụ: Lưu ý đặc biệt để giao hàng." rows={10} cols={30} id="checkout-mess" defaultValue={""} />
+>>>>>>> 2f7f5a64882ba109ff64e66b5c6313b842776f55
                                                         </div>
                                                     </div>
                                                 </div>
@@ -145,13 +147,13 @@ export default class Checkout extends Component {
                                         </div>
                                         <div className="col-lg-6 col-md-12 col-12">
                                             <div className="your-order">
-                                                <h3>Your order</h3>
+                                                <h4>Đơn hàng của bạn</h4>
                                                 <div className="your-order-table table-responsive">
                                                     <table>
                                                         <thead>
                                                             <tr>
-                                                                <th className="product-name">Product</th>
-                                                                <th className="product-total">Total</th>
+                                                                <th className="product-name">Sản phẩm</th>
+                                                                <th className="product-total">Tổng</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -174,31 +176,22 @@ export default class Checkout extends Component {
                                                         </tbody>
                                                         <tfoot>
                                                             <tr className="cart-subtotal">
-                                                                <th>Cart Subtotal</th>
+                                                                <th>Tổng tiền giỏ hàng</th>
                                                                 <td><span className="amount">{Adapter.format_money(total)}</span></td>
                                                             </tr>
                                                             <tr className="shipping">
-                                                                <th>Shipping</th>
+                                                            <th data-toggle="tooltip" data-placement="left" title="Miễn phí ship với đơn hàng lớn hơn 500.000đ">Shipping</th>
                                                                 <td>
                                                                     <ul>
-                                                                        <li>
-                                                                            <input type="radio" />
-                                                                            <label>
-                                                                                Flat Rate: <span className="amount">7.00</span>
-                                                                            </label>
+                                                                    <li>
+                                                                        {total > 500000 ? 0 : Adapter.format_money(30000)}
                                                                         </li>
-                                                                        
-                                                                        <li>
-                                                                            <input type="radio" />
-                                                                            <label>Free Shipping:</label>
-                                                                        </li>
-                                                                        <li />
                                                                     </ul>
                                                                 </td>
                                                             </tr>
                                                             <tr className="order-total">
-                                                                <th>Order Total</th>
-                                                                <td><strong><span className="amount">{ total }</span></strong>
+                                                            <th>Tổng tiền thanh toán</th>
+                                                            <td><strong><span className="amount">{total > 500000 ? Adapter.format_money(total) : Adapter.format_money(total + 30000)}</span></strong>
                                                                 </td>
                                                             </tr>
                                                         </tfoot>
@@ -212,44 +205,51 @@ export default class Checkout extends Component {
                                                                     <div className="panel-heading" role="tab" id="headingOne">
                                                                         <h4 className="panel-title">
                                                                             <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                                                                Direct Bank Transfer
+                                                                                VNPay
                                       </a>
                                                                         </h4>
                                                                     </div>
                                                                     <div id="collapseOne" className="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                                                                         <div className="panel-body">
-                                                                            <p>Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won’t be shipped until the funds have cleared in our account.</p>
+                                                                        <p>
+                                                                            <input type="radio" name="thanhtoan" value={2} />
+                                                                            VNPay
+                                                                        </p>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div className="panel panel-default">
-                                                                    <div className="panel-heading" role="tab" id="headingTwo">
-                                                                        <h4 className="panel-title">
-                                                                            <a className="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                                                                Cheque Payment
+                                                            <div className="panel panel-default">
+                                                                <div className="panel-heading" role="tab" id="headingTwo">
+                                                                    <h4 className="panel-title">
+                                                                        <a className="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                                                            Thanh toán trả sau khi nhận hàng
                                       </a>
-                                                                        </h4>
-                                                                    </div>
-                                                                    <div id="collapseTwo" className="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-                                                                        <div className="panel-body">
-                                                                            <p>Please send your cheque to Store Name, Store Street, Store Town, Store State / County, Store Postcode.</p>
-                                                                        </div>
+                                                                    </h4>
+                                                                </div>
+                                                                <div id="collapseTwo" className="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                                                    <div className="panel-body">
+                                                                        <p>
+                                                                            <input type="radio" name="thanhtoan" value={1} />
+                                                                        Vui lòng hoàn thiện tiền hàng cho shipper sau khi nhận hàng.</p>
                                                                     </div>
                                                                 </div>
-                                                                <div className="panel panel-default">
-                                                                    <div className="panel-heading" role="tab" id="headingThree">
-                                                                        <h4 className="panel-title">
-                                                                            <a className="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                                                                PayPal <img src="img/2.png" alt="payment" />
-                                                                            </a>
-                                                                        </h4>
-                                                                    </div>
-                                                                    <div id="collapseThree" className="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-                                                                        <div className="panel-body">
-                                                                            <p>Pay via PayPal; you can pay with your credit card if you don’t have a PayPal account.</p>
-                                                                        </div>
+                                                            </div>
+                                                            <div className="panel panel-default">
+                                                                <div className="panel-heading" role="tab" id="headingThree">
+                                                                    <h4 className="panel-title">
+                                                                        <a className="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                                                            PayPal <img src="img/2.png" alt="payment" />
+                                                                        </a>
+                                                                    </h4>
+                                                                </div>
+                                                                <div id="collapseThree" className="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                                                                    <div className="panel-body">
+                                                                        <p>
+                                                                            <input type="radio" name="thanhtoan" value={1} /> Thanh toán bằng paypal
+                                                                        </p>
                                                                     </div>
                                                                 </div>
+                                                            </div>
                                                             </div>
                                                         </div>
                                                     </div>

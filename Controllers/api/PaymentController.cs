@@ -54,19 +54,17 @@ namespace BookOnlineShop.Controllers.api
         }
         [HttpGet]
         [ActionName("GetOrdersByUser")]
-        public async Task<ActionResult<Orders>> GetOrdersByUser(string id)
+        public async Task<ActionResult<IEnumerable<Orders>>> GetOrdersByUser(string id)
         {
-            var order = await _context.Orders
+            var orders = await _context.Orders
                 .Include(od => od.OrderProducts)
                 .ThenInclude(p => p.Products)
-                .Where(o => o.UserID == id).FirstOrDefaultAsync();
-
-            if (order == null) { 
+                .Where(od => od.UserID == id).ToListAsync();
+            if (orders == null) { 
             
                 return NotFound();
             }
-
-            return order;
+            return orders;
         }
         [HttpPost]
         [ActionName("saveOrder")]
