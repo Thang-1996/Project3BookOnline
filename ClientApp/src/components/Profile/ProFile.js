@@ -35,6 +35,23 @@ export default class ProFile extends Component {
             order: event
         })
     }
+    checkStatusOrder(status) {
+        let statusResult = "";
+        switch (status) {
+            case 1:
+                statusResult = "Đang giao";
+                break;
+            case 2:
+                statusResult = "Hoàn thành";
+                break;
+            case 3:
+                statusResult = "Hủy đơn";
+                break;
+            default:
+                break;
+        }
+        return statusResult;
+    }
     render() {
         const { currentUser, orders, order } = this.state;
         let total = 0;
@@ -93,11 +110,12 @@ export default class ProFile extends Component {
                                                                     <tbody>
                                                                         {
                                                                             orders ? orders.map((e, index) => {
+                                                                                console.log(e)
                                                                                 return (
                                                                                     <tr key={ index}>
                                                                                         <td>{ ++index }</td>
                                                                                         <td>{e.createAt}</td>
-                                                                                        <td>Đang giao</td>
+                                                                                        <td>{this.checkStatusOrder(e.status)}</td>
                                                                                         <td>{Adapter.format_money(e.grandTotal)}</td>
                                                                                         <td>
                                                                                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg" onClick={ this.orderDetails.bind(this, e)}>Chi tiết</button>

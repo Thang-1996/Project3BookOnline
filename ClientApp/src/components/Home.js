@@ -1,4 +1,6 @@
 ﻿import React, { Component } from 'react';
+import Owldemo1 from './OwlCarousel/OwlCarousel';
+import { SliderHome } from './OwlCarousel/SliderHome';
 
 export class Home extends Component {
 
@@ -6,6 +8,7 @@ export class Home extends Component {
   render () {
     return (
         <div>
+            <SliderHome/>
             <div className="slider-area">
                 <div className="slider-active owl-carousel">
                     <div className="single-slider pt-105 pb-225 bg-img" style={{ backgroundImage: 'url(img/slider/5.jpg)' }}>
@@ -96,170 +99,10 @@ export class Home extends Component {
                             </div>
                         </div>
                         <div className="col-lg-12">
-                            <div className="tab-menu mb-40 text-center">
-                                <ul className="nav justify-content-center">
-                                    <li><a className="active" href="#Audiobooks" data-toggle="tab">Sản phẩm mới </a></li>
-                                    <li><a href="#books" data-toggle="tab">Đang giảm giá</a></li>
-                                    <li><a href="#bussiness" data-toggle="tab">Sản phẩm nổi bật</a></li>
-                                </ul>
-                            </div>
+                            <Owldemo1 />
                         </div>
                     </div>
-                    <div className="tab-content">
-                        <div className="tab-pane fade show active" id="Audiobooks">
-                            <div className="tab-active ">
-                                <div className="tab-total">
-                                    <div className="product-wrapper mb-40">
-                                        <div className="product-img">
-                                            <a href="#">
-                                                <img src="img/product/1.jpg" alt="book" className="primary" />
-                                            </a>
-                                            <div className="quick-view">
-                                                <a className="action-view" href="#" data-target="#productModal" data-toggle="modal" title="Quick View">
-                                                    <i className="fa fa-search-plus" />
-                                                </a>
-                                            </div>
-                                            <div className="product-flag">
-                                                <ul>
-                                                    <li><span className="sale">new</span></li>
-                                                    <li><span className="discount-percentage">-5%</span></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div className="product-details text-center">
-                                            <div className="product-rating">
-                                                <ul>
-                                                    <li><a href="#"><i className="fa fa-star" /></a></li>
-                                                    <li><a href="#"><i className="fa fa-star" /></a></li>
-                                                    <li><a href="#"><i className="fa fa-star" /></a></li>
-                                                    <li><a href="#"><i className="fa fa-star" /></a></li>
-                                                    <li><a href="#"><i className="fa fa-star" /></a></li>
-                                                </ul>
-                                            </div>
-                                            <h4><a href="#">Joust Duffle Bag</a></h4>
-                                            <div className="product-price">
-                                                <ul>
-                                                    <li>$60.00</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div className="product-link">
-                                            <div className="product-button">
-                                                <a href="#" title="Add to cart"><i className="fa fa-shopping-cart" />Add to cart</a>
-                                            </div>
-                                            <div className="add-to-link">
-                                                <ul>
-                                                    <li><a href="product-details.html" title="Details"><i className="fa fa-external-link" /></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="tab-pane fade" id="books">
-                            <div className="tab-active">
-                                <div className="tab-total">
-                                    <div className="product-wrapper mb-40">
-                                        <div className="product-img">
-                                            <a href="#">
-                                                <img src="img/product/18.jpg" alt="book" className="primary" />
-                                            </a>
-                                            <div className="quick-view">
-                                                <a className="action-view" href="#" data-target="#productModal" data-toggle="modal" title="Quick View">
-                                                    <i className="fa fa-search-plus" />
-                                                </a>
-                                            </div>
-                                            <div className="product-flag">
-                                                <ul>
-                                                    <li><span className="sale">new</span></li>
-                                                    <li><span className="discount-percentage">-5%</span></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div className="product-details text-center">
-                                            <div className="product-rating">
-                                                <ul>
-                                                    <li><a href="#"><i className="fa fa-star" /></a></li>
-                                                    <li><a href="#"><i className="fa fa-star" /></a></li>
-                                                    <li><a href="#"><i className="fa fa-star" /></a></li>
-                                                    <li><a href="#"><i className="fa fa-star" /></a></li>
-                                                    <li><a href="#"><i className="fa fa-star" /></a></li>
-                                                </ul>
-                                            </div>
-                                            <h4><a href="#">Driven Backpack</a></h4>
-                                            <div className="product-price">
-                                                <ul>
-                                                    <li>$34.00</li>
-                                                    <li className="old-price">$36.00</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div className="product-link">
-                                            <div className="product-button">
-                                                <a href="#" title="Add to cart"><i className="fa fa-shopping-cart" />Add to cart</a>
-                                            </div>
-                                            <div className="add-to-link">
-                                                <ul>
-                                                    <li><a href="product-details.html" title="Details"><i className="fa fa-external-link" /></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="tab-pane fade" id="bussiness">
-                            <div className="tab-active">
-                                <div className="tab-total">
-                                    <div className="product-wrapper mb-40">
-                                        <div className="product-img">
-                                            <a href="#">
-                                                <img src="img/product/1.jpg" alt="book" className="primary" />
-                                            </a>
-                                            <div className="quick-view">
-                                                <a className="action-view" href="#" data-target="#productModal" data-toggle="modal" title="Quick View">
-                                                    <i className="fa fa-search-plus" />
-                                                </a>
-                                            </div>
-                                            <div className="product-flag">
-                                                <ul>
-                                                    <li><span className="sale">new</span></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div className="product-details text-center">
-                                            <div className="product-rating">
-                                                <ul>
-                                                    <li><a href="#"><i className="fa fa-star" /></a></li>
-                                                    <li><a href="#"><i className="fa fa-star" /></a></li>
-                                                    <li><a href="#"><i className="fa fa-star" /></a></li>
-                                                    <li><a href="#"><i className="fa fa-star" /></a></li>
-                                                    <li><a href="#"><i className="fa fa-star" /></a></li>
-                                                </ul>
-                                            </div>
-                                            <h4><a href="#">Joust Duffle Bag</a></h4>
-                                            <div className="product-price">
-                                                <ul>
-                                                    <li>$60.00</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div className="product-link">
-                                            <div className="product-button">
-                                                <a href="#" title="Add to cart"><i className="fa fa-shopping-cart" />Add to cart</a>
-                                            </div>
-                                            <div className="add-to-link">
-                                                <ul>
-                                                    <li><a href="product-details.html" title="Details"><i className="fa fa-external-link" /></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                 
                 </div>
             </div>
             <div className="banner-area-5 mb-5">

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 namespace BookOnlineShop.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "ADMIN")]
     /*[Authorize(Roles = "Manager")]*/
     public class CategoriesController : Controller
     {

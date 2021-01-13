@@ -78,7 +78,7 @@ export class NavMenu extends Component {
         let total = 0;
       return (
           <header>
-              <div className="header-top-area" style={{ backgroundColor: "f8f7f7!importan" }}>
+              <div className="header-top-area" style={{ backgroundColor: "white!importan" }}>
                   <div className="container">
                       <div className="row">
                           <div className="col-lg-6 col-md-6 col-12">
@@ -93,12 +93,12 @@ export class NavMenu extends Component {
                       </div>
                   </div>
               </div>
-              <div className="header-mid-area">
+              <div className="header-mid-area" style={{ height: "0px" }}>
                   <div className="container">
                       <div className="row">
                           <div className="col-lg-3 col-md-6 col-12">
                               <div className="logo-area logo-xs-mrg-bottom">
-                                  <Link to="/"><img style={{ width: "230px", position: "absolute", top: "-92px", marginLeft:"-50px" }} src="img/logo/logo.png" /></Link>
+                                  <Link to="/"><img style={{ width: "230px", position: "absolute", top: "-92px", marginLeft:"-50px" }} src="/images/logo.jpg" /></Link>
                               </div>
                           </div>
                           <div className="col-lg-6">
@@ -149,67 +149,76 @@ export class NavMenu extends Component {
                       </div>
                   </div>
               </div>
-              <div className="header-bottom-area" style={{ backgroundColor: "f8f7f7" }}>
+              <div className="header-bottom-area mb-3 mt-5" style={{ backgroundColor: "f8f7f7", fontSize: "18px" }}>
                   <div className="container">
                       <div className="row">
-                          <div className="col-lg-3 col-md-4">
-                              <div className="category-area category-mb">
-                                  <h3><a style={{ color: "white", cursor: "pointer" }} onClick={this.showMenu} id="showcat">Menu <i className="fa fa-bars" /></a></h3>
-                                  <div className="category-menu category-menu-1" id="hidecat" style={{ display: this.state.menu }}>
-                                      <nav className="menu">
-                                          <ul>
-                                              <li className="cr-dropdown"><Link to="/product">Sách</Link>
-                                               
-                                              </li>
-                                              <li className="cr-dropdown"><Link to="/blog">Blog</Link>
-                                            
-                                              </li>
-                                              <li><Link to="/lienhe">Liên hệ</Link></li>
-                                              <li><Link to="/vechungtoi">Về chúng tôi</Link></li>
-                                          </ul>
-                                      </nav>
+                          <div className="col-lg-12 col-md-12">
+                              <nav className="navbar navbar-expand-lg navbar-light " style={{ backgroundColor: "f8f7f7", fontSize: "18px" }}>
+                                  <Link to="/">Trang chủ</Link>
+                                  <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                                      <span className="navbar-toggler-icon" />
+                                  </button>
+                                  <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                                      <ul className="navbar-nav mr-auto">
+                                          <li className="nav-item dropdown active ml-5">
+                                             
+                                                  <Link to="/" className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Thể loại</Link>
+                                              
+                                              <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                  <Link className="dropdown-item" to="/product">Sách</Link>
+                                                  <a className="dropdown-item" href="#">Another action</a>
+                                                  <a className="dropdown-item" href="#">Something else here</a>
+                                              </div>
+                                          </li>
+                                          <li className="nav-item active ml-5">
+                                              <a className="nav-link" href="#">Liên hệ <span className="sr-only">(current)</span></a>
+                                          </li>
+                                          <li className="nav-item active ml-5">
+                                              <a className="nav-link" href="#">Blog</a>
+                                          </li>
+                                          
+                                      </ul>
+                                      <div className="header-bottom-search">
+                                          <form action="#">
+                                              <input type="text" placeholder="Tìm kiếm ..." />
+                                              <a href="#"><i className="fa fa-search" /></a>
+                                          </form>
+                                          <div className="pos-search">
+                                              <select className="bootstrap-select">
+                                                  <option value={0}>Thể loại</option>
+                                                  <option> Book </option>
+                                                  <option> - - Tops </option>
+                                                  <option> - - - - Casual Shirts </option>
+                                                  <option> - - - - Dress Shirts </option>
+                                                  <option> - - - - Sweaters </option>
+                                                  <option> - - - - Fleece, Hendleys </option>
+                                                  <option> - - - - Suits </option>
+                                                  <option> - - Bottems </option>
+                                                  <option> - - - - Chinos </option>
+                                                  <option> - - - - Dress Pants </option>
+                                                  <option> - - - - Corduroy </option>
+                                                  <option> - - - - Denim </option>
+                                                  <option> - - - - Limited Edition </option>
+                                                  <option> Book </option>
+                                                  <option> - - Tops </option>
+                                                  <option> - - - - Casual Shirts </option>
+                                                  <option> - - - - Dress Shirts </option>
+                                                  <option> - - - - Sweaters </option>
+                                                  <option> - - - - Fleece, Hendleys </option>
+                                                  <option> - - - - Suits </option>
+                                                  <option> - - Bottems </option>
+                                                  <option> - - - - Chinos </option>
+                                                  <option> - - - - Dress Pants </option>
+                                                  <option> - - - - Corduroy </option>
+                                                  <option> - - - - Denim </option>
+                                                  <option> - - - - Limited Edition </option>
+                                              </select>
+                                          </div>
+                                      </div>
                                   </div>
-                              </div>
+                              </nav>
                           </div>
-                          <div className="col-lg-9 col-md-8">
-                              <div className="header-bottom-search">
-                                  <form action="#">
-                                      <input type="text" placeholder="Tìm cuốn sách mà bạn muốn..." />
-                                      <a href="#"><i className="fa fa-search" /></a>
-                                  </form>
-                                  <div className="pos-search">
-                                      <select className="bootstrap-select">
-                                          <option value={0}>Thể loại</option>
-                                          <option> Book </option>
-                                          <option> - - Tops </option>
-                                          <option> - - - - Casual Shirts </option>
-                                          <option> - - - - Dress Shirts </option>
-                                          <option> - - - - Sweaters </option>
-                                          <option> - - - - Fleece, Hendleys </option>
-                                          <option> - - - - Suits </option>
-                                          <option> - - Bottems </option>
-                                          <option> - - - - Chinos </option>
-                                          <option> - - - - Dress Pants </option>
-                                          <option> - - - - Corduroy </option>
-                                          <option> - - - - Denim </option>
-                                          <option> - - - - Limited Edition </option>
-                                          <option> Book </option>
-                                          <option> - - Tops </option>
-                                          <option> - - - - Casual Shirts </option>
-                                          <option> - - - - Dress Shirts </option>
-                                          <option> - - - - Sweaters </option>
-                                          <option> - - - - Fleece, Hendleys </option>
-                                          <option> - - - - Suits </option>
-                                          <option> - - Bottems </option>
-                                          <option> - - - - Chinos </option>
-                                          <option> - - - - Dress Pants </option>
-                                          <option> - - - - Corduroy </option>
-                                          <option> - - - - Denim </option>
-                                          <option> - - - - Limited Edition </option>
-                                      </select>
-                                  </div>
-                              </div>
-                          </div>
+                          
                       </div>
                   </div>
               </div>

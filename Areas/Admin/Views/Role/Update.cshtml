@@ -4,53 +4,80 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h1 class="bg-info text-white">Update Role</h1>
-<a asp-action="Index" asp-area="admin" class="btn btn-secondary">Back</a>
-<div asp-validation-summary="All" class="text-danger"></div>
+<div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
+ 
+    <div class="kt-portlet kt-portlet--mobile">
+        <div class="kt-portlet__head kt-portlet__head--lg">
+            <div class="kt-portlet__head-label">
+                <span class="kt-portlet__head-icon">
+                    <i class="kt-font-brand flaticon2-line-chart"></i>
+                </span>
+                <h3 class="kt-portlet__head-title">
+                    Sửa quyền hạn
+                </h3>
+            </div>
+            <div class="kt-portlet__head-toolbar">
+                <div class="kt-portlet__head-wrapper">
+                    <a asp-action="Index" asp-area="admin" asp-controller="Role" class="btn btn-clean btn-icon-sm">
+                        <i class="la la-long-arrow-left"></i>
+                        Quay lại
+                    </a>
+                    &nbsp;
 
-<form method="post" asp-area="admin">
-    <input type="hidden" name="roleName" value="@Model.Role.Name" />
-    <input type="hidden" name="roleId" value="@Model.Role.Id" />
+                </div>
+            </div>
+        </div>
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="kt-portlet__body">
+            <form method="post" asp-area="admin">
+                <input type="hidden" name="roleName" value="@Model.Role.Name" />
+                <input type="hidden" name="roleId" value="@Model.Role.Id" />
 
-    <h2 class="bg-info p-1 text-white">Add To @Model.Role.Name</h2>
-    <table class="table table-bordered table-sm">
-        @if (Model.NonMembers.Count() == 0)
-        {
-            <tr><td colspan="2">All Users Are Members</td></tr>
-        }
-        else
-        {
-            @foreach (ApplicationUser user in Model.NonMembers)
-            {
-                <tr>
-                    <td>@user.UserName</td>
-                    <td>
-                        <input type="checkbox" name="AddIds" value="@user.Id">
-                    </td>
-                </tr>
-            }
-        }
-    </table>
+                <p class=" p-1 ">Danh sách tài khoản:  </p>
+                <table class="table table-striped">
+                    @if (Model.NonMembers.Count() == 0)
+                    {
+                        <tr><td colspan="2">- </td></tr>
+                    }
+                    else
+                    {
+                        @foreach (ApplicationUser user in Model.NonMembers)
+                        {
+                            <tr>
+                                <td>@user.UserName</td>
+                                <td>
+                                    <label>Cấp quyền</label>
+                                    <input type="checkbox" name="AddIds" value="@user.Id">
+                                </td>
+                            </tr>
+                        }
+                    }
+                </table>
 
-    <h2 class="bg-info p-1 text-white">Remove From @Model.Role.Name</h2>
-    <table class="table table-bordered table-sm">
-        @if (Model.Members.Count() == 0)
-        {
-            <tr><td colspan="2">No Users Are Members</td></tr>
-        }
-        else
-        {
-            @foreach (ApplicationUser user in Model.Members)
-            {
-                <tr>
-                    <td>@user.UserName</td>
-                    <td>
-                        <input type="checkbox" name="DeleteIds" value="@user.Id">
-                    </td>
-                </tr>
-            }
-        }
-    </table>
-    <button type="submit" class="btn btn-primary">Save</button>
-</form>
+                <p class=" p-1 ">Danh sách tài khoản có quyền @Model.Role.Name :  </p>
+                <table class="table table-striped">
+                    @if (Model.Members.Count() == 0)
+                    {
+                        <tr><td colspan="2">No Users Are Members</td></tr>
+                    }
+                    else
+                    {
+                        @foreach (ApplicationUser user in Model.Members)
+                        {
+                            <tr>
+                                <td>@user.UserName</td>
+                                <td>
+                                    <label>Hủy quyền</label>
+                                    <input type="checkbox" name="DeleteIds" value="@user.Id">
+                                </td>
+                            </tr>
+                        }
+                    }
+                </table>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </form>
+        </div>
+    </div>
+</div>
+
 

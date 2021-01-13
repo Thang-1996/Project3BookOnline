@@ -38,7 +38,7 @@
                 <div class="row align-items-center">
                     <div class="col-xl-8 order-2 order-xl-1">
                         <div class="row align-items-center">
-                            <form asp-action="Index" method="GET">
+           @*                 <form asp-action="Index" method="GET">
                                 <div class="col-md-4 kt-margin-b-20-tablet-and-mobile">
                                     <div class="kt-input-icon kt-input-icon--left">
                                         <input style="width: 400px" type="text" class="form-control" name="search" placeholder="Search..." id="generalSearch">
@@ -48,7 +48,7 @@
                                     </div>
                                     <button type="submit" class="btn btn-sm btn-primary" style="margin-top: 15px">Tìm kiếm...</button>
                                 </div>
-                            </form>
+                            </form>*@
 
                         </div>
                     </div>
@@ -57,28 +57,36 @@
             </div>
         </div>
         <div class="kt-portlet__body kt-portlet__body--fit">
-            <table class="table ">
-                <tr><th>STT</th><th>Quyền</th><th>User</th><th>Update</th><th>Delete</th></tr>
-                @{ int index = 1;}
-                @foreach (var role in Model)
-                {
+            <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
 
+                <table class="table">
                     <tr>
-                        <td>@index</td>
-                        <td>@role.Name</td>
-                        <td i-role="@role.Id"></td>
-                        <td><a class="btn btn-sm btn-primary" asp-action="Update" asp-route-id="@role.Id">Update</a></td>
-                        <td>
-                            <form asp-area="admin" asp-action="Delete" asp-route-id="@role.Id" method="post">
-                                <button type="submit" class="btn btn-sm btn-danger">
-                                    Delete
-                                </button>
-                            </form>
-                        </td>
+                    <th>STT</th>
+                    <th>Quyền</th>
+                    <th>User</th>
+                    <th></th>
+                    <th></th>
                     </tr>
-                    index++;
-                }
-            </table>
+                    @{ int index = 1;}
+                    @foreach (var role in Model)
+                    {
+
+                        <tr>
+                            <td>@index</td>
+                            <td>@role.Name</td>
+                            <td i-role="@role.Id"></td>
+                            <td><a class="btn btn-sm btn-clean btn-icon btn-icon-md" asp-action="Update" asp-route-id="@role.Id"><i class="la la-edit"></i></a></td>
+                            <td>
+                                <form asp-area="admin" asp-action="Delete" asp-route-id="@role.Id" method="post">
+                                    <button type="submit" class="btn btn-sm btn-clean btn-icon btn-icon-md">
+                                        <i class="la la-remove"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        index++;
+                    }
+                </table>
+            </div>
         </div>
-    </div>
 </div>

@@ -1,4 +1,4 @@
-﻿import React, { Component } from 'react';
+﻿﻿import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import Adapter from '../Adapter';
 import API from '../API';
@@ -62,6 +62,12 @@ export default class Checkout extends Component {
             alert("Vui lòng nhập địa chỉ nhận hàng");
             return;
         }
+        let grandTotal = 0;
+        cart.forEach(item => {
+            return grandTotal += item.quantity * item.product.price;
+        })
+        orders.GrandTotal = grandTotal;
+        this.setState({ orders: orders })
         API.post(Adapter.saveOrder.url, payment)
             .then(res => {
                 if (res.status == 200) {
@@ -81,8 +87,6 @@ export default class Checkout extends Component {
         if (redirect) {
             return <Redirect to='/' />;
         }
-
-        
         let total = 0;
         return (
             <div>
@@ -104,110 +108,110 @@ export default class Checkout extends Component {
                     <div className="container">
                         <div className="row">
                             <div className="col-12">
-                                    <div className="row">
-                                        <div className="col-lg-6 col-md-12 col-12">
-                                            <div className="checkbox-form">
-                                                <h3>Chi tiết hóa đơn</h3>
-                                                <div className="row">
-                                                    <div className="col-lg-12 col-md-12 col-12">
-                                                        <div className="checkout-form-list">
-                                                            <label>Địa chỉ <span className="required">*</span></label>
-                                                        <input onChange={this.handleOnChange} required value={orders.Address} name="Address" type="text" placeholder="Địa chỉ nhận hàng" />
-                                                        </div>
-                                                    </div>
+                                <div className="row">
+                                    <div className="col-lg-6 col-md-12 col-12">
+                                        <div className="checkbox-form">
+                                            <h3>Chi tiết hóa đơn</h3>
+                                            <div className="row">
                                                 <div className="col-lg-12 col-md-12 col-12">
+                                                    <div className="checkout-form-list">
+                                                        <label>Địa chỉ nhận hàng <span className="required">*</span></label>
+                                                        <input onChange={this.handleOnChange} required value={orders.Address} name="Address" type="text" placeholder="Street address" />
+                                                    </div>
                                                     <div className="checkout-form-list">
                                                         <label>Số điện thoại: <span className="required">*</span></label>
                                                         <input onChange={this.handleOnChange} type="text" value={orders.Telephone} name="Telephone" placeholder="Số điện thoại" />
                                                     </div>
-                                                </div>
-                                         
-                                                   
-                          
-                                                </div>
-                                                <div className="different-address">
-                                                    <div className="order-notes">
-                                                        <div className="checkout-form-list">
-                                                        <label>Order Notes</label>
-                                                        <textarea onChange={this.handleOnChange} value={orders.OrderNote} name="OrderNote" placeholder="Notes about your order, e.g. special notes for delivery." rows={10} cols={30} id="checkout-mess"  />
+                                                    <div className="different-address">
+                                                        <div className="order-notes">
+                                                            <div className="checkout-form-list">
+                                                                <label>Ghi chú</label>
+                                                                <textarea onChange={this.handleOnChange} value={orders.OrderNote} name="OrderNote" placeholder="Ghi chú về đơn đặt hàng của bạn, ví dụ: Lưu ý đặc biệt để giao hàng." rows={10} cols={30} id="checkout-mess" defaultValue={""} />
+
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="col-lg-6 col-md-12 col-12">
-                                            <div className="your-order">
-                                                <h4>Đơn hàng của bạn</h4>
-                                                <div className="your-order-table table-responsive">
-                                                    <table>
-                                                        <thead>
-                                                            <tr>
-                                                                <th className="product-name">Sản phẩm</th>
-                                                                <th className="product-total">Tổng</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            {
-                                                                cart ? cart.map((e, index) => {
-                                                                    total += e.product.price * e.quantity;
-                                                                    return (
-                                                                        <tr key={index} className="cart_item">
-                                                                            <td className="product-name">
-                                                                                {e.product.productName} <strong className="product-quantity"> × {e.quantity }</strong>
-                                                                            </td>
-                                                                            <td className="product-total">
-                                                                                <span className="amount">{Adapter.format_money(e.product.price * e.quantity)}</span>
-                                                                            </td>
-                                                                        </tr>
-                                                                    )
-                                                                }) : null
-                                                            }
-                                                            
-                                                        </tbody>
-                                                        <tfoot>
-                                                            <tr className="cart-subtotal">
-                                                                <th>Tổng tiền giỏ hàng</th>
-                                                                <td><span className="amount">{Adapter.format_money(total)}</span></td>
-                                                            </tr>
-                                                            <tr className="shipping">
+
+
+
+
+                                    </div>
+                                    <div className="col-lg-6 col-md-12 col-12">
+                                        <div className="your-order">
+                                            <h4>Đơn hàng của bạn</h4>
+                                            <div className="your-order-table table-responsive">
+                                                <table>
+                                                    <thead>
+                                                        <tr>
+                                                            <th className="product-name">Sản phẩm</th>
+                                                            <th className="product-total">Tổng</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {
+                                                            cart ? cart.map((e, index) => {
+                                                                total += e.product.price * e.quantity;
+                                                                return (
+                                                                    <tr key={index} className="cart_item">
+                                                                        <td className="product-name">
+                                                                            {e.product.productName} <strong className="product-quantity"> × {e.quantity}</strong>
+                                                                        </td>
+                                                                        <td className="product-total">
+                                                                            <span className="amount">{Adapter.format_money(e.product.price * e.quantity)}</span>
+                                                                        </td>
+                                                                    </tr>
+                                                                )
+                                                            }) : null
+                                                        }
+
+                                                    </tbody>
+                                                    <tfoot>
+                                                        <tr className="cart-subtotal">
+                                                            <th>Tổng tiền giỏ hàng</th>
+                                                            <td><span className="amount">{Adapter.format_money(total)}</span></td>
+                                                        </tr>
+                                                        <tr className="shipping">
                                                             <th data-toggle="tooltip" data-placement="left" title="Miễn phí ship với đơn hàng lớn hơn 500.000đ">Shipping</th>
-                                                                <td>
-                                                                    <ul>
+                                                            <td>
+                                                                <ul>
                                                                     <li>
                                                                         {total > 500000 ? 0 : Adapter.format_money(30000)}
-                                                                        </li>
-                                                                    </ul>
-                                                                </td>
-                                                            </tr>
-                                                            <tr className="order-total">
+                                                                    </li>
+                                                                </ul>
+                                                            </td>
+                                                        </tr>
+                                                        <tr className="order-total">
                                                             <th>Tổng tiền thanh toán</th>
                                                             <td><strong><span className="amount">{total > 500000 ? Adapter.format_money(total) : Adapter.format_money(total + 30000)}</span></strong>
-                                                                </td>
-                                                            </tr>
-                                                        </tfoot>
-                                                    </table>
-                                                </div>
-                                                <div className="payment-method">
-                                                    <div className="payment-accordion">
-                                                        <div className="collapses-group">
-                                                            <div className="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                                                                <div className="panel panel-default">
-                                                                    <div className="panel-heading" role="tab" id="headingOne">
-                                                                        <h4 className="panel-title">
-                                                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                                                                VNPay
+                                                            </td>
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </div>
+                                            <div className="payment-method">
+                                                <div className="payment-accordion">
+                                                    <div className="collapses-group">
+                                                        <div className="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                                            <div className="panel panel-default">
+                                                                <div className="panel-heading" role="tab" id="headingOne">
+                                                                    <h4 className="panel-title">
+                                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                                            VNPay
                                       </a>
-                                                                        </h4>
-                                                                    </div>
-                                                                    <div id="collapseOne" className="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                                                                        <div className="panel-body">
+                                                                    </h4>
+                                                                </div>
+                                                                <div id="collapseOne" className="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                                                    <div className="panel-body">
                                                                         <p>
                                                                             <input type="radio" name="thanhtoan" value={2} />
                                                                             VNPay
                                                                         </p>
-                                                                        </div>
                                                                     </div>
                                                                 </div>
+                                                            </div>
                                                             <div className="panel panel-default">
                                                                 <div className="panel-heading" role="tab" id="headingTwo">
                                                                     <h4 className="panel-title">
@@ -240,17 +244,18 @@ export default class Checkout extends Component {
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            </div>
                                                         </div>
                                                     </div>
+                                                </div>
                                                 <div className="order-button-payment">
                                                     <button className="btn btn-primary" onClick={this.checkOut} >Xác nhận</button>
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                </div>
                             </div>
+
                         </div>
                     </div>
                 </div>

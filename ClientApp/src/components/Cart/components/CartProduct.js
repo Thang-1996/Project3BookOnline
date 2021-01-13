@@ -1,4 +1,5 @@
 ﻿import React, { Component } from 'react';
+import Adapter from '../../Adapter';
 
 export default class Product extends Component {
     constructor(props) {
@@ -74,9 +75,9 @@ export default class Product extends Component {
             <tr >
                 <td className="product-thumbnail"><a ><img src={"/images/" +product.product.productImage} alt="man" /></a></td>
                 <td className="product-name"><a >{product.product.productName}</a></td>
-                <td className="product-price"><span className="amount">{product.product.price}</span></td>
+                <td className="product-price"><span className="amount">{Adapter.format_money(product.product.price)}</span></td>
                 <td className="product-quantity"><input onChange={this.tangGiamSL} type="number" defaultValue={product.quantity} /></td>
-                <td className="product-subtotal">{product.product.price * product.quantity}</td>
+                <td className="product-subtotal">{Adapter.format_money(product.product.price * product.quantity)}</td>
                 <td className="product-remove"><a style={{ cursor: "pointer"}} onClick={this.xoaProduct}><i className="fa fa-times" /></a></td>
             </tr>
         );

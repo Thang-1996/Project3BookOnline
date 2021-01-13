@@ -10,8 +10,10 @@ using System.Threading.Tasks;
 namespace BookOnlineShop.Areas.Admin.Controllers
 {
     [Area("Admin")]
-/*    [Authorize(Roles = "admin")]
-*/    public class UserController : Controller
+    [Authorize(Roles = "ADMIN")]
+    /*    [Authorize(Roles = "admin")]
+    */
+    public class UserController : Controller
     {
         private UserManager<ApplicationUser> userManager;
         private IPasswordHasher<ApplicationUser> passwordHasher;

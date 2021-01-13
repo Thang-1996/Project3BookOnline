@@ -39,8 +39,8 @@
                 <div class="row align-items-center">
                     <div class="col-xl-8 order-2 order-xl-1">
                         <div class="row align-items-center">
-                            <form asp-action="Index" method="GET">
-                                <div class="col-md-4 kt-margin-b-20-tablet-and-mobile">
+                     @*       <form asp-action="Index" method="GET">
+                                <div class="col-md-8 kt-margin-b-20-tablet-and-mobile">
                                     <div class="kt-input-icon kt-input-icon--left">
                                         <input style="width: 400px" type="text" class="form-control" name="search" placeholder="Search..." id="generalSearch">
                                         <span class="kt-input-icon__icon kt-input-icon__icon--left">
@@ -49,7 +49,7 @@
                                     </div>
                                     <button type="submit" class="btn btn-sm btn-primary" style="margin-top: 15px">Search</button>
                                 </div>
-                            </form>
+                            </form>*@
 
                         </div>
                     </div>
@@ -60,80 +60,60 @@
             <!--end: Search Form -->
         </div>
         <div class="kt-portlet__body kt-portlet__body--fit">
-
-            <!--begin: Datatable -->
-            <table class="table table-striped">
-                <thead class="thead-light">
-                    <tr>
-                        <th>STT</th>
-                        <th>
-                            Tên sản phẩm
-                        </th>
-                        <th>
-                            Code
-                        </th>
-                        <th>
-                            Thumbnail
-                        </th>
-                        <th>
-                            Tiêu đề
-                        </th>
-                        <th>
-                            Mô tả
-                        </th>
-                        <th>
-                            Giá tiền
-                        </th>
-                        <th>
-                            Số lượng
-                        </th>
-                        <th>
-                            Trạng thái
-                        </th>
-                        <th>
-                            Tái bản
-                        </th>
-                        <th>
-                            TG tái bản
-                        </th>
-                        <th>
-                            Thể loại
-                        </th>
-                        <th>
-                            Tác giả
-                        </th>
-                        <th>
-                            Nhà xuất bản
-
-                        </th>
-                        <th>
-                            
-                        </th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
+            <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
+                <!--begin: Datatable -->
+                <table class="table table-striped">
+                    <thead>
                         <tr>
-                            <td>
-                                @item.ProductID
-                            </td>
+
+                            <th>
+                                Tên sản phẩm
+                            </th>
+                            <th>
+                                Hình ảnh
+                            </th>
+
+                            <th>
+                                Giá tiền
+                            </th>
+                            <th>
+                                Số lượng
+                            </th>
+
+
+                            <th>
+                                Thể loại
+                            </th>
+                            <th>
+                                Tác giả
+                            </th>
+                            <th>
+                                Nhà xuất bản
+
+                            </th>
+                            <th>
+                                Trạng thái
+                            </th>
+                            <th>
+
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                        <tr>
+
                             <td>
                                 @item.ProductName
                             </td>
-                            <td>
-                                @item.ProductCode
-                            </td>
+
                             <td>
                                 <img src="~/images/@item.ProductImage" style="width: 60px; height: 60px" alt="ProductImage" />
                             </td>
-                            <td>
-                                @item.ProductDescription
-                            </td>
-                            <td>
-                                @item.ProductContent
-                            </td>
+
+
                             <td>
                                 @item.Price
                             </td>
@@ -141,6 +121,18 @@
                                 @item.Quantity
                             </td>
 
+
+
+
+                            <td>
+                                @item.Category.CategoryName
+                            </td>
+                            <th>
+                                @string.Join(", ", item.AuthorProducts.Select(p => p.Author.AuthorName))
+                            </th>
+                            <th>
+                                @string.Join(", ", item.PublisherProducts.Select(p => p.Publisher.PublisherName))
+                            </th>
                             <td>
                                 @if (item.Status == 1)
                                 {
@@ -152,22 +144,7 @@
                                 }
 
                             </td>
-                            <td>
-                                @item.PublishingTime
-                            </td>
-                            <td>
-                                @item.Reprinttimes
-                            </td>
-                            <td>
-                                @item.Category.CategoryName
-                            </td>
-                            <th>
-                                @string.Join(", ", item.AuthorProducts.Select(p => p.Author.AuthorName))
-                            </th>
-                            <th>
-                                @string.Join(", ", item.PublisherProducts.Select(p => p.Publisher.PublisherName))
-                            </th>
-                            <th></th>
+                   
 
 
                             <td>
@@ -185,12 +162,12 @@
                                 </span>
                             </td>
                         </tr>
-                    }
-                </tbody>
-            </table>
-            <!--end: Datatable -->
+                        }
+                    </tbody>
+                </table>
+                <!--end: Datatable -->
+            </div>
         </div>
-    </div>
 </div>
 
 @*<h1>Index</h1>

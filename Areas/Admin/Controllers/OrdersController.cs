@@ -7,41 +7,25 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BookOnlineShop.Data;
 using BookOnlineShop.Models;
-using Microsoft.AspNetCore.Hosting;
-using BookOnlineShop.Areas.Admin.ViewModels;
 using Microsoft.AspNetCore.Authorization;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Http;
 
 namespace BookOnlineShop.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    /*[Authorize(Roles = "Manager")]*/
+    [Authorize(Roles = "ADMIN")]
     public class OrdersController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly IWebHostEnvironment webHostEnvironment;
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public OrdersController(ApplicationDbContext context, IWebHostEnvironment hostEnvironment, UserManager<ApplicationUser> userManager, IHttpContextAccessor httpContextAccessor)
+        public OrdersController(ApplicationDbContext context)
         {
             _context = context;
-            webHostEnvironment = hostEnvironment;
-            _userManager = userManager;
-            _httpContextAccessor = httpContextAccessor;
         }
 
         // GET: Admin/Orders
-        /*[Authorize(Roles = "Admin, Manager")]*/
         public async Task<IActionResult> Index()
         {
-            var orders = _context.Orders
-                .Include(p => p.OrderProducts)
-                .ThenInclude(a => a.Products)
-                .OrderByDescending(p => p.ID);
-            return View(await orders.ToListAsync());
+            return View(await _context.Orders.ToListAsync());
         }
 
         // GET: Admin/Orders/Details/5
@@ -51,31 +35,25 @@ namespace BookOnlineShop.Areas.Admin.Controllers
             {
                 return NotFound();
             }
+
+         
             var orders = await _context.Orders
-                .Include(ap => ap.OrderProducts)
-                .ThenInclude(a => a.Products)
+                  .Include(od => od.OrderProducts)
+                .ThenInclude(p => p.Products)
                 .FirstOrDefaultAsync(m => m.ID == id);
+           
             if (orders == null)
             {
                 return NotFound();
             }
 
-
             return View(orders);
         }
 
         // GET: Admin/Orders/Create
-        public async Task<IActionResult> Create()
+        public IActionResult Create()
         {
-            var currentUser = await _userManager.GetUserAsync(User);
-            if (currentUser == null) return Challenge();
-
-            var orders = new OrderViewModel();
-            orders.Products = _context.Products.ToList();
-            orders.UserID = currentUser.Id;
-       
-            ViewBag.Products = new SelectList(_context.Products, "ProductID", "ProductName");
-            return View(orders);
+            return View();
         }
 
         // POST: Admin/Orders/Create
@@ -83,98 +61,55 @@ namespace BookOnlineShop.Areas.Admin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-/*        public async Task<IActionResult> Create(OrderViewModel model)
+        public async Task<IActionResult> Create([Bind("ID,Address,Telephone,OrderNote,CreateAt,UpdateAt,paymenttype,Status,GrandTotal,UserID")] Orders orders)
         {
-            var currentUser = await _userManager.GetUserAsync(User);
-            if (currentUser == null) return Challenge();
-
             if (ModelState.IsValid)
             {
-               
-                Orders order = new Orders
-                {
-                    OrderName = model.OrderName,
-                    CreateAt = model.CreateAt,
-                    UpdateAt = model.UpdateAt,
-                    Status = model.Status,
-                    GrandTotal = model.GrandTotal,
-                    UserID = model.UserID,
-                };
-                _context.Add(order);
-                _context.SaveChanges();
-                foreach (var product in model.SelectedProduct)
-                {
-                    OrderProducts orderProducts = new OrderProducts();
-                    orderProducts.OrderID = order.ID;
-                    orderProducts.ProductID = product;
-                    orderProducts.UserID = model.UserID;
-                    _context.Add(orderProducts);
-                    _context.SaveChanges();
-                }
-
+                _context.Add(orders);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewBag.Products = new SelectList(_context.Products, "ProductID", "ProductName");
-            ViewData["UserID"] = new SelectList(_context.Users, "UserID", "Name", model.UserID);
-            return View();
+            return View(orders);
         }
-*/
+
         // GET: Admin/Orders/Edit/5
-/*        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-            var order = await _context.Orders.FindAsync(id);
-            OrderViewModel newOrder = new OrderViewModel
-            {
-                OrderName = order.OrderName,
-                CreateAt = order.CreateAt,
-                UpdateAt = order.UpdateAt,
-                Status = order.Status,
-                GrandTotal = order.GrandTotal,
-                SelectedProduct = order.OrderProducts.Select(op => op.ProductID).ToList()
-            };
 
-            if (order == null)
+            var orders = await _context.Orders.FindAsync(id);
+            if (orders == null)
             {
                 return NotFound();
             }
-            ViewBag.Products = new SelectList(_context.Products, "ProductID", "ProductName");
-            return View(newOrder);
+            return View(orders);
         }
-*/
+
         // POST: Admin/Orders/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-       /* [HttpPost]
-   *//*     [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, OrderViewModel model)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Address,Telephone,OrderNote,CreateAt,UpdateAt,paymenttype,Status,GrandTotal,UserID")] Orders orders)
         {
+            if (id != orders.ID)
+            {
+                return NotFound();
+            }
+
             if (ModelState.IsValid)
             {
                 try
                 {
-                    Orders order = new Orders
-                    {
-                        OrderName = model.OrderName,
-                        CreateAt = model.CreateAt,
-                        UpdateAt = model.UpdateAt,
-                        Status = model.Status,
-                        GrandTotal = model.GrandTotal,
-                    };
-                    foreach (var ProductID in model.SelectedProduct)
-                    {
-                        order.OrderProducts.Add(new OrderProducts { ProductID = ProductID });
-                    }
-                    _context.Update(order);
+                    _context.Update(orders);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!OrdersExists(model.ID))
+                    if (!OrdersExists(orders.ID))
                     {
                         return NotFound();
                     }
@@ -185,8 +120,7 @@ namespace BookOnlineShop.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewBag.Products = new SelectList(_context.Products, "ProductID", "ProductName");
-            return View();
+            return View(orders);
         }
 
         // GET: Admin/Orders/Delete/5
@@ -196,22 +130,20 @@ namespace BookOnlineShop.Areas.Admin.Controllers
             {
                 return NotFound();
             }
+
             var orders = await _context.Orders
-                .Include(ap => ap.OrderProducts)
-                .ThenInclude(a => a.Products)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (orders == null)
             {
                 return NotFound();
             }
 
-
-            return View(orde*//*rs);
-        }*/
+            return View(orders);
+        }
 
         // POST: Admin/Orders/Delete/5
         [HttpPost, ActionName("Delete")]
-/*        [ValidateAntiForgeryToken]*/
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var orders = await _context.Orders.FindAsync(id);
