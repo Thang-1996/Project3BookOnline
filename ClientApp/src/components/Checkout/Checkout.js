@@ -58,7 +58,10 @@ export default class Checkout extends Component {
             orders: orders,
             carts: cart,
         }
-
+        if (orders.Address == '') {
+            alert("Vui lòng nhập địa chỉ nhận hàng");
+            return;
+        }
         API.post(Adapter.saveOrder.url, payment)
             .then(res => {
                 if (res.status == 200) {
@@ -108,18 +111,10 @@ export default class Checkout extends Component {
                                                 <div className="row">
                                                     <div className="col-lg-12 col-md-12 col-12">
                                                         <div className="checkout-form-list">
-<<<<<<< HEAD
-                                                        <label>Địa chỉ nhận hàng <span className="required">*</span></label>
-                                                        <input onChange={this.handleOnChange} required value={orders.Address} name="Address" type="text" placeholder="Street address" />
-                                                        </div>
-                                                </div>
-=======
                                                             <label>Địa chỉ <span className="required">*</span></label>
                                                         <input onChange={this.handleOnChange} required value={orders.Address} name="Address" type="text" placeholder="Địa chỉ nhận hàng" />
                                                         </div>
                                                     </div>
-                                             
->>>>>>> 2f7f5a64882ba109ff64e66b5c6313b842776f55
                                                 <div className="col-lg-12 col-md-12 col-12">
                                                     <div className="checkout-form-list">
                                                         <label>Số điện thoại: <span className="required">*</span></label>
@@ -133,13 +128,8 @@ export default class Checkout extends Component {
                                                 <div className="different-address">
                                                     <div className="order-notes">
                                                         <div className="checkout-form-list">
-<<<<<<< HEAD
                                                         <label>Order Notes</label>
                                                         <textarea onChange={this.handleOnChange} value={orders.OrderNote} name="OrderNote" placeholder="Notes about your order, e.g. special notes for delivery." rows={10} cols={30} id="checkout-mess"  />
-=======
-                                                            <label>Ghi chú</label>
-                                                        <textarea placeholder="Ghi chú về đơn đặt hàng của bạn, ví dụ: Lưu ý đặc biệt để giao hàng." rows={10} cols={30} id="checkout-mess" defaultValue={""} />
->>>>>>> 2f7f5a64882ba109ff64e66b5c6313b842776f55
                                                         </div>
                                                     </div>
                                                 </div>
