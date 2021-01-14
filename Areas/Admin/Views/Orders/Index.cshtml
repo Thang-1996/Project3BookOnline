@@ -15,33 +15,115 @@
                     Danh sách đơn hàng
                 </h3>
             </div>
-            
+
+        </div>
+        <div class="kt-portlet__body">
+
+            <!--begin: Search Form -->
+            <div class="kt-form kt-form--label-right kt-margin-t-20 kt-margin-b-10">
+                <div class="row align-items-center">
+                    <div class="col-xl-12 order-2 order-xl-1">
+                        <form asp-area="admin" asp-controller="Orders" asp-action="Index">
+                            <div class="row align-items-center" id="filterGroup">
+
+
+
+                                <div class="col-md-2 kt-margin-b-20-tablet-and-mobile">
+                                    <div class="kt-form__group">
+                                        <div class="kt-form__label">
+                                            <label>Số điện thoại:</label>
+                                        </div>
+                                        <div class="kt-form__control">
+                                            <input style="margin-top: 1px" name="telephone" type="text" class="form-control" placeholder="Nhập vào số điện thoại.." />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 kt-margin-b-20-tablet-and-mobile">
+                                    <div class="kt-form__group">
+                                        <div class="kt-form__label">
+                                            <label>Trạng thái:</label>
+                                        </div>
+                                        <div class="kt-form__control">
+                                            <select class="form-control kt-select2" id="kt_select2_1" name="status">
+                                                <option value="">All</option>
+                                                <option value="1">Đang giao hàng</option>
+                                                <option value="2">Hoàn thành</option>
+                                                <option value="3">Đã hủy</option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 kt-margin-b-20-tablet-and-mobile">
+                                    <div class="kt-form__group">
+                                        <div class="kt-form__label">
+                                            <label>Kiểu thanh toán:</label>
+                                        </div>
+                                        <div class="kt-form__control">
+                                            <select class="form-control kt-select2" id="kt_select2_2" name="paymenttype">
+                                                <option value="">All</option>
+                                                <option value="1">COD</option>
+                                                <option value="0">Ngân Hàng</option>
+
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 kt-margin-b-20-tablet-and-mobile">
+                                    <div class="kt-form__group">
+                                        <div class="kt-form__label">
+                                            <label>Ngày đặt hàng:</label>
+                                        </div>
+                                        <div class="kt-form__control">
+                                            <input id="kt_datepicker_1" name="paydate" readonly class="form-control" placeholder="Chọn ngày ..." />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-1 kt-margin-b-20-tablet-and-mobile">
+                                    <div class="kt-form__group">
+                                        <div class="kt-form__label">
+                                            <label></label>
+                                        </div>
+                                        <div class="kt-form__control">
+                                            <button style="margin-top: 5px" type="submit" class="form-control btn btn-primary">Lọc</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            </form>
+                    </div>
+
+                </div>
+            </div>
+
+            <!--end: Search Form -->
         </div>
         <div class="kt-portlet__body">
 
             <!--begin: Search Form -->
             <!--<div class="kt-form kt-form--label-right kt-margin-t-20 kt-margin-b-10">
-                <div class="row align-items-center">
-                    <div class="col-xl-8 order-2 order-xl-1">
-                        <div class="row align-items-center">-->
-                            @*         <form asp-action="Index" method="GET">
-                                    <div class="col-md-4 kt-margin-b-20-tablet-and-mobile">
-                                        <div class="kt-input-icon kt-input-icon--left">
-                                            <input style="width: 400px" type="text" class="form-control" name="search" placeholder="Search..." id="generalSearch">
-                                            <span class="kt-input-icon__icon kt-input-icon__icon--left">
-                                                <span><i class="la la-search"></i></span>
-                                            </span>
-                                        </div>
-                                        <button type="submit" class="btn btn-sm btn-primary" style="margin-top: 15px">Search</button>
-                                    </div>
-                                </form>*@
+            <div class="row align-items-center">
+                <div class="col-xl-8 order-2 order-xl-1">
+                    <div class="row align-items-center">-->
+            @*         <form asp-action="Index" method="GET">
+                    <div class="col-md-4 kt-margin-b-20-tablet-and-mobile">
+                        <div class="kt-input-icon kt-input-icon--left">
+                            <input style="width: 400px" type="text" class="form-control" name="search" placeholder="Search..." id="generalSearch">
+                            <span class="kt-input-icon__icon kt-input-icon__icon--left">
+                                <span><i class="la la-search"></i></span>
+                            </span>
+                        </div>
+                        <button type="submit" class="btn btn-sm btn-primary" style="margin-top: 15px">Search</button>
+                    </div>
+                </form>*@
 
-                        <!--</div>
+            <!--</div>
                     </div>
 
                 </div>
             </div>-->
-
             <!--end: Search Form -->
         </div>
         <div class="kt-portlet__body kt-portlet__body--fit">
@@ -56,21 +138,21 @@
                             <th>
                                 Số điện thoại
                             </th>
-                       
+
                             <th>
-                              Ngày đặt hàng
+                                Ngày đặt hàng
                             </th>
-                       
+
                             <th>
                                 Kiểu thanh toán
                             </th>
                             <th>
-                               Trạng thái
+                                Trạng thái
                             </th>
                             <th>
                                 Tổng tiền
                             </th>
-                        
+
                             <th></th>
                         </tr>
                     </thead>
@@ -84,17 +166,17 @@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Telephone)
                                 </td>
-                           
+
                                 <td>
                                     @Html.DisplayFor(modelItem => item.CreateAt)
                                 </td>
-                            
+
                                 <td>
                                     @if (item.paymenttype == 1)
                                     {
                                         <span>Thanh toán sau khi nhận hàng</span>
                                     }
-                               
+
                                 </td>
                                 <td>
                                     @if (item.Status == 1)
@@ -113,19 +195,19 @@
                                 <td>
                                     @Math.Round(item.GrandTotal) đ
                                 </td>
-                            
+
                                 <td>
-                                    @if(item.Status == 2 || item.Status == 3)
+                                    @if (item.Status == 2 || item.Status == 3)
                                     {
                                         <a class="btn btn-sm btn-clean btn-icon btn-icon-md" onclick="return alert('Không thể cập nhật đơn hàng đã hoàn thành hoặc hủy');"><i class="la la-edit"></i></a>
                                     }
                                     else
                                     {
-                                             <a class="btn btn-sm btn-clean btn-icon btn-icon-md" asp-action="Edit" asp-route-id="@item.ID"><i class="la la-edit"></i></a>
+                                        <a class="btn btn-sm btn-clean btn-icon btn-icon-md" asp-action="Edit" asp-route-id="@item.ID"><i class="la la-edit"></i></a>
                                     }
-                               
-                                    <a class="btn btn-sm btn-clean btn-icon btn-icon-md" asp-action="Details" asp-route-id="@item.ID"><i class="la la-info"></i></a> 
-                              
+
+                                    <a class="btn btn-sm btn-clean btn-icon btn-icon-md" asp-action="Details" asp-route-id="@item.ID"><i class="la la-info"></i></a>
+
                                 </td>
                             </tr>
                         }

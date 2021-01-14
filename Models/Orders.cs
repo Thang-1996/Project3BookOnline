@@ -19,7 +19,9 @@ namespace BookOnlineShop.Models
         public string Telephone { get; set; }
         [Column(TypeName ="ntext")]
         public string OrderNote { get; set; }
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime? CreateAt { get; set; }
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime? UpdateAt { get; set; }
         public int paymenttype { get; set; }
 

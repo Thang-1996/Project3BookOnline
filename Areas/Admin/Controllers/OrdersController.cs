@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using BookOnlineShop.Data;
 using BookOnlineShop.Models;
 using Microsoft.AspNetCore.Authorization;
+using System.Globalization;
 
 namespace BookOnlineShop.Areas.Admin.Controllers
 {
@@ -23,9 +24,38 @@ namespace BookOnlineShop.Areas.Admin.Controllers
         }
 
         // GET: Admin/Orders
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string telephone,int status,int paymenttype,string paydate)
         {
-            return View(await _context.Orders.ToListAsync());
+          
+            var orders = await _context.Orders.ToListAsync();
+            if (!string.IsNullOrEmpty(telephone) || status != 0 || paymenttype != 0)
+            {
+               
+                orders = await _context.Orders.Where(b => b.Telephone.Contains(telephone)).Where(b => b.Status == status).Where(b => b.paymenttype == paymenttype).ToListAsync();
+            }
+            if (!string.IsNullOrEmpty(telephone))
+            {
+                orders = await _context.Orders.Where(b => b.Telephone.Contains(telephone)).ToListAsync();
+            }
+            if (status != 0)
+            {
+                orders = await _context.Orders.Where(b => b.Status == status).ToListAsync();
+            }
+              if (paymenttype != 0)
+            {
+                orders = await _context.Orders.Where(b => b.paymenttype == paymenttype).ToListAsync();
+            }
+            if (!string.IsNullOrEmpty(paydate))
+            {
+
+
+                orders = await _context.Orders.Where(b => b.CreateAt.Equals(DateTime.ParseExact(paydate, "dd/MM/yyyy", null).Date)).ToListAsync();
+
+            }
+
+
+
+            return View(orders);
         }
 
         // GET: Admin/Orders/Details/5
