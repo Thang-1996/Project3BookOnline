@@ -58,6 +58,10 @@ export default class Checkout extends Component {
             orders: orders,
             carts: cart,
         }
+        if (orders.Address == '') {
+            alert("Vui lòng nhập địa chỉ nhận hàng");
+            return;
+        }
         let grandTotal = 0;
         cart.forEach(item => {
             return grandTotal += item.quantity * item.product.price;
@@ -104,13 +108,13 @@ export default class Checkout extends Component {
                     <div className="container">
                         <div className="row">
                             <div className="col-12">
-                                    <div className="row">
-                                        <div className="col-lg-6 col-md-12 col-12">
-                                            <div className="checkbox-form">
-                                                <h3>Chi tiết hóa đơn</h3>
-                                                <div className="row">
-                                                    <div className="col-lg-12 col-md-12 col-12">
-                                                        <div className="checkout-form-list">
+                                <div className="row">
+                                    <div className="col-lg-6 col-md-12 col-12">
+                                        <div className="checkbox-form">
+                                            <h3>Chi tiết hóa đơn</h3>
+                                            <div className="row">
+                                                <div className="col-lg-12 col-md-12 col-12">
+                                                    <div className="checkout-form-list">
                                                         <label>Địa chỉ nhận hàng <span className="required">*</span></label>
                                                         <input onChange={this.handleOnChange} required value={orders.Address} name="Address" type="text" placeholder="Street address" />
                                                     </div>
@@ -121,20 +125,20 @@ export default class Checkout extends Component {
                                                     <div className="different-address">
                                                         <div className="order-notes">
                                                             <div className="checkout-form-list">
-                                                            <label>Ghi chú</label>
+                                                                <label>Ghi chú</label>
                                                                 <textarea onChange={this.handleOnChange} value={orders.OrderNote} name="OrderNote" placeholder="Ghi chú về đơn đặt hàng của bạn, ví dụ: Lưu ý đặc biệt để giao hàng." rows={10} cols={30} id="checkout-mess" defaultValue={""} />
 
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                </div>
-                                                        </div>
-                                                    </div>
-                                            
-                                         
-                                                   
-                          
-                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+
+                                    </div>
                                     <div className="col-lg-6 col-md-12 col-12">
                                         <div className="your-order">
                                             <h4>Đơn hàng của bạn</h4>
@@ -249,14 +253,13 @@ export default class Checkout extends Component {
                                             </div>
                                         </div>
                                     </div>
-                                            </div>
-                                        </div>
-                                 
-                                    </div>
+                                </div>
                             </div>
+
                         </div>
                     </div>
-            
+                </div>
+            </div>
         );
     }
 }

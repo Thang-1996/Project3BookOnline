@@ -36,11 +36,19 @@ namespace BookOnlineShop.Controllers.api
         public async Task<ActionResult<Products>> GetProducts(int id)
         {
             var products = await _context.Products
+<<<<<<< HEAD
                 .Include(ap => ap.AuthorProducts)
                 .ThenInclude(a => a.AuthorID)
                 .Include(pp => pp.PublisherProducts)
                 .ThenInclude(p => p.PublisherID)
                 .Where(p => p.ProductID == id).FirstOrDefaultAsync();
+=======
+              .Include(ap => ap.AuthorProducts)
+              .ThenInclude(a => a.AuthorID)
+              .Include(pp => pp.PublisherProducts)
+              .ThenInclude(p => p.PublisherID)
+              .Where(p => p.ProductID == id).FirstOrDefaultAsync();
+>>>>>>> c5889dfe8897c99eabd24d485d9aeb7e19ec689f
 
             if (products == null)
             {

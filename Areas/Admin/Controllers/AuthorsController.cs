@@ -10,7 +10,8 @@ using System.Threading.Tasks;
 namespace BookOnlineShop.Areas.Admin.Controllers
 {
     [Area("Admin")]
-/*    [Authorize(Roles = "Manager")]*/    
+    [Authorize(Roles = "ADMIN")]
+    /*    [Authorize(Roles = "Manager")]*/
     public class AuthorsController : Controller
     {
         private readonly ApplicationDbContext _context;

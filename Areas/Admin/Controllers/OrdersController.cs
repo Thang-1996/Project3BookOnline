@@ -7,10 +7,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BookOnlineShop.Data;
 using BookOnlineShop.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BookOnlineShop.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "ADMIN")]
     public class OrdersController : Controller
     {
         private readonly ApplicationDbContext _context;

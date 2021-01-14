@@ -1,6 +1,7 @@
 ﻿import React, { Component } from 'react';
 import CartProduct from './components/CartProduct';
 import { Link } from 'react-router-dom';
+import Adapter from '../Adapter';
 export default class Cart extends Component {
     constructor(props) {
         super(props);
@@ -105,7 +106,7 @@ export default class Cart extends Component {
                             </div>
                             <div className="col-lg-4 col-md-6 col-12">
                                 <div className="cart_totals">
-                                    <h2>Tổng: {total}</h2>
+                                    <h2>Tổng: {Adapter.format_money(total)}</h2>
                                     <div className="wc-proceed-to-checkout mtl-10">
                                         <Link to="/check-out">Đến trang thanh toán</Link>
                                     </div>

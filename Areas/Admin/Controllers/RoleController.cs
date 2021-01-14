@@ -1,4 +1,5 @@
 ﻿using BookOnlineShop.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 namespace BookOnlineShop.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "ADMIN")]
     public class RoleController : Controller
     {
    
