@@ -33,6 +33,7 @@ export default class App extends Component {
         let id = 0;
         API.get(Adapter.getProducts.url)
             .then(res => {
+                console.log(res.data);
                 this.setState({
                     products: res.data,
                 });

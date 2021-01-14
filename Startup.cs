@@ -94,7 +94,7 @@ namespace BookOnlineShop
                 endpoints.MapAreaControllerRoute(
                 name: "Admin",
                 areaName: "Admin",
-                pattern: "Admin/{controller=Home}/{action=Index}/{id?}");
+                pattern: "nhanphamteam/{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
