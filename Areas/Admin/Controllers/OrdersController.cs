@@ -26,13 +26,14 @@ namespace BookOnlineShop.Areas.Admin.Controllers
         // GET: Admin/Orders
         public async Task<IActionResult> Index(string telephone,int status,int paymenttype,string paydate)
         {
-          
-            var orders = await _context.Orders.ToListAsync();
-            if (!string.IsNullOrEmpty(telephone) || status != 0 || paymenttype != 0)
-            {
                
-                orders = await _context.Orders.Where(b => b.Telephone.Contains(telephone)).Where(b => b.Status == status).Where(b => b.paymenttype == paymenttype).ToListAsync();
-            }
+            var orders = await _context.Orders.OrderByDescending(b => b.Status == 1).OrderByDescending(b => b.CreateAt).ToListAsync();
+        /*    if (!string.IsNullOrEmpty(telephone) || status != 0 || paymenttype != 0 || !string.IsNullOrEmpty(paydate))
+            {
+                var date1 = paydate.Substring(0, 10);
+                var date2 = paydate.Substring(13);
+                orders = await _context.Orders.Where(b => b.Telephone.Contains(telephone) && b.Status == status && b.paymenttype == paymenttype && b.CreateAt > DateTime.ParseExact(date1, "dd/MM/yyyy", null) && b.CreateAt < DateTime.ParseExact(date2, "dd/MM/yyyy", null)).ToListAsync();
+            }*/
             if (!string.IsNullOrEmpty(telephone))
             {
                 orders = await _context.Orders.Where(b => b.Telephone.Contains(telephone)).ToListAsync();
@@ -45,13 +46,15 @@ namespace BookOnlineShop.Areas.Admin.Controllers
             {
                 orders = await _context.Orders.Where(b => b.paymenttype == paymenttype).ToListAsync();
             }
-            if (!string.IsNullOrEmpty(paydate))
+          /*  if (!string.IsNullOrEmpty(paydate))
             {
 
-
-                orders = await _context.Orders.Where(b => b.CreateAt.Equals(DateTime.ParseExact(paydate, "dd/MM/yyyy", null).Date)).ToListAsync();
-
-            }
+                var date1 = paydate.Substring(0, 10);
+                var date2 = paydate.Substring(13);
+               
+                  orders = await _context.Orders.Where(b => b.CreateAt > DateTime.ParseExact(date1, "dd/MM/yyyy", null) && b.CreateAt < DateTime.ParseExact(date2, "dd/MM/yyyy", null)).ToListAsync();
+     
+            }*/
 
 
 
