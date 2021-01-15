@@ -5,7 +5,7 @@ import 'owl.carousel/dist/assets/owl.theme.default.css';
 export class SliderHome extends Component {
     render() {
         return (
-            <div class='container-fluid' >
+            <div className='container-fluid' >
                 <OwlCarousel
                     className="owl-theme"
                     items={1}  autoplay={true}
