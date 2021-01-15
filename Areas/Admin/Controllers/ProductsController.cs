@@ -165,8 +165,8 @@ namespace BookOnlineShop.Areas.Admin.Controllers
                 PublishingTime = product.PublishingTime,
                 Reprinttimes = product.Reprinttimes,
                 CategoryID = product.CategoryID,
-                SelectedAuthor = product.AuthorProducts.Select(au => au.AuthorID).ToList(),
-                SelectedPublisher = product.PublisherProducts.Select(pp => pp.PublisherID).ToList()
+          /*      SelectedAuthor = product.AuthorProducts.Select(au => au.AuthorID).ToList(),
+                SelectedPublisher = product.PublisherProducts.Select(pp => pp.PublisherID).ToList()*/
             };
 
             if (product == null)
@@ -207,14 +207,14 @@ namespace BookOnlineShop.Areas.Admin.Controllers
                         Reprinttimes = model.Reprinttimes,
                         CategoryID = model.CategoryID,
                     };
-                  /*  foreach (var AuthorID in model.SelectedAuthor)
+                    foreach (var AuthorID in model.SelectedAuthor)
                     {
                         product.AuthorProducts.Add(new AuthorProducts { AuthorID = AuthorID });
                     }
                     foreach (var PublisherID in model.SelectedPublisher)
                     {
                         product.PublisherProducts.Add(new PublisherProducts { PublisherID = PublisherID });
-                    }*/
+                    }
                     _context.Update(product);
                     await _context.SaveChangesAsync();
                 }

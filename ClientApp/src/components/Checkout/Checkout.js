@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom';
 import Adapter from '../Adapter';
 import API from '../API';
 import { Link } from 'react-router-dom';
+import notification from '../../notification';
 export default class Checkout extends Component {
     constructor(props) {
         super(props);
@@ -37,6 +38,7 @@ export default class Checkout extends Component {
       
         this.setState({ orders: orders })
     }
+   
 
     static getDerivedStateFromProps(nextProps, prevState) {
         if (nextProps.cart !== prevState.cart) {
@@ -59,7 +61,7 @@ export default class Checkout extends Component {
             carts: cart,
         }
         if (orders.Address == '') {
-            alert("Vui lòng nhập địa chỉ nhận hàng");
+            notification('warning', 'Vui lòng điền địa chỉ giao hàng');
             return;
         }
         let grandTotal = 0;
@@ -72,7 +74,7 @@ export default class Checkout extends Component {
             .then(res => {
                 if (res.status == 200) {
                     localStorage.removeItem("cart");
-                    alert('Đặt hàng thành công!');
+                    notification('success', 'Đặt hàng thành công vui lòng kiểm tra email');
                     this.setState({ redirect: true })
                     this.props.cartState();
                 
@@ -259,6 +261,7 @@ export default class Checkout extends Component {
                         </div>
                     </div>
                 </div>
+        
             </div>
         );
     }

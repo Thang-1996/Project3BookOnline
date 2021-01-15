@@ -17,5 +17,8 @@ namespace BookOnlineShop.Models
 
         [Required]
         public string Password { get; set; }
+        public string address { get; set; }
+        public DateTime age { get; set; }
+        public string telephone { get; set; }
     }
 }
