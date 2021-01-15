@@ -4,8 +4,8 @@ import Adapter from '../Adapter';
 import { Link } from 'react-router-dom';
 import API from '../API';
 import Owldemo1 from '../OwlCarousel/OwlCarousel';
-
 class ProductDetail extends Component {
+    
     constructor(props) {
         super(props);
         this.state = {
@@ -14,10 +14,9 @@ class ProductDetail extends Component {
             product: null,
             quantity: 1
         };
-        
-   
         this.addToCart = this.addToCart.bind(this);
     }
+    
    async componentDidMount() {
        let products = this.state.products;
        let product = {};
@@ -38,13 +37,12 @@ class ProductDetail extends Component {
                     this.setState({
                         products: res.data,
                     });
-                    console.log(res.data)
             }).catch (err => {
 
            });
         } 
     }
-    static getDerivedStateFromProps(nextProps, prevState) {
+   static getDerivedStateFromProps(nextProps, prevState) {
         if (nextProps.products !== prevState.products || nextProps.cart !== prevState.cart) {
             return {
                 products: nextProps.products,
@@ -76,19 +74,18 @@ class ProductDetail extends Component {
                 if (cart[i].quantity < product.quantity) {
                    cart[i].quantity += Number(quantity);
                 } else {
-                    alert("Hàng trong kho không đủ");
+                    alert("Hàng trong kho không đủ")
                 }
                 count++;
             }
         }
         if (count === 0) {
             cart.push({ product: product, quantity: quantity });
-            alert("Thêm hàng vào giỏ thành công")
+            alert("Thêm thành công")
         }
 
         localStorage.setItem("cart", JSON.stringify(cart));
-
-
+      
         this.props.updateCartState();
     }
 
@@ -97,11 +94,8 @@ class ProductDetail extends Component {
         quantity < 1 ? quantity = 1 : quantity = event.target.value
         this.setState({quantity : quantity})
     }
-
     render() {
         const { product, products } = this.state;
-       /* console.log(product);
-        console.log(products)*/
         return (
             <div>
                 <div className="breadcrumbs-area mb-70">
@@ -137,8 +131,22 @@ class ProductDetail extends Component {
                                                 </div>
                                                 <div className="product-info-stock-sku">
                                                     <div className="product-attribute">
+                                                        {
+                                                            product ? product.authorProducts.map((e, index) => {
+                                                                return (
+                                                                    <span key={ index} className="value">Tác giả: { e.author.authorName }   |</span>
+                                                                    )
+                                                            }) : null
+                                                        }
+                                                        
                                                         <span>Tái bản lần {product ? product.reprinttimes : ""}</span>
-                                                        <span className="value">{product ? product.publisher : ""}</span>
+                                                        {
+                                                            product ? product.publisherProducts.map((e, index) => {
+                                                                return (
+                                                                    <span key={index} className="value">Nhà xuất bản: {e.publisher.publisherName}  |</span>
+                                                                )
+                                                            }) : null
+                                                        }
                                                     </div>
                                                 </div>
                                                 <div className="product-reviews-summary">
@@ -150,8 +158,8 @@ class ProductDetail extends Component {
                                                         <a href="#"><i className="fa fa-star" /></a>
                                                     </div>
                                                     <div className="reviews-actions">
-                                                        <a href="#">3 Reviews</a>
-                                                        <a href="#" className="view">Add Your Review</a>
+                                                        <a href="#">3 Reviews    |</a>
+                                                        <a href="#">   Đánh giá</a>
                                                     </div>
                                                 </div>
                                                 <div className="product-info-price">
@@ -170,8 +178,6 @@ class ProductDetail extends Component {
                                                 <div className="product-social-links">
                                                     <div className="product-addto-links">
                                                         <a href="#"><i className="fa fa-heart" /></a>
-                                                        <a href="#"><i className="fa fa-pie-chart" /></a>
-                                                        <a href="#"><i className="fa fa-envelope-o" /></a>
                                                     </div>
                                                     <div className="product-addto-links-text">
                                                         <p>Bạn hãy NHẬP ĐỊA CHỈ nhận hàng để được dự báo thời gian & chi phí giao hàng một cách chính xác nhất. </p>
@@ -184,8 +190,8 @@ class ProductDetail extends Component {
                                 <div className="product-info-area mt-80">
                            
                                     <ul className="nav">
-                                        <li><a className="active" href="#Details" data-toggle="tab">Details</a></li>
-                                        <li><a href="#Reviews" data-toggle="tab">Reviews 3</a></li>
+                                        <li><a className="active" href="#Details" data-toggle="tab">Mô tả sách</a></li>
+                                        <li><a href="#Reviews" data-toggle="tab">Đánh giá</a></li>
                                     </ul>
                                     <div className="tab-content">
                                         <div className="tab-pane fade show active" id="Details">
@@ -196,85 +202,15 @@ class ProductDetail extends Component {
                                         <div className="tab-pane fade" id="Reviews">
                                             <div className="valu valu-2">
                                                 <div className="section-title mb-60 mt-60">
-                                                    <h2>Customer Reviews</h2>
+                                                    <h2>Khách hàng đánh giá</h2>
                                                 </div>
-                                                <ul>
-                                                    <li>
-                                                        <div className="review-title">
-                                                            <h3>themes</h3>
-                                                        </div>
-                                                        <div className="review-left">
-                                                            <div className="review-rating">
-                                                                <span>Price</span>
-                                                                <div className="rating-result">
-                                                                    <a href="#"><i className="fa fa-star" /></a>
-                                                                    <a href="#"><i className="fa fa-star" /></a>
-                                                                    <a href="#"><i className="fa fa-star" /></a>
-                                                                    <a href="#"><i className="fa fa-star" /></a>
-                                                                    <a href="#"><i className="fa fa-star" /></a>
-                                                                </div>
-                                                            </div>
-                                                            <div className="review-rating">
-                                                                <span>Value</span>
-                                                                <div className="rating-result">
-                                                                    <a href="#"><i className="fa fa-star" /></a>
-                                                                    <a href="#"><i className="fa fa-star" /></a>
-                                                                    <a href="#"><i className="fa fa-star" /></a>
-                                                                    <a href="#"><i className="fa fa-star" /></a>
-                                                                    <a href="#"><i className="fa fa-star" /></a>
-                                                                </div>
-                                                            </div>
-                                                            <div className="review-rating">
-                                                                <span>Quality</span>
-                                                                <div className="rating-result">
-                                                                    <a href="#"><i className="fa fa-star" /></a>
-                                                                    <a href="#"><i className="fa fa-star" /></a>
-                                                                    <a href="#"><i className="fa fa-star" /></a>
-                                                                    <a href="#"><i className="fa fa-star" /></a>
-                                                                    <a href="#"><i className="fa fa-star" /></a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div className="review-right">
-                                                            <div className="review-content">
-                                                                <h4>themes </h4>
-                                                            </div>
-                                                            <div className="review-details">
-                                                                <p className="review-author">Review by<a href="#">plaza</a></p>
-                                                                <p className="review-date">Posted on <span>12/9/16</span></p>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                </ul>
                                                 <div className="review-add">
-                                                    <h3>You're reviewing:</h3>
-                                                    <h4>Joust Duffle Bag</h4>
+                                                    <h4>Sản phẩm: {product ? product.productName : ""}</h4>
                                                 </div>
                                                 <div className="review-field-ratings">
-                                                    <span>Your Rating <sup>*</sup></span>
+                                                    <span>Đánh giá của bạn<sup>*</sup></span>
                                                     <div className="control">
                                                         <div className="single-control">
-                                                            <span>Value</span>
-                                                            <div className="review-control-vote">
-                                                                <a href="#"><i className="fa fa-star" /></a>
-                                                                <a href="#"><i className="fa fa-star" /></a>
-                                                                <a href="#"><i className="fa fa-star" /></a>
-                                                                <a href="#"><i className="fa fa-star" /></a>
-                                                                <a href="#"><i className="fa fa-star" /></a>
-                                                            </div>
-                                                        </div>
-                                                        <div className="single-control">
-                                                            <span>Quality</span>
-                                                            <div className="review-control-vote">
-                                                                <a href="#"><i className="fa fa-star" /></a>
-                                                                <a href="#"><i className="fa fa-star" /></a>
-                                                                <a href="#"><i className="fa fa-star" /></a>
-                                                                <a href="#"><i className="fa fa-star" /></a>
-                                                                <a href="#"><i className="fa fa-star" /></a>
-                                                            </div>
-                                                        </div>
-                                                        <div className="single-control">
-                                                            <span>Price</span>
                                                             <div className="review-control-vote">
                                                                 <a href="#"><i className="fa fa-star" /></a>
                                                                 <a href="#"><i className="fa fa-star" /></a>
@@ -287,33 +223,19 @@ class ProductDetail extends Component {
                                                 </div>
                                                 <div className="review-form">
                                                     <div className="single-form">
-                                                        <label>Nickname <sup>*</sup></label>
-                                                        <form action="#">
-                                                            <input type="text" />
-                                                        </form>
-                                                    </div>
-                                                    <div className="single-form single-form-2">
-                                                        <label>Summary <sup>*</sup></label>
-                                                        <form action="#">
-                                                            <input type="text" />
-                                                        </form>
-                                                    </div>
-                                                    <div className="single-form">
                                                         <label>Review <sup>*</sup></label>
                                                         <form action="#">
                                                             <textarea name="massage" cols={10} rows={4} defaultValue={""} />
                                                         </form>
                                                     </div>
                                                 </div>
-                                                <div className="review-form-button">
-                                                    <a href="#">Submit Review</a>
-                                                </div>
+                                                <button className="btn btn-primary">Gửi đánh giá</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="new-book-area mt-60">
-                                    <Owldemo1/>
+                                <div className="new-book-area mt-60">
+                                    <Owldemo1 products={this.state.products} />
                                 </div>
                             </div>
                             <div className="col-lg-3 col-md-12 col-12 order-lg-2 order-2">

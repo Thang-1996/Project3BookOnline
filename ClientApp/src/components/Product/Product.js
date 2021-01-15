@@ -94,7 +94,6 @@ export default class Product extends Component {
             default:
                 break;
         }
-        console.log(products)
         this.setState({
             products: products,
         })

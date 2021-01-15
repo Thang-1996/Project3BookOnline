@@ -33,7 +33,6 @@ export default class App extends Component {
         let id = 0;
         API.get(Adapter.getProducts.url)
             .then(res => {
-                console.log(res.data);
                 this.setState({
                     products: res.data,
                 });
@@ -65,7 +64,6 @@ export default class App extends Component {
             this.setState({
                 orders : res.data
             })
-            console.log(res.data)
             }).catch(err => {
 
             });
@@ -84,7 +82,7 @@ export default class App extends Component {
         const cart = this.state.cart;
     return (
         <Layout cart={cart}>
-            <Route exact path='/' component={Home} />
+            <Route exact path='/' component={() => <Home products={products} />} />
             <Route exact path='/product' component={() => <Product categories={categories} updateCartState={this.updateCartState} cart={cart} products={products} />} />
             <Route path='/product/:id' component={() => <ProductDetail products={products} updateCartState={this.updateCartState} cart={cart} />} />
             <Route exact path='/cart' component={() => <Cart updateCartState={this.updateCartState} cart={cart}/>} />
