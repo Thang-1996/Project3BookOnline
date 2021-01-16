@@ -1,9 +1,30 @@
 ﻿import React, { Component } from 'react';
-import Owldemo1 from './OwlCarousel/OwlCarousel';
 import { SliderHome } from './OwlCarousel/SliderHome';
+import CarouselHome from './OwlCarousel/CarouselHome';
 
 export class Home extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            products: props.products,
+        };
+    }
+    static getDerivedStateFromProps(nextProps, prevState) {
+        if (nextProps.products !== prevState.products) {
+            return {
+                products: nextProps.products,
+            };
+        }
+        return null;;
+    }
 
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.products !== this.props.products) {
+            this.setState({
+                products: this.props.products,
+            });
+        }
+    }
 
   render () {
     return (
@@ -99,7 +120,7 @@ export class Home extends Component {
                             </div>
                         </div>
                         <div className="col-lg-12">
-                            <Owldemo1 />
+                            <CarouselHome products={ this.state.products}/>
                         </div>
                     </div>
                  

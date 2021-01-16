@@ -2,11 +2,13 @@
 import CartProduct from './components/CartProduct';
 import { Link } from 'react-router-dom';
 import Adapter from '../Adapter';
+import Loading from '../isLoading';
 export default class Cart extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            cart: props.cart
+            cart: props.cart,
+            isLoading: false,
         };
         this.updateCartState = this.updateCartState.bind(this);
     }
@@ -115,6 +117,7 @@ export default class Cart extends Component {
                         </div>
                     </div>
                 </div>
+                <Loading isLoading={this.state.isLoading} />
             </div>
             );
     }

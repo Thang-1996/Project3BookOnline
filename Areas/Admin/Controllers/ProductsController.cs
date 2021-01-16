@@ -165,8 +165,8 @@ namespace BookOnlineShop.Areas.Admin.Controllers
                 PublishingTime = product.PublishingTime,
                 Reprinttimes = product.Reprinttimes,
                 CategoryID = product.CategoryID,
-                SelectedAuthor = product.AuthorProducts.Select(au => au.AuthorID).ToList(),
-                SelectedPublisher = product.PublisherProducts.Select(pp => pp.PublisherID).ToList()
+          /*      SelectedAuthor = product.AuthorProducts.Select(au => au.AuthorID).ToList(),
+                SelectedPublisher = product.PublisherProducts.Select(pp => pp.PublisherID).ToList()*/
             };
 
             if (product == null)

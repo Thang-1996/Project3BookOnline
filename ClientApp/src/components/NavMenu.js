@@ -1,15 +1,11 @@
 ﻿import React, { Component } from 'react';
-import { Container} from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { LoginMenu } from './api-authorization/LoginMenu';
 import Adapter from './Adapter';
-
 export class NavMenu extends Component {
-  static displayName = NavMenu.name;
-
-   
-  constructor (props) {
-    super(props);
+    static displayName = NavMenu.name;
+    constructor(props) {
+      super(props);
         this.toggleNavbar = this.toggleNavbar.bind(this);
         this.state = {
             collapsed: true,
@@ -72,12 +68,12 @@ export class NavMenu extends Component {
         this.setState({ cart: cart });
 
     }
-
     render() {
         const { cart } = this.state;
         let total = 0;
       return (
           <header>
+            
               <div className="header-top-area" style={{ backgroundColor: "white!importan" }}>
                   <div className="container">
                       <div className="row">

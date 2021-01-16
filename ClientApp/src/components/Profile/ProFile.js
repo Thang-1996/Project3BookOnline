@@ -7,6 +7,14 @@ export default class ProFile extends Component {
         let orders = props.orders;
         this.state = {
             currentUser: props.currentUser,
+            user: {
+                name: '',
+                address: '',
+                telephone: '',
+                email: '',
+                currenpassword : '',
+                newpassword: '',
+            },
             orders: orders,
             order: orders.length !== 0 ? orders[0] : null,
         };
@@ -19,6 +27,13 @@ export default class ProFile extends Component {
             };
         }
         return null;
+    }
+    changeValue = (event) => {
+        let user = this.state.user;
+        let nameValue = event.target.name;
+        user[nameValue] = event.target.value;
+        this.setState({ user: user });
+
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -54,6 +69,7 @@ export default class ProFile extends Component {
     }
     render() {
         const { currentUser, orders, order } = this.state;
+        console.log(currentUser);
         let total = 0;
         return (
             <div>
@@ -150,31 +166,34 @@ export default class ProFile extends Component {
                                                                 <form action="#">
                                                                     <div className="single-input-item">
                                                                         <label htmlFor="display-name" className="required">Tên </label>
-                                                                        <input type="text" name="userName" defaultValue={currentUser ? currentUser.userName : "" } id="display-name" placeholder="Display Name" />
+                                                                        <input type="text" onChange={ this.changeValue} name="name" id="display-name" placeholder="Display Name" />
                                                                     </div>
                                                                     <div className="single-input-item">
                                                                         <label htmlFor="email" className="required">Email</label>
-                                                                        <input type="email" defaultValue={currentUser ? currentUser.userName : "" } id="email" placeholder="Email Address" />
+                                                                        <input type="email" onChange={this.changeValue} name="email"  id="email" placeholder="Email Address" />
+                                                                    </div>
+                                                                    <div className="single-input-item">
+                                                                        <label htmlFor="email" className="required">Địa chỉ: </label>
+                                                                        <input type="text" onChange={this.changeValue} name="address"  id="email" placeholder="Email Address" />
+                                                                    </div>
+                                                                    <div className="single-input-item">
+                                                                        <label htmlFor="email" className="required">Số điện thoại: </label>
+                                                                        <input type="text" onChange={this.changeValue} name="telephone" id="email" placeholder="Email Address" />
                                                                     </div>
                                                                     <fieldset>
                                                                         <legend>Password change</legend>
                                                                         <div className="single-input-item">
                                                                             <label htmlFor="current-pwd" className="required">Mật khẩu hiện tại</label>
-                                                                            <input type="password" id="current-pwd" placeholder="Mật khẩu hiện tại" />
+                                                                            <input type="password" defaultValue={currentUser ? currentUser.passwordHash : ''} placeholder="Mật khẩu hiện tại" />
                                                                         </div>
                                                                         <div className="row">
-                                                                            <div className="col-lg-6">
+                                                                            <div className="col-lg-12">
                                                                                 <div className="single-input-item">
                                                                                     <label htmlFor="new-pwd" className="required">Mật khẩu mới</label>
-                                                                                    <input type="password" id="new-pwd" placeholder="Mật khẩu mới" />
+                                                                                    <input type="password" onChange={this.changeValue} id="new-pwd" placeholder="Mật khẩu mới" />
                                                                                 </div>
                                                                             </div>
-                                                                            <div className="col-lg-6">
-                                                                                <div className="single-input-item">
-                                                                                    <label htmlFor="confirm-pwd" className="required">Xác nhận</label>
-                                                                                    <input type="password" id="confirm-pwd" placeholder="Xác nhận lại mật khẩu" />
-                                                                                </div>
-                                                                            </div>
+                                                                       
                                                                         </div>
                                                                     </fieldset>
                                                                     <div className="single-input-item">
@@ -193,9 +212,9 @@ export default class ProFile extends Component {
                         </div>
                     </div>
                 </div>
-                <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content p-5">
+                <div className="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                    <div className="modal-dialog modal-lg">
+                        <div className="modal-content p-5">
                             <table className="table">
                                 <thead>
                                     <tr>

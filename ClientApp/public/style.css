@@ -52,9 +52,15 @@
 /*-------------------------------------------------------------*/
 
 /* google-font */
+<<<<<<< HEAD
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800|Rufina:400,700');
 * {
     padding: 0, margin: 0
+=======
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800|Roboto:400,700');
+*{
+    font-family: 'Roboto', serif;
+>>>>>>> 8e11673c87646d2a7a12442863068b2ce2905247
 }
 html,
 body {
