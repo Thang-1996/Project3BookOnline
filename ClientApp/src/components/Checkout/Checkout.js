@@ -4,6 +4,7 @@ import Adapter from '../Adapter';
 import API from '../API';
 import { Link } from 'react-router-dom';
 import notification from '../../notification';
+import Loading from '../isLoading';
 export default class Checkout extends Component {
     constructor(props) {
         super(props);
@@ -23,6 +24,7 @@ export default class Checkout extends Component {
             cart: props.cart,
             currentUser: props.currentUser,
             redirect: false,
+            isLoading: false
         };
         this.checkOut = this.checkOut.bind(this);
         
@@ -54,6 +56,9 @@ export default class Checkout extends Component {
         }
     }
     checkOut() {
+        this.setState({
+            isLoading: true,
+        });
         let cart = this.state.cart;
         let orders = this.state.orders;
         let payment = {
@@ -61,7 +66,11 @@ export default class Checkout extends Component {
             carts: cart,
         }
         if (orders.Address == '') {
+            this.setState({
+                isLoading: false,
+            });
             notification('warning', 'Vui lòng điền địa chỉ giao hàng');
+
             return;
         }
         let grandTotal = 0;
@@ -82,6 +91,9 @@ export default class Checkout extends Component {
             }).catch(err => {
                
             });
+        this.setState({
+            isLoading: false,
+        });
     }
     render() {
         const { cart, currentUser, orders, redirect } = this.state;
@@ -261,7 +273,7 @@ export default class Checkout extends Component {
                         </div>
                     </div>
                 </div>
-        
+                <Loading isLoading={this.state.isLoading} />
             </div>
         );
     }

@@ -12,6 +12,7 @@ import API from './components/API';
 import Checkout from './components/Checkout/Checkout';
 import ProFile from './components/Profile/ProFile';
 import ProductDetail from './components/ProductDetail/ProductDetail';
+import Loading from './components/isLoading';
 
 export default class App extends Component {
     static displayName = App.name;
@@ -26,10 +27,14 @@ export default class App extends Component {
             currentUser: null,
             categories: [],
             orders: [],
+            isLoading: false,
         };
         this.updateCartState = this.updateCartState.bind(this);
     }
     async componentDidMount() {
+        this.setState({
+            isLoading: true,
+        })
         let id = 0;
         API.get(Adapter.getProducts.url)
             .then(res => {
@@ -67,6 +72,9 @@ export default class App extends Component {
             }).catch(err => {
 
             });
+        this.setState({
+            isLoading: false,
+        })
     }
  
     updateCartState() {
@@ -90,6 +98,7 @@ export default class App extends Component {
             <AuthorizeRoute path='/profile' component={() => <ProFile currentUser={currentUser} orders={orders} />} />
 
             <Route path={ApplicationPaths.ApiAuthorizationPrefix} component={ApiAuthorizationRoutes} />
+            <Loading isLoading={this.state.isLoading} />
       </Layout>
     );
   }
