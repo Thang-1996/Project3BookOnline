@@ -60,6 +60,13 @@
         },
         method: "GET"
     },
+    saveChangeUser: {
+        url: "api/Payment/saveChangeUser",
+        params: {
+
+        },
+        method :"POST",
+    }
     
     
 };

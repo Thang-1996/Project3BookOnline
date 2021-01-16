@@ -30,6 +30,7 @@ export default class App extends Component {
             isLoading: false,
         };
         this.updateCartState = this.updateCartState.bind(this);
+        this.updateUser = this.updateUser.bind(this);
     }
     async componentDidMount() {
         this.setState({
@@ -84,6 +85,9 @@ export default class App extends Component {
 
         this.setState({ cart: cart });
     }
+    updateUser(e) {
+        this.setState({ currentUser : e })
+    }
    
     render() {
         const { products, currentUser, categories, orders } = this.state;
@@ -95,7 +99,7 @@ export default class App extends Component {
             <Route path='/product/:id' component={() => <ProductDetail products={products} updateCartState={this.updateCartState} cart={cart} />} />
             <Route exact path='/cart' component={() => <Cart updateCartState={this.updateCartState} cart={cart}/>} />
             <AuthorizeRoute path='/check-out' component={() => <Checkout currentUser={currentUser} cartState={this.updateCartState} cart={cart} />} />
-            <AuthorizeRoute path='/profile' component={() => <ProFile currentUser={currentUser} orders={orders} />} />
+            <AuthorizeRoute path='/profile' component={() => <ProFile currentUser={currentUser} updateUser={this.updateUser} orders={orders} />} />
 
             <Route path={ApplicationPaths.ApiAuthorizationPrefix} component={ApiAuthorizationRoutes} />
             <Loading isLoading={this.state.isLoading} />
