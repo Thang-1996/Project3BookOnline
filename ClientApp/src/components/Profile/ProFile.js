@@ -1,22 +1,17 @@
 ﻿import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+import notification from '../../notification';
 import Adapter from '../Adapter';
+import API from '../API';
 export default class ProFile extends Component {
     constructor(props) {
         super(props);
         let orders = props.orders;
         this.state = {
             currentUser: props.currentUser,
-            user: {
-                name: '',
-                address: '',
-                telephone: '',
-                email: '',
-                currenpassword : '',
-                newpassword: '',
-            },
             orders: orders,
             order: orders.length !== 0 ? orders[0] : null,
+            redirect: false,
         };
     }
     static getDerivedStateFromProps(nextProps, prevState) {
@@ -29,11 +24,28 @@ export default class ProFile extends Component {
         return null;
     }
     changeValue = (event) => {
-        let user = this.state.user;
+        let currentUser = this.state.currentUser;
+       
         let nameValue = event.target.name;
-        user[nameValue] = event.target.value;
-        this.setState({ user: user });
+        currentUser[nameValue] = event.target.value;
+        this.setState({ currentUser: currentUser });
+     
 
+    }
+    saveChangeUser = async (event) => {
+        event.preventDefault();
+        let currentUser = this.state.currentUser;
+
+        await API.post(Adapter.saveChangeUser.url, currentUser)
+            .then(res => {
+                notification('success', 'Cập nhật thông tin cá nhân thành công');
+                this.setState({ redirect: true })
+                this.props.updateUser(res.data);
+      
+               
+            }).catch(err => {
+
+            })
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -68,9 +80,12 @@ export default class ProFile extends Component {
         return statusResult;
     }
     render() {
-        const { currentUser, orders, order } = this.state;
+        const { currentUser, orders, order, redirect } = this.state;
         console.log(currentUser);
         let total = 0;
+        if (redirect) {
+            return <Redirect to='/profile' />;
+        }
         return (
             <div>
                 <div className="breadcrumbs-area mb-70">
@@ -100,7 +115,7 @@ export default class ProFile extends Component {
                                             <div className="col-lg-3 col-md-4">
                                                 <div className="myaccount-tab-menu nav" role="tablist">
                                                     <a href="#orders" data-toggle="tab"><i className="fa fa-cart-arrow-down" />Đơn hàng</a>
-                                                    <a href="#address-edit" data-toggle="tab"><i className="fa fa-map-marker" />Địa chỉ</a>                                              
+                                                                                             
                                                     
                                                     <a href="#account-info" data-toggle="tab"><i className="fa fa-user" />Thông tin cá nhân</a>
                                                     <a href="/authentication/logout"><i className="fa fa-sign-out" /> Đăng xuất</a>
@@ -126,7 +141,7 @@ export default class ProFile extends Component {
                                                                     <tbody>
                                                                         {
                                                                             orders ? orders.map((e, index) => {
-                                                                                console.log(e)
+                                                                     
                                                                                 return (
                                                                                     <tr key={ index}>
                                                                                         <td>{ ++index }</td>
@@ -134,7 +149,7 @@ export default class ProFile extends Component {
                                                                                         <td>{this.checkStatusOrder(e.status)}</td>
                                                                                         <td>{Adapter.format_money(e.grandTotal)}</td>
                                                                                         <td>
-                                                                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg" onClick={ this.orderDetails.bind(this, e)}>Chi tiết</button>
+                                                                                            <button type="button" className="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg" onClick={this.orderDetails.bind(this, e)}>Chi tiết</button>
                                                                                         </td>
                                                                                     </tr>
                                                                                 )
@@ -146,19 +161,7 @@ export default class ProFile extends Component {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div className="tab-pane fade" id="address-edit" role="tabpanel">
-                                                        <div className="myaccount-content">
-                                                            <h5>Địa chỉ</h5>
-                                                            <address>
-                                                                <p><strong>{currentUser ? currentUser.userName : ""}</strong></p>
-                                                                <p>1355 Market St, Suite 900 <br />
-                                  San Francisco, CA 94103</p>
-                                                                <p>Số điện thoại: {currentUser ? currentUser.phoneNumber : "" }</p>
-                                                            </address>
-                                                            <a href="#" className="btn btn-sqr"><i className="fa fa-edit" />
-                                Thay đổi địa chỉ</a>
-                                                        </div>
-                                                    </div>
+                                           
                                                     <div className="tab-pane fade" id="account-info" role="tabpanel">
                                                         <div className="myaccount-content">
                                                             <h5>Thông tin cá nhân</h5>
@@ -166,38 +169,38 @@ export default class ProFile extends Component {
                                                                 <form action="#">
                                                                     <div className="single-input-item">
                                                                         <label htmlFor="display-name" className="required">Tên </label>
-                                                                        <input type="text" onChange={ this.changeValue} name="name" id="display-name" placeholder="Display Name" />
+                                                                        <input type="text" value={(currentUser ? currentUser.userName : '') || ''} onChange={this.changeValue} name="userName"  placeholder="Tên tài khoản" />
                                                                     </div>
                                                                     <div className="single-input-item">
                                                                         <label htmlFor="email" className="required">Email</label>
-                                                                        <input type="email" onChange={this.changeValue} name="email"  id="email" placeholder="Email Address" />
+                                                                        <input type="email" value={(currentUser ? currentUser.email : '') || ''} onChange={this.changeValue} name="email"  placeholder="Địa chỉ email" />
                                                                     </div>
                                                                     <div className="single-input-item">
                                                                         <label htmlFor="email" className="required">Địa chỉ: </label>
-                                                                        <input type="text" onChange={this.changeValue} name="address"  id="email" placeholder="Email Address" />
+                                                                        <input type="text" value={(currentUser ? currentUser.address : '') || ''} onChange={this.changeValue} name="address"  placeholder="Địa chỉ" />
                                                                     </div>
                                                                     <div className="single-input-item">
                                                                         <label htmlFor="email" className="required">Số điện thoại: </label>
-                                                                        <input type="text" onChange={this.changeValue} name="telephone" id="email" placeholder="Email Address" />
+                                                                        <input type="text" value={(currentUser ? currentUser.phoneNumber : '') || ''} onChange={this.changeValue} name="phoneNumber" placeholder="Số điện thoại" />
                                                                     </div>
                                                                     <fieldset>
                                                                         <legend>Password change</legend>
                                                                         <div className="single-input-item">
                                                                             <label htmlFor="current-pwd" className="required">Mật khẩu hiện tại</label>
-                                                                            <input type="password" defaultValue={currentUser ? currentUser.passwordHash : ''} placeholder="Mật khẩu hiện tại" />
+                                                                            <input type="password" readOnly={ true} defaultValue={currentUser ? currentUser.passwordHash : ''} placeholder="Mật khẩu hiện tại" />
                                                                         </div>
                                                                         <div className="row">
                                                                             <div className="col-lg-12">
                                                                                 <div className="single-input-item">
                                                                                     <label htmlFor="new-pwd" className="required">Mật khẩu mới</label>
-                                                                                    <input type="password" onChange={this.changeValue} id="new-pwd" placeholder="Mật khẩu mới" />
+                                                                                    <input type="password" name="passwordHash" value={(currentUser ? currentUser.passwordHash : '') || ''} onChange={this.changeValue} placeholder="Mật khẩu mới" />
                                                                                 </div>
                                                                             </div>
                                                                        
                                                                         </div>
                                                                     </fieldset>
                                                                     <div className="single-input-item">
-                                                                        <button className="btn btn-sqr">Lưu</button>
+                                                                        <button type="submit" onClick={this.saveChangeUser} className="btn btn-sqr">Lưu</button>
                                                                     </div>
                                                                 </form>
                                                             </div>
@@ -212,7 +215,7 @@ export default class ProFile extends Component {
                         </div>
                     </div>
                 </div>
-                <div className="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                <div className="modal fade bd-example-modal-lg" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                     <div className="modal-dialog modal-lg">
                         <div className="modal-content p-5">
                             <table className="table">

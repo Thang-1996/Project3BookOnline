@@ -19,12 +19,14 @@ namespace BookOnlineShop.Controllers.api
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ApplicationDbContext _context;
-        public PaymentController(UserManager<ApplicationUser> userManager, ApplicationDbContext context)
+        private IPasswordHasher<ApplicationUser> passwordHasher;
+        public PaymentController(UserManager<ApplicationUser> userManager, ApplicationDbContext context, IPasswordHasher<ApplicationUser> passwordHash)
         {
     
             _userManager = userManager;
             _context = context;
-   
+            passwordHasher = passwordHash;
+
         }
         // GET: api/<PaymentController>
         [HttpGet]
@@ -101,6 +103,49 @@ namespace BookOnlineShop.Controllers.api
             }
             await _context.SaveChangesAsync();
             return Ok();
+        }
+        [HttpPost]
+        [ActionName("saveChangeUser")]
+        public async Task<ActionResult<ApplicationUser>> saveChangeUser(ApplicationUser user)
+        {
+            Console.WriteLine(user.Address);
+
+            ApplicationUser us = await _userManager.FindByIdAsync(user.Id);
+            if(user != null)
+            {
+                    if (!string.IsNullOrEmpty(user.Email))
+                    {
+                    us.Email = user.Email;
+                    us.NormalizedEmail = user.Email;
+
+                    }
+                if (!string.IsNullOrEmpty(user.Address))
+                {
+                    us.Address = user.Address;
+
+                }
+                if (!string.IsNullOrEmpty(user.UserName))
+                {
+                    us.UserName = user.UserName;
+                    us.NormalizedUserName = user.NormalizedUserName;
+                }
+                if (!string.IsNullOrEmpty(user.PasswordHash) && !us.PasswordHash.Equals(user.PasswordHash))
+                {
+                    us.PasswordHash = passwordHasher.HashPassword(us, user.PasswordHash);
+                }
+                if (!string.IsNullOrEmpty(user.PhoneNumber))
+                {
+                    us.PhoneNumber = user.PhoneNumber;
+                }
+                IdentityResult result = await _userManager.UpdateAsync(us);
+                if (result.Succeeded)
+                {
+                    return user;
+                }
+             
+            }
+            return NotFound();
+
         }
 
     }
