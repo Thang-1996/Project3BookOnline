@@ -139,7 +139,7 @@ class ProductDetail extends Component {
                                                             }) : null
                                                         }
                                                         
-                                                        <span>Tái bản lần {product ? product.reprinttimes : ""}</span>
+                                                        <span>Tái bản lần {product ? product.reprinttimes : ""} |</span>
                                                         {
                                                             product ? product.publisherProducts.map((e, index) => {
                                                                 return (
@@ -185,6 +185,48 @@ class ProductDetail extends Component {
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+                                <div className="left">
+                                    <h4 className="BlockTitle__Wrapper-qpz3fo-0 jHTCJn">Thông tin chi tiết</h4>
+                                    <div class="group">
+                                    <div className="content has-table" >
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td>Công ty phát hành</td><td>Nhã Nam</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Ngày xuất bản</td>
+                                                <td>08-2017</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Kích thước</td>
+                                                <td>14 x 20.5 cm</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Dịch Giả</td>
+                                                <td>Phan Thu Vân</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Loại bìa</td>
+                                                <td>Bìa mềm</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Số trang</td>
+                                                <td>432</td>
+                                            </tr>
+                                            <tr>
+                                                <td>SKU</td>
+                                                <td>2435793318144</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Nhà xuất bản</td>
+                                                <td>Nhà Xuất Bản Thế Giới</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    </div>
                                     </div>
                                 </div>
                                 <div className="product-info-area mt-80">
