@@ -10,10 +10,10 @@ export class SliderHome extends Component {
                     className="owl-theme"
                     items={1}  autoplay={true}
                 >
-                    <div ><img className="img" src={'/images/logo.png'} /></div>
-                    <div ><img className="img" src={'/images/logo.png'} /></div>
-                    <div ><img className="img" src={'/images/logo.png'} /></div>
-                    <div ><img className="img" src={'/images/logo.png'} /></div>
+                    <div ><img className="img" src={'/img/banner/banner2.jpg'} /></div>
+                    <div ><img className="img" src={'/img/banner/banner2.jpg'} /></div>
+                    <div ><img className="img" src={'/img/banner/banner2.jpg'} /></div>
+                    <div ><img className="img" src={'/img/banner/banner2.jpg'} /></div>
                 </OwlCarousel>
             </div>
         )

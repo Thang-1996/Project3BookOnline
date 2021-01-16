@@ -21,8 +21,8 @@ export class Home extends Component {
                                             <span className="sale1">-20%</span>
                                             <span className="sale2">
                                                 <strong>£80.00</strong>
-                          £60.00
-                        </span>
+                                          £60.00
+                                        </span>
                                         </p>
                                         <a href="#">Shop now!</a>
                                     </div>
@@ -40,8 +40,8 @@ export class Home extends Component {
                                             <span className="sale1">-20%</span>
                                             <span className="sale2">
                                                 <strong>£80.00</strong>
-                          £60.00
-                        </span>
+                                              £60.00
+                                            </span>
                                         </p>
                                         <a href="#">Shop now!</a>
                                     </div>

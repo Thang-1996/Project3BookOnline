@@ -53,7 +53,9 @@
 
 /* google-font */
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800|Rufina:400,700');
-
+* {
+    padding: 0, margin: 0
+}
 html,
 body {
     height: 100%;
@@ -62,7 +64,7 @@ body {
     background: #ffffff!important;
 }
 .header-bottom-area {
-    background: #f8f7f7 !important;
+    background: #bde8ef !important;
 }
 .floatleft {
     float: left;
@@ -2773,7 +2775,7 @@ a#scrollUp:hover {
     border-radius: 4px;
     color: #333;
     font-size: 14px;
-    height: 47px;
+    height: 40px;
     line-height: 40px;
     margin: 0;
     padding-left: 233px;
@@ -2789,10 +2791,10 @@ a#scrollUp:hover {
     color: #fff;
     display: inline-block;
     font-size: 18px;
-    height: 47px;
+    height: 40px;
     line-height: 44px;
     text-align: center;
-    width: 47px;
+    width: 43px;
     position: absolute;
     right: 0;
     top: 0;

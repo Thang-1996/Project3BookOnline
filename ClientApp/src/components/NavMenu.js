@@ -98,7 +98,7 @@ export class NavMenu extends Component {
                       <div className="row">
                           <div className="col-lg-3 col-md-6 col-12">
                               <div className="logo-area logo-xs-mrg-bottom">
-                                  <Link to="/"><img style={{ width: "230px", position: "absolute", top: "-92px", marginLeft:"-50px" }} src="/images/logo.jpg" /></Link>
+                                  <Link to="/"><img style={{ width: "230px", position: "absolute", top: "-89px", marginLeft:"-50px" }} src="/images/logo1.png" /></Link>
                               </div>
                           </div>
                           <div className="col-lg-6">
@@ -149,11 +149,11 @@ export class NavMenu extends Component {
                       </div>
                   </div>
               </div>
-              <div className="header-bottom-area mb-3 mt-5" style={{ backgroundColor: "f8f7f7", fontSize: "18px" }}>
+              <div className="header-bottom-area mb-3 " style={{ backgroundColor: "f8f7f7", fontSize: "18px", marginTop: "0rem!important"}}>
                   <div className="container">
                       <div className="row">
                           <div className="col-lg-12 col-md-12">
-                              <nav className="navbar navbar-expand-lg navbar-light " style={{ backgroundColor: "f8f7f7", fontSize: "18px" }}>
+                              <nav className="navbar navbar-expand-lg navbar-light " style={{ backgroundColor: "f8f7f7", fontSize: "17px" }}>
                                   <Link to="/">Trang chủ</Link>
                                   <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                                       <span className="navbar-toggler-icon" />
@@ -183,37 +183,7 @@ export class NavMenu extends Component {
                                               <input type="text" placeholder="Tìm kiếm ..." />
                                               <a href="#"><i className="fa fa-search" /></a>
                                           </form>
-                                          <div className="pos-search">
-                                              <select className="bootstrap-select">
-                                                  <option value={0}>Thể loại</option>
-                                                  <option> Book </option>
-                                                  <option> - - Tops </option>
-                                                  <option> - - - - Casual Shirts </option>
-                                                  <option> - - - - Dress Shirts </option>
-                                                  <option> - - - - Sweaters </option>
-                                                  <option> - - - - Fleece, Hendleys </option>
-                                                  <option> - - - - Suits </option>
-                                                  <option> - - Bottems </option>
-                                                  <option> - - - - Chinos </option>
-                                                  <option> - - - - Dress Pants </option>
-                                                  <option> - - - - Corduroy </option>
-                                                  <option> - - - - Denim </option>
-                                                  <option> - - - - Limited Edition </option>
-                                                  <option> Book </option>
-                                                  <option> - - Tops </option>
-                                                  <option> - - - - Casual Shirts </option>
-                                                  <option> - - - - Dress Shirts </option>
-                                                  <option> - - - - Sweaters </option>
-                                                  <option> - - - - Fleece, Hendleys </option>
-                                                  <option> - - - - Suits </option>
-                                                  <option> - - Bottems </option>
-                                                  <option> - - - - Chinos </option>
-                                                  <option> - - - - Dress Pants </option>
-                                                  <option> - - - - Corduroy </option>
-                                                  <option> - - - - Denim </option>
-                                                  <option> - - - - Limited Edition </option>
-                                              </select>
-                                          </div>
+                                         
                                       </div>
                                   </div>
                               </nav>

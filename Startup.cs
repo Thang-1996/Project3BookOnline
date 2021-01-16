@@ -31,22 +31,22 @@ namespace BookOnlineShop
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+            options.UseSqlServer(
+            Configuration.GetConnectionString("DefaultConnection")));
 
             /* services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();*/
+            .AddRoles<IdentityRole>()
+            .AddEntityFrameworkStores<ApplicationDbContext>();*/
             services.AddIdentity<ApplicationUser, IdentityRole>()
-     .AddEntityFrameworkStores<ApplicationDbContext>()
-     .AddDefaultTokenProviders()
-     .AddDefaultUI();
+            .AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddDefaultTokenProviders()
+            .AddDefaultUI();
             services.AddHttpContextAccessor();
             services.AddIdentityServer()
-                .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
+            .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
 
-            services.AddAuthentication()    
-                .AddIdentityServerJwt();
+            services.AddAuthentication()
+            .AddIdentityServerJwt();
 
             services.AddControllersWithViews();
             services.AddRazorPages();
@@ -57,11 +57,11 @@ namespace BookOnlineShop
                 configuration.RootPath = "ClientApp/build";
             });
             services.AddMvc(option => option.EnableEndpointRouting = false)
-                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
-                .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
+            .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
+            .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
             services.AddCors();
             services.AddControllersWithViews(x => x.SuppressAsyncSuffixInActionNames = false)
-         .AddRazorRuntimeCompilation();
+            .AddRazorRuntimeCompilation();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -96,8 +96,8 @@ namespace BookOnlineShop
                 areaName: "Admin",
                 pattern: "nhanphamteam/{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller}/{action=Index}/{id?}");
+                name: "default",
+                pattern: "{controller}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
 
@@ -113,7 +113,7 @@ namespace BookOnlineShop
         }
         private async Task CreateRoles(IServiceProvider serviceProvider)
         {
-            //initializing custom roles 
+            //initializing custom roles
             var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
             var UserManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
             string[] roleNames = { "Admin", "Manager", "Member" };

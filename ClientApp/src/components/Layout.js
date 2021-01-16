@@ -31,9 +31,9 @@ export class Layout extends Component {
     return (
         <div>
             <NavMenu cart={cart} />
-            <Container>
+            
                 {this.props.children}
-            </Container>
+            
             <Footer />
       </div>
     );
