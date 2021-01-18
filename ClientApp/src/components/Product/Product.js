@@ -109,8 +109,8 @@ export default class Product extends Component {
                             <div className="col-lg-12">
                                 <div className="breadcrumbs-menu">
                                     <ul>
-                                        <li><Link to="/">Home</Link></li>
-                                        <li><a className="active">Products</a></li>
+                                        <li><Link to="/">Trang chủ</Link></li>
+                                        <li><a className="active">Sản phẩm</a></li>
                                     </ul>
                                 </div>
                             </div>

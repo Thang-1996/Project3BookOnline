@@ -167,7 +167,7 @@ export class NavMenu extends Component {
                                               </div>
                                           </li>
                                           <li className="nav-item active ml-5">
-                                              <a className="nav-link" href="#">Liên hệ <span className="sr-only">(current)</span></a>
+                                              <Link className="nav-link" to="/contact">Liên hệ <span className="sr-only">(current)</span></Link>
                                           </li>
                                           <li className="nav-item active ml-5">
                                               <a className="nav-link" href="#">Blog</a>

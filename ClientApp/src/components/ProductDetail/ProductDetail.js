@@ -104,8 +104,8 @@ class ProductDetail extends Component {
                             <div className="col-lg-12">
                                 <div className="breadcrumbs-menu">
                                     <ul>
-                                        <li><Link to="/">Home</Link></li>
-                                        <li>Product Details</li>
+                                        <li><Link to="/">Trang chủ</Link></li>
+                                        <li>Chi tiết sản phẩm</li>
                                     </ul>
                                 </div>
                             </div>
@@ -283,7 +283,7 @@ class ProductDetail extends Component {
                             <div className="col-lg-3 col-md-12 col-12 order-lg-2 order-2">
                                 <div className="shop-left">
                                     <div className="left-title mb-20">
-                                        <h4>Related Products</h4>
+                                        <h4>Ưu đãi ngay hôm nay</h4>
                                     </div>
                                     <div className="random-area mb-30">
                                         <div className="product-active-2 owl-carousel">

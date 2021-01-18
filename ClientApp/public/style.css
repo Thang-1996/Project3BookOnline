@@ -52,23 +52,15 @@
 /*-------------------------------------------------------------*/
 
 /* google-font */
-<<<<<<< HEAD
+
 * {
     padding: 0, margin: 0
 }
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800|Rufina:400,700');
-=======
-
-
->>>>>>> b5720f0ef0d9552b58b65e0b94960801e3d9b785
 
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800|Roboto:400,700');
 *{
     font-family: 'Roboto', serif;
-<<<<<<< HEAD
-=======
-
->>>>>>> b5720f0ef0d9552b58b65e0b94960801e3d9b785
 }
 html,
 body {
@@ -681,7 +673,7 @@ body {
 }
 
 .header-mid-area .my-cart ul li>a>i {
-    font-size: 30px;
+    font-size: 27px;
     padding-right: 30px;
 }
 
@@ -691,9 +683,9 @@ body {
         bottom: 0;
         color: #fff;
         display: inline-block;
-        font-size: 18px;
+        font-size: 17px;
         height: 25px;
-        left: 20px;
+        left: 15px;
         line-height: 25px;
         position: absolute;
         text-align: center;
@@ -2792,8 +2784,8 @@ a#scrollUp:hover {
     height: 40px;
     line-height: 40px;
     margin: 0;
-    padding-left: 233px;
-    padding-right: 55px;
+    padding-left: 25px;
+    padding-right: 150px;
     width: 100%;
     font-family: 'Rufina', serif;
     font-weight: 400;
@@ -7679,5 +7671,41 @@ p.lost-password a:hover {
 .compare-table .table tbody tr td.pro-ratting i {
     color: #c29958;
 }
-
-/*------ end Compare Page Wrapper -----*/
+.home-2 .main-menu ul li .sub-menu {
+    background: #fff none repeat scroll 0 0;
+    box-shadow: 1px 2px 10px 0 rgba(0, 0, 0, 0.1);
+    left: 0;
+    opacity: 0;
+    padding: 10px 20px;
+    position: absolute;
+    top: 100%;
+    transform: scaleY(0);
+    transform-origin: 0 0 0;
+    transition: all 0.5s ease 0s;
+    visibility: hidden;
+    width: 200px;
+    z-index: 6;
+}
+div {
+    display: block;
+}
+.nav-link .dropdown-toggle {
+    background: #fff none repeat scroll 0 0;
+    box-shadow: 1px 2px 10px 0 rgba(0, 0, 0, 0.1);
+    left: 0;
+    opacity: 0;
+    padding: 10px 20px;
+    position: absolute;
+    top: 100%;
+    transform: scaleY(0);
+    transform-origin: 0 0 0;
+    transition: all 0.5s ease 0s;
+    visibility: hidden;
+    width: 200px;
+    z-index: 6;
+}
+    .nav-link .dropdown-toggle ul li {
+        display: inline-block;
+        position: relative;
+    }
+    /*------ end Compare Page Wrapper -----*/
