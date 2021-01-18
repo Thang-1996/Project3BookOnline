@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -165,8 +166,8 @@ namespace BookOnlineShop.Areas.Admin.Controllers
                 PublishingTime = product.PublishingTime,
                 Reprinttimes = product.Reprinttimes,
                 CategoryID = product.CategoryID,
-          /*      SelectedAuthor = product.AuthorProducts.Select(au => au.AuthorID).ToList(),
-                SelectedPublisher = product.PublisherProducts.Select(pp => pp.PublisherID).ToList()*/
+                SelectedAuthor = product.AuthorProducts.Select(au => au.AuthorID).ToList(),
+                SelectedPublisher = product.PublisherProducts.Select(pp => pp.PublisherID).ToList()
             };
 
             if (product == null)
@@ -190,33 +191,35 @@ namespace BookOnlineShop.Areas.Admin.Controllers
             {
                 try
                 {
+
+                    var products = await _context.Products.Include(p => p.AuthorProducts).Include(p => p.PublisherProducts)
+                    .Where(p => p.ProductID == id).FirstOrDefaultAsync();
                     string uniqueFileName = UploadedFile(model);
                     Console.WriteLine(uniqueFileName);
-                    Products product = new Products
-                    {
-                        ProductID = model.ProductID,
-                        ProductName = model.ProductName,
-                        ProductImage = uniqueFileName,
-                        ProductDescription = model.ProductDescription,
-                        ProductContent = model.ProductContent,
-                        ProductCode = model.ProductCode,
-                        Quantity = model.Quantity,
-                        Price = model.Price,
-                        Status = model.Status,
-                        PublishingTime = model.PublishingTime,
-                        Reprinttimes = model.Reprinttimes,
-                        CategoryID = model.CategoryID,
-                    };
+
+                    products.ProductName = model.ProductName;
+                    products.ProductDescription = model.ProductDescription;
+                    products.ProductImage = uniqueFileName;
+                    products.ProductContent = model.ProductContent;
+                    products.ProductCode = model.ProductCode;
+                    products.Quantity = model.Quantity;
+                    products.Price = model.Price;
+                    products.Status = model.Status;
+                    products.PublishingTime = model.PublishingTime;
+                    products.Reprinttimes = model.Reprinttimes;
+                    products.CategoryID = model.CategoryID;
+                    products.AuthorProducts = new List<AuthorProducts>();
+                    products.PublisherProducts = new List<PublisherProducts>();
+
                     foreach (var AuthorID in model.SelectedAuthor)
                     {
-                        product.AuthorProducts.Add(new AuthorProducts { AuthorID = AuthorID });
+                        products.AuthorProducts.Add(new AuthorProducts { AuthorID = AuthorID });
                     }
                     foreach (var PublisherID in model.SelectedPublisher)
                     {
-                        product.PublisherProducts.Add(new PublisherProducts { PublisherID = PublisherID });
+                        products.PublisherProducts.Add(new PublisherProducts { PublisherID = PublisherID });
                     }
-                    _context.Update(product);
-                    await _context.SaveChangesAsync();
+                    _context.SaveChanges();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -231,8 +234,7 @@ namespace BookOnlineShop.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewBag.Authors = new SelectList(_context.Authors, "AuthorID", "AuthorName");
-            ViewBag.Publishers = new SelectList(_context.Publishers, "PublisherID", "PublisherName");
+
             ViewData["CategoryID"] = new SelectList(_context.Categories, "CategoryID", "CategoryName", model.CategoryID);
             return View();
         }
