@@ -147,6 +147,40 @@ namespace BookOnlineShop.Controllers.api
             return NotFound();
 
         }
+        [HttpPost]
+        [ActionName("sendReview")]
+        public async Task<ActionResult<Review>> sendReview(ReviewP review)
+        {
+            Console.WriteLine(_context.OrderProducts.Any(od => od.UserID == review.idUser && od.ProductID == review.ProductID));
+            var response = false;
+            if (_context.OrderProducts.Any(od => od.UserID == review.idUser && od.ProductID == review.ProductID))
+            {
+
+                response = true;
+                Review rw = new Review()
+                {
+                    Message = review.Message,
+                    Status = review.Status,
+                    UserID = review.UserID,
+                    idUser = review.idUser,
+                    Rate = review.Rate,
+                    ReviewTime = DateTime.Now,
+                };
+                _context.Add(rw);
+                _context.SaveChanges();
+                ReviewProduct rp = new ReviewProduct()
+                {
+                    ReviewID = rw.ReviewID,
+                    ProductID = review.ProductID,
+                };
+                _context.Add(rp);
+                _context.SaveChanges();
+                await _context.SaveChangesAsync();
+           
+            }
+            return Ok(response);
+        }
 
     }
+   
 }

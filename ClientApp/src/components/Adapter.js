@@ -66,6 +66,13 @@
 
         },
         method :"POST",
+    },
+    sendReview: {
+        url: "api/Payment/sendReview",
+        params: {
+
+        },
+        method : "POST",
     }
     
     

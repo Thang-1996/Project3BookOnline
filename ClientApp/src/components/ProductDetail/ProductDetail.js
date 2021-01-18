@@ -4,6 +4,8 @@ import Adapter from '../Adapter';
 import { Link } from 'react-router-dom';
 import API from '../API';
 import Owldemo1 from '../OwlCarousel/OwlCarousel';
+import notification from '../../notification';
+import ReactStars from "react-rating-stars-component";
 class ProductDetail extends Component {
     
     constructor(props) {
@@ -12,7 +14,16 @@ class ProductDetail extends Component {
             products: props.products,
             productID: this.props.match.params.id,
             product: null,
-            quantity: 1
+            quantity: 1,
+            currentUser: props.currentUser,
+            review: {
+                Message: '',
+                Rate: 0,
+                UserID: '',
+                Status: '',
+                ProductID: '',
+                idUser : '',
+            },
         };
         this.addToCart = this.addToCart.bind(this);
     }
@@ -42,22 +53,30 @@ class ProductDetail extends Component {
            });
         } 
     }
-   static getDerivedStateFromProps(nextProps, prevState) {
-        if (nextProps.products !== prevState.products || nextProps.cart !== prevState.cart) {
+    ratingChanged = (newRating) => {
+        let review = this.state.review;
+        review.Rate = newRating;
+        this.setState({ review: review })
+    };
+    static getDerivedStateFromProps(nextProps, prevState) {
+        if (nextProps.products !== prevState.products || nextProps.cart !== prevState.cart || nextProps.currentUser !== prevState.currentUser) {
             return {
                 products: nextProps.products,
                 cart: nextProps.cart,
+                currentUser: nextProps.currentUser,
+
             };
         }
         return null;;
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (prevProps.products !== this.props.products || prevProps.cart !== this.props.cart) {
+        if (prevProps.products !== this.props.products || prevProps.cart !== this.props.cart || prevProps.currentUser !== this.props.currentUser) {
 
             this.setState({
                 products: this.props.products,
                 cart: this.props.cart,
+                currentUser: this.props.currentUser,
             });
         }
     }
@@ -88,14 +107,49 @@ class ProductDetail extends Component {
       
         this.props.updateCartState();
     }
+    changeValue = event => {
+        let review = this.state.review;
+        let nameValue = event.target.name;
+        review[nameValue] = event.target.value;
+        this.setState({ review: review })
+  
+    }
+    sendReview = async event => {
+        event.preventDefault();
+        let review = this.state.review;
+        let currentUser = this.state.currentUser;
+        let product = this.state.product;
+        review.UserID = currentUser.userName;
+        review.Status = 1;
+        review.idUser = currentUser.id;
+       
+        if (product) {
+            review.ProductID = product.productID;
+        }
+        this.setState({ review: review });
+        console.log(review);
+        await API.post(Adapter.sendReview.url, review)
+            .then(res => {
+             
+                res.data == true ? notification("success", "Đánh giá sản phẩm thành công") : notification("warning", "Cần mua sản phẩm để đánh giá")
+                
+            }).catch(err => {
 
+            });
+        
+        this.props.updateProduct();
+    }
     changeQuantity = (event) => {
         let quantity = this.state.quantity;
         quantity < 1 ? quantity = 1 : quantity = event.target.value
         this.setState({quantity : quantity})
     }
     render() {
-        const { product, products } = this.state;
+        const { product, currentUser, review } = this.state;
+        let reviewProduct = product ? product.reviewProducts : [];
+        let orderProduct = product ? product.orderProducts : [];
+
+        console.log(currentUser);
         return (
             <div>
                 <div className="breadcrumbs-area mb-70">
@@ -241,39 +295,104 @@ class ProductDetail extends Component {
                                                 <p style={{ fontSize:"16px" }}>{product ? product.productDescription : ""}</p>
                                             </div>
                                         </div>
-                                        <div className="tab-pane fade" id="Reviews">
+                                        {
+
+                                            currentUser ?
+                                                <div className="tab-pane fade" id="Reviews">
                                             <div className="valu valu-2">
                                                 <div className="section-title mb-60 mt-60">
+                                                            <div className="review-add">
+                                                                <h6>Sản phẩm: {product ? product.productName : ""}</h6>
+                                                            </div>
                                                     <h2>Khách hàng đánh giá</h2>
-                                                </div>
-                                                <div className="review-add">
-                                                    <h4>Sản phẩm: {product ? product.productName : ""}</h4>
-                                                </div>
+                                                        </div>
+                                                        <div className="comment-title-wrap mt-20">
+                                                            <h6>{reviewProduct.length} Review</h6>
+                                                        </div>
+                                                        <div className="comment-reply-wrap mt-20">
+                                                            <ul>
+                                                                {
+                                                                    reviewProduct.map((item,index) => {
+                                                                        return <li key={ index}>
+                                                                            <div className="public-comment">
+                                                                                <div className="comment-img">
+                                                                                    <a href="#"><img src="img/author/2.jpg" alt="man" /></a>
+                                                                                </div>
+                                                                                <div className="public-text">
+                                                                                    <div className="single-comm-top">
+                                                                                        <span>{item.review.userID}</span>
+                                                                                        <span style={{ marginLeft: '5px' }}>{
+                                                                                          item.review.reviewTime
+                                                                                            
+
+                                                                                        }</span>
+
+                                                                                        
+                                                                                        <span style={{ marginLeft: '5px', paddingTop : '5px'}} ><i style={{ fontSize: '16px', color: 'green' }} className="fa fa-check-circle"></i>Đã mua hàng </span>
+                                                                                        <ReactStars
+                                                                                            value={item.review.rate }
+                                                                                   
+                                                                                            size={24}
+                                                                                            activeColor="#ffd700"
+                                                                                        />,
+                                                                                       
+                                                                                    </div>
+                                                                                    <p>{item.review.message}</p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+
+                                                                    })
+
+                                                                }
+                                                                
+                                                             
+                                                            </ul>
+                                                        </div>
+                                         
                                                 <div className="review-field-ratings">
                                                     <span>Đánh giá của bạn<sup>*</sup></span>
                                                     <div className="control">
                                                         <div className="single-control">
-                                                            <div className="review-control-vote">
-                                                                <a href="#"><i className="fa fa-star" /></a>
-                                                                <a href="#"><i className="fa fa-star" /></a>
-                                                                <a href="#"><i className="fa fa-star" /></a>
-                                                                <a href="#"><i className="fa fa-star" /></a>
-                                                                <a href="#"><i className="fa fa-star" /></a>
-                                                            </div>
+                                                                    <ReactStars
+                                                                        count={5}
+                                                                        onChange={this.ratingChanged}
+                                                                        size={24}
+                                                                        activeColor="#ffd700"
+                                                                    />,
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div className="review-form">
                                                     <div className="single-form">
-                                                        <label>Review <sup>*</sup></label>
+                                                        <label style={{ fontSize: '18px' }}>Review <sup>*</sup></label>
                                                         <form action="#">
-                                                            <textarea name="massage" cols={10} rows={4} defaultValue={""} />
+                                                            <textarea onChange={this.changeValue} value={review.Message} name="Message" cols={10} rows={4} />
                                                         </form>
                                                     </div>
                                                 </div>
-                                                <button className="btn btn-primary">Gửi đánh giá</button>
+                                                <button className="btn btn-primary" type="submit" onClick={this.sendReview} >Gửi đánh giá</button>
                                             </div>
-                                        </div>
+                                                </div> : 
+                                                <div className="tab-pane fade" id="Reviews">
+                                                    <div className="valu valu-2">
+                                                        <div className="section-title mb-60 mt-60">
+                                                            <h2>Khách hàng đánh giá</h2>
+                                                        </div>
+                                                        <div className="review-add">
+                                                            <h4>Sản phẩm: {product ? product.productName : ""}</h4>
+                                                        </div>
+                                                        <div className="review-field-ratings">
+                                                                <p>Bạn phải đăng nhập để có thể đánh giá</p>
+                                                        </div>
+                                                 
+                                                
+                                                    </div>
+                                                </div>
+
+
+                                        }
+                                  
                                     </div>
                                 </div>
                                 <div className="new-book-area mt-60">

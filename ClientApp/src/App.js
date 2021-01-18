@@ -31,6 +31,7 @@ export default class App extends Component {
         };
         this.updateCartState = this.updateCartState.bind(this);
         this.updateUser = this.updateUser.bind(this);
+        this.updateProduct = this.updateProduct.bind(this);
     }
     async componentDidMount() {
         this.setState({
@@ -88,6 +89,16 @@ export default class App extends Component {
     updateUser(e) {
         this.setState({ currentUser : e })
     }
+    updateProduct() {
+        API.get(Adapter.getProducts.url)
+            .then(res => {
+                this.setState({
+                    products: res.data,
+                });
+            }).catch(err => {
+
+            });
+    }
    
     render() {
         const { products, currentUser, categories, orders } = this.state;
@@ -96,7 +107,7 @@ export default class App extends Component {
         <Layout cart={cart}>
             <Route exact path='/' component={() => <Home products={products} />} />
             <Route exact path='/product' component={() => <Product categories={categories} updateCartState={this.updateCartState} cart={cart} products={products} />} />
-            <Route path='/product/:id' component={() => <ProductDetail products={products} updateCartState={this.updateCartState} cart={cart} />} />
+            <Route path='/product/:id' component={() => <ProductDetail products={products} updateCartState={this.updateCartState} cart={cart} currentUser={currentUser} updateProduct={this.updateProduct} />} />
             <Route exact path='/cart' component={() => <Cart updateCartState={this.updateCartState} cart={cart}/>} />
             <AuthorizeRoute path='/check-out' component={() => <Checkout currentUser={currentUser} cartState={this.updateCartState} cart={cart} />} />
             <AuthorizeRoute path='/profile' component={() => <ProFile currentUser={currentUser} updateUser={this.updateUser} orders={orders} />} />
