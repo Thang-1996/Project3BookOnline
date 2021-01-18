@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Container } from 'reactstrap';
+import Adapter from './Adapter';
+import API from './API';
 import Footer from './Footer';
 import { NavMenu } from './NavMenu';
 
@@ -9,11 +11,17 @@ export class Layout extends Component {
         super(props);
         this.state = {
             cart: props.cart,
+ 
+          
         };
     }
     static getDerivedStateFromProps(nextProps, prevState) {
         if (nextProps.cart !== prevState.cart) {
-            return { cart: nextProps.cart };
+            return {
+                cart: nextProps.cart,
+          
+           
+            };
         }
         return null;
     }
@@ -21,7 +29,11 @@ export class Layout extends Component {
     componentDidUpdate(prevProps, prevState) {
         if (prevProps.cart !== this.props.cart) {
             //Perform some operation here
-            this.setState({ cart: this.props.cart });
+            this.setState({
+                cart: this.props.cart,
+              
+              
+            });
         }
     }
    
