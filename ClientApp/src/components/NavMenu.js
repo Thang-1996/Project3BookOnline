@@ -2,6 +2,7 @@
 import { Link } from 'react-router-dom';
 import { LoginMenu } from './api-authorization/LoginMenu';
 import Adapter from './Adapter';
+import API from './API';
 export class NavMenu extends Component {
     static displayName = NavMenu.name;
     constructor(props) {
@@ -11,20 +12,37 @@ export class NavMenu extends Component {
             collapsed: true,
             cart: props.cart,
             menu: "none",
+            category : [],
       };
       this.showMenu = this.showMenu.bind(this);
     } 
     static getDerivedStateFromProps(nextProps, prevState) {
-        if (nextProps.cart !== prevState.cart) {
-            return { cart: nextProps.cart };
+        if (nextProps.cart !== prevState.cart ) {
+            return {
+                cart: nextProps.cart,
+                categories: nextProps.categories,
+
+            };
         }
         return null;
     }
+    async componentDidMount() {
+        await API.get(Adapter.getCategories.url)
+            .then(res => {
+                this.setState({
+                    category: res.data
+                })
+            }).catch(err => {
 
+            })
+    }
     componentDidUpdate(prevProps, prevState) {
         if (prevProps.cart !== this.props.cart) {
             //Perform some operation here
-            this.setState({ cart: this.props.cart });
+            this.setState({
+                cart: this.props.cart,
+              
+            });
         }
     }
   toggleNavbar () {
@@ -69,8 +87,10 @@ export class NavMenu extends Component {
 
     }
     render() {
-        const { cart } = this.state;
+        const { cart, category } = this.state;
         let total = 0;
+        console.log(category);
+     
       return (
           <header>
             
@@ -94,7 +114,7 @@ export class NavMenu extends Component {
                       <div className="row">
                           <div className="col-lg-3 col-md-6 col-12">
                               <div className="logo-area logo-xs-mrg-bottom">
-                                  <Link to="/"><img style={{ width: "230px", position: "absolute", top: "-89px", marginLeft:"-50px" }} src="/images/logo1.png" /></Link>
+                                  <Link to="/"><img style={{ width: "230px", position: "absolute", top: "-89px", marginLeft:"-64px" }} src="/images/logo1.png" /></Link>
                               </div>
                           </div>
                           <div className="col-lg-6">
@@ -150,22 +170,23 @@ export class NavMenu extends Component {
                       <div className="row">
                           <div className="col-lg-12 col-md-12">
                               <nav className="navbar navbar-expand-lg navbar-light " style={{ backgroundColor: "f8f7f7", fontSize: "17px" }}>
-                                  <Link to="/">Trang chủ</Link>
-                                  <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                                      <span className="navbar-toggler-icon" />
-                                  </button>
-                                  <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                                  <Link to="/" style={{ marginLeft:"-15px" }}>Trang chủ</Link>
+                                  <div className="collapse navbar-collapse nav-item dropdown active ml-5" id="navbarSupportedContent">
                                       <ul className="navbar-nav mr-auto">
-                                          <li className="nav-item dropdown active ml-5">
-                                             
-                                                  <Link to="/" className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Thể loại</Link>
-                                              
-                                              <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                                                  <Link className="dropdown-item" to="/product">Sách</Link>
-                                                  <a className="dropdown-item" href="#">Another action</a>
-                                                  <a className="dropdown-item" href="#">Something else here</a>
-                                              </div>
-                                          </li>
+                                          <li className="dropdown ">
+                                              <Link to="/product" className="nav-link dropdown-toggle " data-toggle="dropdown">Thể Loại <b className="caret" /></Link>
+                                              <ul className="dropdown-menu mega-menu">
+                                                  {
+                                                      category ? category.map((e, index) => {
+                                                          return <li className="mega-menu-column">
+                                                              <ul>
+                                                                  <Link to="" className="nav-header">{e.categoryName}</Link>
+                                                              </ul>
+                                                          </li>
+                                                      }) : null
+                                                  }
+                                              </ul>
+                                          </li>{/* /.dropdown */}
                                           <li className="nav-item active ml-5">
                                               <Link className="nav-link" to="/contact">Liên hệ <span className="sr-only">(current)</span></Link>
                                           </li>

@@ -14,7 +14,6 @@ export default class CarouselHome extends Component {
     }
     render() {
         const { products } = this.state;
-        console.log(products)
         return (
             <div className='container-fluid' >
                 <OwlCarousel
