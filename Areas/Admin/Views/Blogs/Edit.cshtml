@@ -1,7 +1,7 @@
-﻿@model BookOnlineShop.Models.Publishers
+﻿@model BookOnlineShop.Models.BlogViewModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Edit";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
@@ -12,14 +12,14 @@
                     <i class="kt-font-brand flaticon2-line-chart"></i>
                 </span>
                 <h3 class="kt-portlet__head-title">
-                    Create Publishers
+                    Sửa bài viết
                 </h3>
             </div>
             <div class="kt-portlet__head-toolbar">
                 <div class="kt-portlet__head-wrapper">
-                    <a asp-action="Index" asp-area="admin" asp-controller="publishers" class="btn btn-clean btn-icon-sm">
+                    <a asp-action="Index" asp-area="admin" asp-controller="Blogs" class="btn btn-clean btn-icon-sm">
                         <i class="la la-long-arrow-left"></i>
-                        Back
+                        Quay lại
                     </a>
                     &nbsp;
 
@@ -30,36 +30,39 @@
         <div class="kt-portlet__body">
 
             <div class="row">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="col-md-12">
-                    <form asp-action="Create" asp-area="admin">
+                    <form asp-action="Edit" asp-area="admin" asp-controller="Blogs" enctype="multipart/form-data">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="BlogID" />
                         <div class="form-group">
-                            <label asp-for="PublisherName" class="control-label">Publisher Name</label>
-                            <input asp-for="PublisherName" class="form-control" />
-                            <span asp-validation-for="PublisherName" class="text-danger"></span>
+                            <label asp-for="Title" class="control-label">Tiêu đề</label>
+                            <input asp-for="Title" class="form-control" />
+                            <span asp-validation-for="Title" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="Email" class="control-label"></label>
-                            <input asp-for="Email" class="form-control" />
-                            <span asp-validation-for="Email" class="text-danger"></span>
+                            <label asp-for="Description" class="control-label">Mô tả ngắn</label>
+                            <input asp-for="Description" class="form-control" />
+                            <span asp-validation-for="Description" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="Address" class="control-label"></label>
-                            <input asp-for="Address" class="form-control" />
-                            <span asp-validation-for="Address" class="text-danger"></span>
+                            <label asp-for="Content" class="control-label">Nội dung bài viết</label>
+                            <textarea asp-for="Content" id="content" class="form-control"></textarea>
+                            <span asp-validation-for="Content" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="PhoneNumber" class="control-label">Phone Number </label>
-                            <input asp-for="PhoneNumber" class="form-control" />
-                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                            <label asp-for="BlogImage" class="control-label">Ảnh Bìa</label>
+                            <input asp-for="BlogImage" class="form-control" />
+                            <span asp-validation-for="BlogImage" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="Status" class="control-label"></label>
+                            <label asp-for="Status" class="control-label">Trạng thái</label>
                             <input asp-for="Status" class="form-control" />
                             <span asp-validation-for="Status" class="text-danger"></span>
                         </div>
+
                         <div class="form-group">
-                            <input type="submit" value="Create" class="btn btn-primary" />
+                            <input type="submit" value="Cập nhật" class="btn btn-primary" />
                         </div>
                     </form>
                 </div>
@@ -68,8 +71,6 @@
 
     </div>
 </div>
-
-
 
 
 @section Scripts {

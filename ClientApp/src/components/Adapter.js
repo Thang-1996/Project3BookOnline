@@ -73,7 +73,15 @@
 
         },
         method : "POST",
-    }
+    },
+    sendAnswer: {
+        url: "api/Payment/sendAnswer",
+        params: {
+
+        },
+        method: "POST",
+    },
+     
     
     
 };

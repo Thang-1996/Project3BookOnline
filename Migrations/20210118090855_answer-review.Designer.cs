@@ -4,14 +4,16 @@ using BookOnlineShop.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BookOnlineShop.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210118090855_answer-review")]
+    partial class answerreview
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -170,39 +172,6 @@ namespace BookOnlineShop.Migrations
                     b.HasKey("AuthorID");
 
                     b.ToTable("Authors");
-                });
-
-            modelBuilder.Entity("BookOnlineShop.Models.Blog", b =>
-                {
-                    b.Property<int>("BlogID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("BlogImage")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Content")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("ViewCount")
-                        .HasColumnType("int");
-
-                    b.HasKey("BlogID");
-
-                    b.ToTable("Blogs");
                 });
 
             modelBuilder.Entity("BookOnlineShop.Models.Categories", b =>
@@ -501,7 +470,7 @@ namespace BookOnlineShop.Migrations
 
                     b.HasIndex("AnswerID");
 
-                    b.ToTable("ReviewAnswers");
+                    b.ToTable("ReviewAnswer");
                 });
 
             modelBuilder.Entity("BookOnlineShop.Models.ReviewProduct", b =>

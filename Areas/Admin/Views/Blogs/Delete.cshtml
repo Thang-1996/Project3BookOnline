@@ -1,0 +1,84 @@
+﻿@model BookOnlineShop.Models.Blog
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
+    <div class="kt-portlet kt-portlet--mobile">
+        <div class="kt-portlet__head kt-portlet__head--lg">
+            <div class="kt-portlet__head-label">
+                <span class="kt-portlet__head-icon">
+                    <i class="kt-font-brand flaticon2-line-chart"></i>
+                </span>
+                <h3 class="kt-portlet__head-title">
+                    Sửa bài viết
+                </h3>
+            </div>
+            <div class="kt-portlet__head-toolbar">
+                <div class="kt-portlet__head-wrapper">
+                    <a asp-action="Index" asp-area="admin" asp-controller="Blogs" class="btn btn-clean btn-icon-sm">
+                        <i class="la la-long-arrow-left"></i>
+                        Quay lại
+                    </a>
+                    &nbsp;
+
+                </div>
+            </div>
+
+        </div>
+        <div class="kt-portlet__body">
+
+            <div class="row">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="col-md-12">
+                    <dl class="row">
+                        <dt class="col-sm-2">
+                            Tiêu đề
+                        </dt>
+                        <dd class="col-sm-10">
+                            @Html.DisplayFor(model => model.Title)
+                        </dd>
+                        <dt class="col-sm-2">
+                            Mô tả ngắn
+                        </dt>
+                        <dd class="col-sm-10">
+                            @Html.DisplayFor(model => model.Description)
+                        </dd>
+
+                        <dt class="col-sm-2">
+                            Ảnh bài viết
+                        </dt>
+                        <dd class="col-sm-10">
+                            @Html.DisplayFor(model => model.BlogImage)
+                        </dd>
+                        <dt class="col-sm-2">
+                            Trạng thái
+                        </dt>
+                        <dd class="col-sm-10">
+                            @Html.DisplayFor(model => model.Status)
+                        </dd>
+                        <dt class="col-sm-2">
+                            Người viết
+                        </dt>
+                        <dd class="col-sm-10">
+                            @Html.DisplayFor(model => model.UserName)
+                        </dd>
+                        <dt class="col-sm-2">
+                            Lượt xem
+                        </dt>
+                        <dd class="col-sm-10">
+                            @Html.DisplayFor(model => model.ViewCount)
+                        </dd>
+                    </dl>
+                    <form asp-action="Delete">
+                        <input type="hidden" asp-for="BlogID" />
+                        <input type="submit" value="Xóa" class="btn btn-danger" /> 
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
