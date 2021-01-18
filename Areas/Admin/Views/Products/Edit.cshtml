@@ -55,11 +55,13 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="ProductDescription" class="control-label">Product Description</label>
-                    <input asp-for="ProductDescription" class="form-control" />
+                    <textarea asp-for="ProductDescription" id="content2" class="form-control"></textarea>
                     <span asp-validation-for="ProductDescription" class="text-danger"></span>
                 </div>
                 <div class="form-group">
+                    <label asp-for="ProductContent" class="control-label">Product Description</label>
                     <textarea asp-for="ProductContent" id="content" class="form-control"></textarea>
+                    <span asp-validation-for="ProductContent" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Price" class="control-label"></label>

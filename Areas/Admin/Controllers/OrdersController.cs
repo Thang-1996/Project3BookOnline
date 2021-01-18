@@ -126,7 +126,7 @@ namespace BookOnlineShop.Areas.Admin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Address,Telephone,OrderNote,CreateAt,UpdateAt,paymenttype,Status,GrandTotal,UserID")] Orders orders)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Address,Telephone,OrderNote,CreateAt,UpdateAt,paymenttype,Status,GrandTotal,UserID,CustomerName")] Orders orders)
         {
             if (id != orders.ID)
             {

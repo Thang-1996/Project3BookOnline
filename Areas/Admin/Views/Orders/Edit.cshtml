@@ -45,6 +45,10 @@
                     <span asp-validation-for="Telephone" class="text-danger"></span>
                 </div>
                 <div class="form-group">
+                    <input type="hidden" asp-for="CustomerName" class="form-control" />
+                    <span asp-validation-for="CustomerName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
                     <input type="hidden" asp-for="OrderNote" class="form-control" />
                     <span asp-validation-for="OrderNote" class="text-danger"></span>
                 </div>
@@ -54,7 +58,7 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="Status" class="control-label">Trạng thái</label>
-               
+
                     <select asp-for="Status" class="form-control">
                         <option value="2">Hoàn thành đơn hàng</option>
                         <option value="3">Hủy đơn hàng</option>

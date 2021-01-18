@@ -10,6 +10,7 @@ export default class Checkout extends Component {
         super(props);
         this.state = {
             orders: {
+                CustomerName : '',
                 CreateAt: '',
                 UpdateAt: '',
                 Telephone: '',
@@ -43,16 +44,22 @@ export default class Checkout extends Component {
    
 
     static getDerivedStateFromProps(nextProps, prevState) {
-        if (nextProps.cart !== prevState.cart) {
-            return { cart: nextProps.cart };
+        if (nextProps.cart !== prevState.cart || nextProps.currentUser !== prevState.currentUser) {
+            return {
+                cart: nextProps.cart,
+                currentUser: nextProps.currentUser,
+            };
         }
         return null;
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (prevProps.cart !== this.props.cart) {
+        if (prevProps.cart !== this.props.cart || prevProps.currentUser !== this.props.currentUser) {
             //Perform some operation here
-            this.setState({ cart: this.props.cart });
+            this.setState({
+                cart: this.props.cart,
+                currentUser: this.props.currentUser
+            });
         }
     }
     checkOut() {
@@ -61,6 +68,7 @@ export default class Checkout extends Component {
         });
         let cart = this.state.cart;
         let orders = this.state.orders;
+        let currentUser = this.state.currentUser;
         let payment = {
             orders: orders,
             carts: cart,
@@ -78,6 +86,7 @@ export default class Checkout extends Component {
             return grandTotal += item.quantity * item.product.price;
         })
         orders.GrandTotal = grandTotal;
+        orders.CustomerName = currentUser.name;
         this.setState({ orders: orders })
         API.post(Adapter.saveOrder.url, payment)
             .then(res => {
@@ -97,7 +106,7 @@ export default class Checkout extends Component {
     }
     render() {
         const { cart, currentUser, orders, redirect } = this.state;
-        console.log(orders);
+        console.log(currentUser);
         if (redirect) {
             return <Redirect to='/' />;
         }
@@ -128,6 +137,10 @@ export default class Checkout extends Component {
                                             <h3>Chi tiết hóa đơn</h3>
                                             <div className="row">
                                                 <div className="col-lg-12 col-md-12 col-12">
+                                                    <div className="checkout-form-list">
+                                                        <label>Tên Khách Hàng <span className="required">*</span></label>
+                                                        <input readOnly={true} defaultValue={currentUser ? currentUser.name : ''} type="text" />
+                                                    </div>
                                                     <div className="checkout-form-list">
                                                         <label>Địa chỉ nhận hàng <span className="required">*</span></label>
                                                         <input onChange={this.handleOnChange} required value={orders.Address} name="Address" type="text" placeholder="Street address" />

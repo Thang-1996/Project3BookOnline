@@ -135,6 +135,7 @@
                 <table class="table">
                     <thead>
                         <tr>
+                            <td>Tên khách hàng:</td>
                             <th>
                                 Địa chỉ giao hàng
                             </th>
@@ -163,6 +164,7 @@
                         @foreach (var item in Model)
                         {
                             <tr>
+                                <td>@Html.DisplayFor(modelItem => item.CustomerName)</td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Address)
                                 </td>

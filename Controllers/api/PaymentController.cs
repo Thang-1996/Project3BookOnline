@@ -74,17 +74,26 @@ namespace BookOnlineShop.Controllers.api
         {
             var cart = payment.carts;
             var orders = payment.orders;
+            decimal total = 0;
        
             Console.WriteLine(JsonConvert.SerializeObject(payment));
-
+            if(orders.GrandTotal < 500000)
+            {
+                total = orders.GrandTotal + 30000;
+            }
+            else
+            {
+                total = orders.GrandTotal;
+            }
             Orders orders1 = new Orders
             {
+                CustomerName = orders.CustomerName,
                 Address = orders.Address,
                 paymenttype = orders.paymenttype,
                 Telephone = orders.Telephone,
                 OrderNote = orders.OrderNote,
                 Status = orders.Status,
-                GrandTotal = orders.GrandTotal,
+                GrandTotal = total,
                 UserID = orders.UserID,
                 CreateAt = DateTime.Now,
                 UpdateAt = DateTime.Now
@@ -126,6 +135,7 @@ namespace BookOnlineShop.Controllers.api
                 }
                 if (!string.IsNullOrEmpty(user.UserName))
                 {
+                    us.name = user.name;
                     us.UserName = user.UserName;
                     us.NormalizedUserName = user.NormalizedUserName;
                 }
