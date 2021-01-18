@@ -32,6 +32,10 @@ namespace BookOnlineShop.Controllers.api
                 .ThenInclude(a => a.Author)
                   .Include(pp => pp.PublisherProducts)
                 .ThenInclude(p => p.Publisher)
+                    .Include(rp => rp.ReviewProducts)
+                .ThenInclude(r => r.Review)
+                     .Include(op => op.OrderProducts)
+                .ThenInclude(o => o.Orders)
              .ToListAsync();
         }
 
@@ -47,6 +51,10 @@ namespace BookOnlineShop.Controllers.api
                 .ThenInclude(a => a.AuthorID)
                 .Include(pp => pp.PublisherProducts)
                 .ThenInclude(p => p.PublisherID)
+                .Include(rp => rp.ReviewProducts)
+                .ThenInclude(r => r.Review)
+                  .Include(op => op.OrderProducts)
+                .ThenInclude(o => o.Orders)
                 .Where(p => p.ProductID == id).FirstOrDefaultAsync();
             if (products == null)
             {
@@ -62,10 +70,13 @@ namespace BookOnlineShop.Controllers.api
         {
             var products = await _context.Products
                 .Include(c => c.Category)
+                
                 .Include(at=>at.AuthorProducts)
                 .ThenInclude(a=>a.Author)
                 .Include(pp=>pp.PublisherProducts)
                 .ThenInclude(pb=>pb.Publisher)
+                .Include(op=>op.OrderProducts)
+                .ThenInclude(o=>o.Orders)
                 .Where(p => p.ProductID == id).FirstOrDefaultAsync();
 
             if (products == null)

@@ -42,6 +42,7 @@ namespace BookOnlineShop.Models
 
         public ICollection<OrderProducts> OrderProducts { get; set; }
         public ICollection<PublisherProducts> PublisherProducts { get; set; }
+        public ICollection<ReviewProduct> ReviewProducts { get; set; }
         public ICollection<AuthorProducts> AuthorProducts { get; set; }
         public ICollection<Comments> Comments { get; set; }
     }
