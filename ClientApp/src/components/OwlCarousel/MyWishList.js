@@ -10,10 +10,10 @@ export default class MyWishList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            wishlist: [],
+            wishlist: props.wishlist,
         };
     }
-    componentDidMount() {
+    /*componentDidMount() {
         let currentUser = this.props.currentUser;
         
         let id = 0;
@@ -32,12 +32,28 @@ export default class MyWishList extends Component {
 
         });
 
+    }*/
+    static getDerivedStateFromProps(nextProps, prevState) {
+        if (nextProps.wishlist !== prevState.wishlist) {
+            return {
+                wishlist: nextProps.wishlist,
+
+            };
+        }
+
+        return null;;
     }
 
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.wishlist !== this.props.wishlist) {
+
+            this.setState({
+                wishlist: this.props.wishlist,
+            });
+        }
+    }
     render() {
         const { wishlist } = this.state;
-        console.log(this.props.currentUser)
-        console.log(wishlist)
         return (
             <div className='container-fluid' >
                 <OwlCarousel

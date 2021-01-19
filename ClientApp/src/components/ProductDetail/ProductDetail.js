@@ -39,6 +39,7 @@ class ProductDetail extends Component {
                 product: null,
                 UserID : '',
             },
+            wishlistUser: [],
         };
         this.addToCart = this.addToCart.bind(this);
     }
@@ -67,6 +68,23 @@ class ProductDetail extends Component {
 
            });
        } 
+       let currentUser = this.props.currentUser;
+
+       let id = 0;
+       if (currentUser) {
+           id = currentUser.id;
+       }
+       API.get(Adapter.getWishList.url, {
+           params: {
+               id: id
+           }
+       }).then(res => {
+           this.setState({
+               wishlistUser: res.data
+           })
+       }).catch(err => {
+
+       });
     }
     setValue = (event) => {
         let nameValue = event.target.name;
@@ -205,6 +223,23 @@ class ProductDetail extends Component {
         await API.post(Adapter.saveWishList.url, wishlist)
             .then(res => {
                 if (res.data == true) {
+                    let currentUser = this.state.currentUser;
+
+                    let id = 0;
+                    if (currentUser) {
+                        id = currentUser.id;
+                    }
+                    API.get(Adapter.getWishList.url, {
+                        params: {
+                            id: id
+                        }
+                    }).then(res => {
+                        this.setState({
+                            wishlistUser: res.data
+                        })
+                    }).catch(err => {
+
+                    });
                     notification("success", "Thêm vào danh sách yêu thích thành công")
                 }
                 if (res.data == false) {
@@ -307,8 +342,8 @@ class ProductDetail extends Component {
                                                         <td>Thuộc thể loại</td><td>{ product ? product.category.categoryName : ''}</td>
                                             </tr>
                                             <tr>
-                                                <td>Ngày xuất bản</td>
-                                                        <td>{product ? product.publishingTime : ''}</td>
+                                                        <td>Ngày xuất bản</td>
+                                                        <td>{product ? Adapter.formatDate(product.publishingTime) : ''}</td>
                                             </tr>
                                             <tr>
                                                 <td>Kích thước</td>
@@ -660,8 +695,8 @@ class ProductDetail extends Component {
                                     </div>
                                     <div className="left-title-2">
                                         <h2><Link to="/wishlist">Những cuốn bạn thích</Link></h2>
-                                        
-                                            <MyWishList currentUser={currentUser}/>
+
+                                        <MyWishList wishlist={this.state.wishlistUser} />
                                         
                                     </div>
                                 </div>
@@ -681,10 +716,8 @@ class ProductDetail extends Component {
                                     <div className="col-md-2">
                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                                     </div>
-                                    <div className="col-md-12" style={{ width: "100%", height: "700px", overflow: "scroll" }}>
-                                        {
-                                            product ? product.productDescription : null
-                                        }
+                                    <div dangerouslySetInnerHTML={{ __html: product?  product.productContent : null }} className="col-md-12" style={{ width: "100%", height: "700px", overflow: "scroll" }}>
+                                       
                                     </div>
                                     
                                 </div>
