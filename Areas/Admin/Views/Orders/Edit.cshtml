@@ -8,7 +8,7 @@
     <div class="alert alert-light alert-elevate" role="alert">
         <div class="alert-icon"><i class="la la-folder kt-font-brand"></i></div>
         <div class="alert-text">
-            Edit Category
+            Cập Nhật Trạng Thái Đơn Hàng
         </div>
     </div>
     <div class="kt-portlet kt-portlet--mobile">
@@ -18,14 +18,14 @@
                     <i class="kt-font-brand flaticon2-line-chart"></i>
                 </span>
                 <h3 class="kt-portlet__head-title">
-                    Cập nhật trạng thái đơn hàng 
+                    @Html.DisplayFor(model => model.ID) - @Html.DisplayFor(model => model.CustomerName) -  @Html.DisplayFor(model => model.CreateAt)
                 </h3>
             </div>
             <div class="kt-portlet__head-toolbar">
                 <div class="kt-portlet__head-wrapper">
-                    <a asp-action="Index" asp-area="admin" asp-controller="Categories" class="btn btn-clean btn-icon-sm">
+                    <a asp-action="Index" asp-area="admin" asp-controller="Orders" class="btn btn-clean btn-icon-sm">
                         <i class="la la-long-arrow-left"></i>
-                        Back
+                        Trở Về 
                     </a>
                     &nbsp;
 
@@ -85,7 +85,7 @@
                     <span asp-validation-for="UserID" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <input type="submit" value="Save" class="btn btn-primary" />
+                    <input type="submit" value="Cập Nhật" class="btn btn-primary" />
                 </div>
             </form>
         </div>
