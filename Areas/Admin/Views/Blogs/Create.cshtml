@@ -1,0 +1,81 @@
+﻿@model BookOnlineShop.Models.BlogViewModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
+    <div class="kt-portlet kt-portlet--mobile">
+        <div class="kt-portlet__head kt-portlet__head--lg">
+            <div class="kt-portlet__head-label">
+                <span class="kt-portlet__head-icon">
+                    <i class="kt-font-brand flaticon2-line-chart"></i>
+                </span>
+                <h3 class="kt-portlet__head-title">
+                    Thêm Mới Bài Viết
+                </h3>
+            </div>
+            <div class="kt-portlet__head-toolbar">
+                <div class="kt-portlet__head-wrapper">
+                    <a asp-action="Index" asp-area="admin" asp-controller="Blogs" class="btn btn-clean btn-icon-sm">
+                        <i class="la la-long-arrow-left"></i>
+                        Trở Về
+                    </a>
+                    &nbsp;
+
+                </div>
+            </div>
+
+        </div>
+        <div class="kt-portlet__body">
+
+            <div class="row">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="col-md-12">
+                    <form asp-action="Create" asp-area="admin" asp-controller="Blogs" enctype="multipart/form-data">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="Title" class="control-label">Tiêu Đề</label>
+                            <input asp-for="Title" class="form-control" />
+                            <span asp-validation-for="Title" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Description" class="control-label">Mô Tả Ngắn</label>
+                            <input asp-for="Description" class="form-control" />
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Content" class="control-label">Nội Dung Bài Viết</label>
+                            <textarea asp-for="Content" id="content" class="form-control"></textarea>
+                            <span asp-validation-for="Content" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="BlogImage" class="control-label">Ảnh Bìa</label>
+                            <input asp-for="BlogImage" class="form-control" />
+                            <span asp-validation-for="BlogImage" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Status" class="control-label">Trạng Thái</label>
+
+                            <select asp-for="Status" class="form-control">
+                                <option value="1">Active</option>
+                                <option value="0">Blog</option>
+                            </select>
+                            <span asp-validation-for="Status" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="submit" value="Thêm Mới" class="btn btn-primary" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

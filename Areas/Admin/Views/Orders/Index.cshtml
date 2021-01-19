@@ -12,7 +12,7 @@
                     <i class="kt-font-brand flaticon2-line-chart"></i>
                 </span>
                 <h3 class="kt-portlet__head-title">
-                    Danh sách đơn hàng
+                    Danh Sách Đơn Hàng
                 </h3>
             </div>
 
@@ -25,23 +25,20 @@
                     <div class="col-xl-12 order-2 order-xl-1">
                         <form asp-area="admin" asp-controller="Orders" asp-action="Index">
                             <div class="row align-items-center" id="filterGroup">
-
-
-
                                 <div class="col-md-2 kt-margin-b-20-tablet-and-mobile">
                                     <div class="kt-form__group">
                                         <div class="kt-form__label">
-                                            <label>Số điện thoại:</label>
+                                            <label>Số Điện Thoại :</label>
                                         </div>
                                         <div class="kt-form__control">
-                                            <input style="margin-top: 1px" name="telephone" type="text" class="form-control" placeholder="Nhập vào số điện thoại.." />
+                                            <input style="margin-top: 1px" name="telephone" type="text" class="form-control" placeholder="Nhập vào số điện thoại ..." />
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-3 kt-margin-b-20-tablet-and-mobile">
                                     <div class="kt-form__group">
                                         <div class="kt-form__label">
-                                            <label>Trạng thái:</label>
+                                            <label>Trạng Thái :</label>
                                         </div>
                                         <div class="kt-form__control">
                                             <select class="form-control kt-select2" id="kt_select2_1" name="status">
@@ -57,15 +54,13 @@
                                 <div class="col-md-3 kt-margin-b-20-tablet-and-mobile">
                                     <div class="kt-form__group">
                                         <div class="kt-form__label">
-                                            <label>Kiểu thanh toán:</label>
+                                            <label>Kiểu Thanh Toán :</label>
                                         </div>
                                         <div class="kt-form__control">
                                             <select class="form-control kt-select2" id="kt_select2_2" name="paymenttype">
                                                 <option value="">All</option>
                                                 <option value="1">COD</option>
                                                 <option value="0">Ngân Hàng</option>
-
-
                                             </select>
                                         </div>
                                     </div>
@@ -73,7 +68,7 @@
                                 <div class="col-md-3 kt-margin-b-20-tablet-and-mobile">
                                     <div class="kt-form__group">
                                         <div class="kt-form__label">
-                                            <label>Ngày đặt hàng:</label>
+                                            <label>Ngày Đặt Hàng :</label>
                                         </div>
                                         <div class='input-group' id='kt_daterangepicker_2'>
                                             <input type="text" class="form-control" name="paydate" readonly placeholder="Select date range" />
@@ -89,7 +84,7 @@
                                             <label></label>
                                         </div>
                                         <div class="kt-form__control">
-                                            <button style="margin-top: 5px" type="submit" class="form-control btn btn-primary">Lọc</button>
+                                            <button style="margin-top: 5px" type="submit" class="form-control btn btn-primary">LỌC</button>
                                         </div>
                                     </div>
                                 </div>
@@ -135,25 +130,26 @@
                 <table class="table">
                     <thead>
                         <tr>
+                            <td>Tên Khách Hàng </td>
                             <th>
-                                Địa chỉ giao hàng
+                                Địa Chỉ Giao Hàng
                             </th>
                             <th>
-                                Số điện thoại
-                            </th>
-
-                            <th>
-                                Ngày đặt hàng
+                                Số Điện Thoại
                             </th>
 
                             <th>
-                                Kiểu thanh toán
+                                Ngày Đặt Hàng
+                            </th>
+
+                            <th>
+                                Kiểu Thanh Toán
                             </th>
                             <th>
-                                Trạng thái
+                                Trạng Thái
                             </th>
                             <th>
-                                Tổng tiền
+                                Tổng Tiền
                             </th>
 
                             <th></th>
@@ -163,6 +159,7 @@
                         @foreach (var item in Model)
                         {
                             <tr>
+                                <td>@Html.DisplayFor(modelItem => item.CustomerName)</td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Address)
                                 </td>
@@ -219,6 +216,7 @@
                 <!--end: Datatable -->
             </div>
         </div>
+    </div>
     </div>
 
 

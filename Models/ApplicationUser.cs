@@ -8,5 +8,6 @@ namespace BookOnlineShop.Models
         public string Address { get; set; }
         public DateTime age { get; set; }
         public string telephone { get; set; }
+        public string name { get; set; }
     }
 }

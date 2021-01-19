@@ -1,12 +1,13 @@
 ﻿import React, {Component} from 'react';
 import ProductItems from './components/ProductItems';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import API from '../API';
 import Adapter from '../Adapter';
-export default class Product extends Component {
+class Product extends Component {
     constructor(props) {
         super(props);
         this.state = {
+       
             cart: props.cart,
             products: props.products,
             categories: props.categories,
@@ -21,7 +22,31 @@ export default class Product extends Component {
         }
         return null;
     }
+    componentDidMount() {
+        if (this.props.match.params.categoryid != "all") {
+            API.get(Adapter.getCategoriesID.url, {
+                params: {
+                    id: this.props.match.params.categoryid
+                }
+            }).then(res => {
+                this.setState({
+                    products: res.data,
+                });
+            }).catch(err => {
 
+            });
+        } else {
+            API.get(Adapter.getProducts.url)
+                .then(res => {
+                    this.setState({
+                        products: res.data,
+                    });
+                }).catch(err => {
+
+                });
+        }
+      
+    }
     componentDidUpdate(prevProps, prevState) {
         if (prevProps.cart !== this.props.cart) {
             this.setState({
@@ -33,31 +58,19 @@ export default class Product extends Component {
         this.props.updateCartState();
     }
     selectCategory = (item) => {
-         API.get(Adapter.getCategoriesID.url, {
+        API.get(Adapter.getCategoriesID.url, {
             params: {
                 id: item
             }
         }).then(res => {
-                this.setState({
-                    products: res.data,
-                });
-                console.log(res.data);
-                console.log(this.state.products)
-            }).catch(err => {
-
+            this.setState({
+                products: res.data,
             });
+        }).catch(err => {
+
+        });
+         
     }
-  /*  sortOnKey = (key, string, desc) => {
-        const caseInsensitive = string && string === "CI";
-        return (a, b) => {
-            a = caseInsensitive ? a[key].toLowerCase() : a[key];
-            b = caseInsensitive ? b[key].toLowerCase() : b[key];
-            if (string) {
-                return desc ? b.localeCompare(a) : a.localeCompare(b);
-            }
-            return desc ? b - a : a - b;
-        }
-    };*/
     sortProduct = async (event) => {
         let value = event.target.value;
         let products = this.state.products;
@@ -128,9 +141,10 @@ export default class Product extends Component {
                                     </div>
                                     <div className="left-menu mb-30">
                                         <ul>
+                                            <li ><Link to={"/category/all"} onClick={this.selectCategory.bind(this, 0)}>Tất cả sách</Link></li>
                                             {
                                                 categories ? categories.map((e, index) => {
-                                                    return <li key={index}><a onClick={this.selectCategory.bind(this, e.categoryID)} style={{cursor: "pointer"}}>{e.categoryName}</a></li>
+                                                    return <li key={index}><Link to={"/category/"+e.categoryID} onClick={this.selectCategory.bind(this, e.categoryID)}>{e.categoryName}</Link></li>
                                                 }) : null
                                             }
                                             
@@ -141,7 +155,7 @@ export default class Product extends Component {
                             </div>
                             <div className="col-lg-9 col-md-12 col-12 order-lg-2 order-1">
                                 <div className="category-image mb-30">
-                                    <a><img src="img/banner/32.jpg" alt="banner" /></a>
+                                    <img src="img/banner/32.jpg" alt="banner" />
                                 </div>
                                 <div className="toolbar mb-30">
                                     <div className="toolbar-sorter">
@@ -162,7 +176,7 @@ export default class Product extends Component {
                                             {
                                                 products ? products.map((product, index) => {
                                                     count++;
-                                                    return <ProductItems updateCartState={this.updateCartState} product={product} key={index} />
+                                                    return <ProductItems currentUser={this.props.currentUser} updateCartState={this.updateCartState} product={product} key={index} />
                                                 }) : null
                                             }
                                     
@@ -429,3 +443,4 @@ export default class Product extends Component {
         );
     }
 }
+export default withRouter(Product);

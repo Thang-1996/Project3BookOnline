@@ -67,7 +67,6 @@ export class NavMenu extends Component {
         let cartStorage = localStorage.getItem("cart");
         if (cartStorage === null || cartStorage.trim() === "" ) cartStorage = [];
         else cartStorage = JSON.parse(cartStorage);
-        console.log(cartStorage);
    
         cart.forEach((e) => {
             if (item.productID == e.productID) {
@@ -89,7 +88,6 @@ export class NavMenu extends Component {
     render() {
         const { cart, category } = this.state;
         let total = 0;
-        console.log(category);
      
       return (
           <header>
@@ -165,7 +163,7 @@ export class NavMenu extends Component {
                       </div>
                   </div>
               </div>
-              <div className="header-bottom-area mb-3 " style={{ backgroundColor: "f8f7f7", fontSize: "18px", marginTop: "0rem!important"}}>
+              <div className="header-bottom-area" style={{ backgroundColor: "f8f7f7", fontSize: "18px", marginTop: "0rem!important"}}>
                   <div className="container">
                       <div className="row">
                           <div className="col-lg-12 col-md-12">
@@ -178,9 +176,9 @@ export class NavMenu extends Component {
                                               <ul className="dropdown-menu mega-menu">
                                                   {
                                                       category ? category.map((e, index) => {
-                                                          return <li className="mega-menu-column">
+                                                          return <li key={ index} className="mega-menu-column">
                                                               <ul>
-                                                                  <Link to="" className="nav-header">{e.categoryName}</Link>
+                                                                  <Link to={"/category/"+e.categoryID} className="nav-header">{e.categoryName}</Link>
                                                               </ul>
                                                           </li>
                                                       }) : null

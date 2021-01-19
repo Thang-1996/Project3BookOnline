@@ -5,6 +5,12 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
+    <div class="alert alert-light alert-elevate" role="alert">
+        <div class="alert-icon"><i class="la la-folder kt-font-brand"></i></div>
+        <div class="alert-text">
+            Thêm Mới Nhà Xuất Bản
+        </div>
+    </div>
     <div class="kt-portlet kt-portlet--mobile">
         <div class="kt-portlet__head kt-portlet__head--lg">
             <div class="kt-portlet__head-label">
@@ -12,14 +18,14 @@
                     <i class="kt-font-brand flaticon2-line-chart"></i>
                 </span>
                 <h3 class="kt-portlet__head-title">
-                    Create Publishers
+                    Thêm Mới Nhà Xuất Bản
                 </h3>
             </div>
             <div class="kt-portlet__head-toolbar">
                 <div class="kt-portlet__head-wrapper">
                     <a asp-action="Index" asp-area="admin" asp-controller="publishers" class="btn btn-clean btn-icon-sm">
                         <i class="la la-long-arrow-left"></i>
-                        Back
+                        Trở Về
                     </a>
                     &nbsp;
 
@@ -30,36 +36,40 @@
         <div class="kt-portlet__body">
 
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-12">
                     <form asp-action="Create" asp-area="admin">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="form-group">
-                            <label asp-for="PublisherName" class="control-label">Publisher Name</label>
+                            <label asp-for="PublisherName" class="control-label">Tên Nhà Xuất Bản</label>
                             <input asp-for="PublisherName" class="form-control" />
                             <span asp-validation-for="PublisherName" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="Email" class="control-label"></label>
+                            <label asp-for="Email" class="control-label"> Email</label>
                             <input asp-for="Email" class="form-control" />
                             <span asp-validation-for="Email" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="Address" class="control-label"></label>
+                            <label asp-for="Address" class="control-label">Địa Chỉ</label>
                             <input asp-for="Address" class="form-control" />
                             <span asp-validation-for="Address" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="PhoneNumber" class="control-label">Phone Number </label>
+                            <label asp-for="PhoneNumber" class="control-label">Số Điện Thoại </label>
                             <input asp-for="PhoneNumber" class="form-control" />
                             <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="Status" class="control-label"></label>
-                            <input asp-for="Status" class="form-control" />
+                            <label asp-for="Status" class="control-label">Trạng thái</label>
+
+                            <select asp-for="Status" class="form-control">
+                                <option value="1">Active</option>
+                                <option value="0">Blog</option>
+                            </select>
                             <span asp-validation-for="Status" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <input type="submit" value="Create" class="btn btn-primary" />
+                            <input type="submit" value="Thêm Mới" class="btn btn-primary" />
                         </div>
                     </form>
                 </div>

@@ -13,19 +13,19 @@
                     <i class="kt-font-brand flaticon2-line-chart"></i>
                 </span>
                 <h3 class="kt-portlet__head-title">
-                    Products List
+                    Danh Sách Sách
                 </h3>
             </div>
             <div class="kt-portlet__head-toolbar">
                 <div class="kt-portlet__head-wrapper">
                     <a href="#" class="btn btn-clean btn-icon-sm">
                         <i class="la la-long-arrow-left"></i>
-                        Back
+                        Trở Về
                     </a>
                     &nbsp;
                     <div class="dropdown dropdown-inline">
                         <a asp-action="Create" asp-area="admin" asp-controller="Products" class="btn btn-brand btn-icon-sm" aria-haspopup="true" aria-expanded="false">
-                            <i class="flaticon2-plus"></i> Add New Product
+                            <i class="flaticon2-plus"></i> Thêm Sách Mới 
                         </a>
 
                     </div>
@@ -67,32 +67,32 @@
                         <tr>
 
                             <th>
-                                Tên sản phẩm
+                                Tên Sách
                             </th>
                             <th>
-                                Hình ảnh
-                            </th>
-
-                            <th>
-                                Giá tiền
-                            </th>
-                            <th>
-                                Số lượng
+                               Hình Ảnh
                             </th>
 
+                            <th>
+                                Đơn Giá
+                            </th>
+                            <th>
+                                Số Lượng
+                            </th>
+
 
                             <th>
-                                Thể loại
+                               Thể Loại
                             </th>
                             <th>
-                                Tác giả
+                                Tác Giả
                             </th>
                             <th>
-                                Nhà xuất bản
+                                Nhà Xuất Bản
 
                             </th>
                             <th>
-                                Trạng thái
+                                Trạng Thái
                             </th>
                             <th>
 
@@ -122,8 +122,6 @@
                             </td>
 
 
-
-
                             <td>
                                 @item.Category.CategoryName
                             </td>
@@ -140,7 +138,7 @@
                                 }
                                 else
                                 {
-                                    <span class="kt-badge  kt-badge--danger kt-badge--inline kt-badge--pill">Lock</span>
+                                    <span class="kt-badge  kt-badge--danger kt-badge--inline kt-badge--pill">Block</span>
                                 }
 
                             </td>
@@ -170,94 +168,4 @@
         </div>
 </div>
 
-@*<h1>Index</h1>
-
-    <p>
-        <a asp-action="Create">Create New</a>
-    </p>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.ProductName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ProductCode)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ProductImage)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ProductDescription)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Price)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Quantity)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Status)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.PublishingTime)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Reprinttimes)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Category)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.AuthorProducts)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-    @foreach (var item in Model) {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ProductName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ProductCode)
-                </td>
-                <td>
-                    <img src="~/images/@item.ProductImage" style="width: 60px; height: 60px" alt="ProductImage" />
-
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ProductDescription)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Price)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Quantity)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Status)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PublishingTime)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Reprinttimes)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Category.CategoryName)
-                </td>
-                <td>
-                    @string.Join(", ",item.AuthorProducts.Select(p => p.Author.AuthorName))
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.ProductID">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.ProductID">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.ProductID">Delete</a>
-                </td>
-            </tr>
-    }
-        </tbody>
-    </table>*@
 

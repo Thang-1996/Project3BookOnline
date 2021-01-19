@@ -7,6 +7,12 @@
 
 }
 <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
+    <div class="alert alert-light alert-elevate" role="alert">
+        <div class="alert-icon"><i class="la la-folder kt-font-brand"></i></div>
+        <div class="alert-text">
+            Thông Tin Nhà Xuất Bản
+        </div>
+    </div>
     <div class="kt-portlet kt-portlet--mobile">
         <div class="kt-portlet__head kt-portlet__head--lg">
             <div class="kt-portlet__head-label">
@@ -14,7 +20,7 @@
                     <i class="kt-font-brand flaticon2-line-chart"></i>
                 </span>
                 <h3 class="kt-portlet__head-title">
-                    Publishers Details
+                    @Html.DisplayFor(model => model.PublisherName)
                 </h3>
             </div>
             <div class="kt-portlet__head-toolbar">
@@ -33,47 +39,53 @@
 
             <dl class="row">
                 <dt class="col-sm-2">
-                    Publisher Name
+                    Tên Nhà Xuất Bản
                 </dt>
                 <dd class="col-sm-10">
                     @Html.DisplayFor(model => model.PublisherName)
                 </dd>
                 <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.Email)
+                    Email
                 </dt>
                 <dd class="col-sm-10">
                     @Html.DisplayFor(model => model.Email)
                 </dd>
                 <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.Address)
+                    Địa Chỉ
                 </dt>
                 <dd class="col-sm-10">
                     @Html.DisplayFor(model => model.Address)
                 </dd>
                 <dt class="col-sm-2">
-                   Phone Number
+                    Số Điện Thoại
                 </dt>
                 <dd class="col-sm-10">
                     @Html.DisplayFor(model => model.PhoneNumber)
                 </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.Status)
-                </dt>
                 <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.Status)
+                    @if (Model.Status == 1)
+                    {
+                        <span class="kt-badge  kt-badge--success kt-badge--inline kt-badge--pill">Active</span>
+                    }
+                    else
+                    {
+                        <span class="kt-badge  kt-badge--danger kt-badge--inline kt-badge--pill">Block</span>
+                    }
                 </dd>
 
                 <dt class="col-sm-2">
-                    Products
+                    Sách :
                 </dt>
-                @foreach (var item in publisher.PublisherProducts)
-                {
+                <dd>
+                    @foreach (var item in publisher.PublisherProducts)
+                    {
 
-                    <span>
-                        @item.Product.ProductName ,
-                    </span>
+                        <span>
+                            @item.Product.ProductName ,
+                        </span>
 
-                }
+                    }
+                </dd>
             </dl>
         </div>
 

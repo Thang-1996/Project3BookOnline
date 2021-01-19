@@ -34,14 +34,26 @@ namespace BookOnlineShop.Controllers.api
         [ActionName("GetCategoriesbyID")]
         public async Task<ActionResult<IEnumerable<Products>>> GetCategories(int id)
         {
-            var products = await _context.Products.Where(b=>b.CategoryID == id).ToListAsync();
-
-            if (products == null)
+            if(id == 0)
             {
-                return NotFound();
-            }
+                var products = await _context.Products.ToListAsync();
+                if (products == null)
+                {
+                    return NotFound();
+                }
 
-            return products;
+                return products;
+            }
+            else
+            {
+                var products = await _context.Products.Where(b => b.CategoryID == id).ToListAsync();
+                if (products == null)
+                {
+                    return NotFound();
+                }
+
+                return products;
+            }
         }
         [HttpGet("Detail/{id}")]
         public async Task<ActionResult<Categories>> Detail(int id)

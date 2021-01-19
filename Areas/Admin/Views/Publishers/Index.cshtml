@@ -13,19 +13,19 @@
                     <i class="kt-font-brand flaticon2-line-chart"></i>
                 </span>
                 <h3 class="kt-portlet__head-title">
-                    Danh sách nhà xuất bản
+                    Danh Sách Nhà Xuất Bản
                 </h3>
             </div>
             <div class="kt-portlet__head-toolbar">
                 <div class="kt-portlet__head-wrapper">
                     <a asp-action="Index" asp-area="admin" asp-controller="publishers" class="btn btn-clean btn-icon-sm">
                         <i class="la la-long-arrow-left"></i>
-                        Back
+                        Trở Về
                     </a>
                     &nbsp;
                     <div class="dropdown dropdown-inline">
                         <a asp-action="Create" asp-area="admin" asp-controller="publishers" class="btn btn-brand btn-icon-sm" aria-haspopup="true" aria-expanded="false">
-                            <i class="flaticon2-plus"></i> Add New
+                            <i class="flaticon2-plus"></i> Thêm Mới Nhà Xuất Bản
                         </a>
 
                     </div>
@@ -62,32 +62,29 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>STT</th>
                             <th>
-                                Nhà xuất bản
+                                Nhà Xuất Bản
                             </th>
 
                             <th>
                                 Email
                             </th>
                             <th>
-                                Địa chỉ
+                               Địa Chỉ
                             </th>
                             <th>
-                                Số điện thoại
+                                Số Điện Thoại
                             </th>
                             <th>
-                                Trạng thái
+                                Trạng Thái
                             </th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        @{ var index = 1;} 
                         @foreach (var item in Model)
                         {
                             <tr>
-                                <td>@index</td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.PublisherName)
                                 </td>
@@ -117,7 +114,6 @@
                                     <a class="btn btn-sm btn-clean btn-icon btn-icon-md" asp-area="admin" asp-action="Delete" asp-route-id="@item.PublisherID"><i class="la la-remove"></i></a>
                                 </td>
                             </tr>
-                            index++;
                   
                         }
                     </tbody>

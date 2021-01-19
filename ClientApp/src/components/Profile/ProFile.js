@@ -81,7 +81,7 @@ export default class ProFile extends Component {
     }
     render() {
         const { currentUser, orders, order, redirect } = this.state;
-        console.log(currentUser);
+        console.log(order);
         let total = 0;
         if (redirect) {
             return <Redirect to='/profile' />;
@@ -169,7 +169,7 @@ export default class ProFile extends Component {
                                                                 <form action="#">
                                                                     <div className="single-input-item">
                                                                         <label htmlFor="display-name" className="required">Tên </label>
-                                                                        <input type="text" value={(currentUser ? currentUser.userName : '') || ''} onChange={this.changeValue} name="userName"  placeholder="Tên tài khoản" />
+                                                                        <input type="text" value={(currentUser ? currentUser.name : '') || ''} onChange={this.changeValue} name="name"  placeholder="Tên tài khoản" />
                                                                     </div>
                                                                     <div className="single-input-item">
                                                                         <label htmlFor="email" className="required">Email</label>
@@ -216,8 +216,24 @@ export default class ProFile extends Component {
                     </div>
                 </div>
                 <div className="modal fade bd-example-modal-lg" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                  
                     <div className="modal-dialog modal-lg">
                         <div className="modal-content p-5">
+                            <div className="container">
+                                <h6>Thông tin vận chuyển :</h6>
+                                <p style={{fontSize : '14px'}} >Tên người nhận : {order ? order.customerName : ''}</p>
+                                <p style={{ fontSize: '14px' }}>Địa chỉ nhận hàng  : {order ? order.address : ''}</p>
+                                <p style={{ fontSize: '14px' }}>Ngày đặt hàng : {order ? order.createAt : ''}</p>
+                                <p style={{ fontSize: '14px' }}>Điện thoại : {order ? order.telephone : ''}</p>
+                                {
+                                   order ? order.status == 2 ? <p style={{ fontSize: '14px' }}>Thời gian nhận hàng : {order ? order.updateAt : ''}</p> : <p style={{ fontSize: '14px' }}>Đang giao hàng</p> : ''
+                                }
+                            
+
+                                
+                            </div>
+
+                            <h6 style={{ marginTop: '30px',marginLeft : '15px'}}>Thông tin đơn hàng :</h6>
                             <table className="table">
                                 <thead>
                                     <tr>
@@ -235,7 +251,7 @@ export default class ProFile extends Component {
                                             return (
                                                 <tr key={index}>
                                                     <td>{e.products.productName}</td>
-                                                    <td><img style={{ width: "100px", height: "80px" }} src={"/images/" + e.products.productImage} /></td>
+                                                    <td><img style={{ width: "50px", height: "50px" }} src={"/images/" + e.products.productImage} /></td>
                                                     <td>{e.quantity}</td>
                                                     <td>{Adapter.format_money(e.products.price)}</td>
                                                     <td>{Adapter.format_money(e.quantity * e.products.price)}</td>
@@ -245,7 +261,7 @@ export default class ProFile extends Component {
                                     }
                                 </tbody>
                             </table>
-                            <h4 className="text-right">Tổng tiền đơn hàng : {Adapter.format_money(total)} </h4>
+                            <h6 className="text-right">Tổng tiền đơn hàng : {Adapter.format_money(total)} </h6>
                         </div>
                     </div>
                 </div>

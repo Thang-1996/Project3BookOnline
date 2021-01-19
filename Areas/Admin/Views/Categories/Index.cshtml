@@ -13,19 +13,19 @@
                     <i class="kt-font-brand flaticon2-line-chart"></i>
                 </span>
                 <h3 class="kt-portlet__head-title">
-                    Danh sách thể loại
+                    Danh Sách Thể Loại
                 </h3>
             </div>
             <div class="kt-portlet__head-toolbar">
                 <div class="kt-portlet__head-wrapper">
                     <a href="#" class="btn btn-clean btn-icon-sm">
                         <i class="la la-long-arrow-left"></i>
-                        Trở về
+                        Trở Về
                     </a>
                     &nbsp;
                     <div class="dropdown dropdown-inline">
                         <a asp-action="Create" asp-area="admin" asp-controller="Categories" class="btn btn-brand btn-icon-sm" aria-haspopup="true" aria-expanded="false">
-                            <i class="flaticon2-plus"></i> Thêm mới thể loại
+                            <i class="flaticon2-plus"></i> Thêm Mới Thể Loại
                         </a>
 
                     </div>
@@ -60,10 +60,9 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <td>STT</td>
-                            <td>Thể loại</td>
-                            <td>Code</td>
-                            <td>Trạng thái</td>
+                            <td>Thể Loại</td>
+                            <td>Mã Thể Loại</td>
+                            <td>Trạng Thái</td>
                             <td></td>
                         </tr>
                     </thead>
@@ -71,7 +70,6 @@
                         @foreach (var item in Model)
                         {
                             <tr>
-                                <td>@item.CategoryID</td>
                                 <td>@item.CategoryName</td>
                                 <td>@item.CategoryCode</td>
                                 <td>
@@ -81,7 +79,7 @@
                                     }
                                     else
                                     {
-                                        <span class="kt-badge  kt-badge--danger kt-badge--inline kt-badge--pill">Lock</span>
+                                        <span class="kt-badge  kt-badge--danger kt-badge--inline kt-badge--pill">Block</span>
 
                                     }
 
@@ -106,4 +104,5 @@
                 </table>
             </div>
         </div>
+    </div>
     </div>

@@ -74,17 +74,26 @@ namespace BookOnlineShop.Controllers.api
         {
             var cart = payment.carts;
             var orders = payment.orders;
-       
+            decimal total = 0;
+      
             Console.WriteLine(JsonConvert.SerializeObject(payment));
-
+            if(orders.GrandTotal < 500000)
+            {
+                total = orders.GrandTotal + 30000;
+            }
+            else
+            {
+                total = orders.GrandTotal;
+            }
             Orders orders1 = new Orders
             {
+                CustomerName = orders.CustomerName,
                 Address = orders.Address,
                 paymenttype = orders.paymenttype,
                 Telephone = orders.Telephone,
                 OrderNote = orders.OrderNote,
                 Status = orders.Status,
-                GrandTotal = orders.GrandTotal,
+                GrandTotal = total,
                 UserID = orders.UserID,
                 CreateAt = DateTime.Now,
                 UpdateAt = DateTime.Now
@@ -93,6 +102,8 @@ namespace BookOnlineShop.Controllers.api
             _context.SaveChanges();
             foreach (var item in cart)
             {
+                var product = _context.Products.Where(p => p.ProductID == item.product.ProductID).FirstOrDefault();
+                product.Quantity -= item.quantity;
                 OrderProducts orderProducts = new OrderProducts();
                 orderProducts.OrderID = orders1.ID;
                 orderProducts.ProductID = item.product.ProductID;
@@ -126,6 +137,7 @@ namespace BookOnlineShop.Controllers.api
                 }
                 if (!string.IsNullOrEmpty(user.UserName))
                 {
+                    us.name = user.name;
                     us.UserName = user.UserName;
                     us.NormalizedUserName = user.NormalizedUserName;
                 }
@@ -180,7 +192,104 @@ namespace BookOnlineShop.Controllers.api
             }
             return Ok(response);
         }
+        public async Task<ActionResult<Answer>> sendAnswer(AnswerP answer)
+        {
+            Answer ans = new Answer()
+            {
+                AnswerTime = DateTime.Now,
+                Message = answer.Message,
+                UserName = answer.UserName,
+                Status = 1,
+            };
+            _context.Add(ans);
+            _context.SaveChanges();
+            ReviewAnswer ra = new ReviewAnswer()
+            {
+                AnswerID = ans.AnswerID,
+                ReviewID = answer.ReviewID,
+            };
+            _context.Add(ra);
+            _context.SaveChanges();
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
+        [HttpPost]
+        [ActionName("SaveWishList")]
+        public async Task<ActionResult<WishList>> SaveWishList(WishList wishlist)
+        {
+            var response = true;
+            if (_context.WishLists.Any(w => w.Product.ProductID == wishlist.Product.ProductID && w.UserID.Equals(wishlist.UserID)))
+            {
+                response = false;
+                return Ok(response);
 
+            }
+
+            var product = _context.Products.Where(p => p.ProductID == wishlist.Product.ProductID).FirstOrDefault();
+            Console.WriteLine(product);
+
+            var wishlist1 = new WishList();
+            wishlist1.Product = product;
+            wishlist1.UserID = wishlist.UserID;
+            _context.Add(wishlist1);
+            await _context.SaveChangesAsync();
+
+
+
+            return Ok(response);
+        }
+        [HttpGet]
+        [ActionName("getWishList")]
+        public async Task<ActionResult<IEnumerable<WishList>>> getWishList(string id)
+        {
+            if (!string.IsNullOrEmpty(id))
+            {
+              
+                var wishlist = await _context.WishLists.Where(w => w.UserID.Equals(id))
+                    .Include(p=>p.Product)
+                    .ToListAsync();
+                return wishlist;
+            }
+            return NotFound();
+         
+        }
+        [HttpPost]
+        [ActionName("deleteWishList")]
+        public async Task<ActionResult<WishList>> deleteWishList(WishList wishlist)
+        {
+            var wishlist1 = _context.WishLists.Where(w => w.WishListID == wishlist.WishListID).FirstOrDefault();
+            _context.WishLists.Remove(wishlist1);
+            await _context.SaveChangesAsync();
+            return Ok(true);
+
+        }
+        [HttpPost]
+        [ActionName("increaseCount")]
+        public async Task<ActionResult<Visit>> increaseCount(Visit visit)
+        {
+            var response = true;
+            if (_context.Visits.Any(v => v.ProductID == visit.ProductID && v.userIP.Equals(visit.userIP)))
+            {
+                response = false;
+                return Ok(response);
+
+            }
+
+            var visit1 = new Visit()
+            {
+                ProductID = visit.ProductID,
+                userIP = visit.userIP,
+            };
+         
+            _context.Add(visit1);
+            _context.SaveChanges();
+            var product = _context.Products.Where(p => p.ProductID == visit.ProductID).FirstOrDefault();
+            product.ViewCount += 1;
+            _context.Update(product);
+            _context.SaveChanges();
+            await _context.SaveChangesAsync();
+            return Ok(response);
+        }
     }
    
 }

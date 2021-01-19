@@ -19,6 +19,30 @@ namespace BookOnlineShop.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("BookOnlineShop.Models.Answer", b =>
+                {
+                    b.Property<int>("AnswerID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("AnswerTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Message")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("AnswerID");
+
+                    b.ToTable("Answer");
+                });
+
             modelBuilder.Entity("BookOnlineShop.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
@@ -76,6 +100,9 @@ namespace BookOnlineShop.Migrations
 
                     b.Property<DateTime>("age")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("name")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("telephone")
                         .HasColumnType("nvarchar(max)");
@@ -143,6 +170,39 @@ namespace BookOnlineShop.Migrations
                     b.HasKey("AuthorID");
 
                     b.ToTable("Authors");
+                });
+
+            modelBuilder.Entity("BookOnlineShop.Models.Blog", b =>
+                {
+                    b.Property<int>("BlogID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("BlogImage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Content")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ViewCount")
+                        .HasColumnType("int");
+
+                    b.HasKey("BlogID");
+
+                    b.ToTable("Blogs");
                 });
 
             modelBuilder.Entity("BookOnlineShop.Models.Categories", b =>
@@ -256,11 +316,13 @@ namespace BookOnlineShop.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(255)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("CreateAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("CustomerName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("GrandTotal")
                         .HasColumnType("decimal(18,2)");
@@ -333,6 +395,9 @@ namespace BookOnlineShop.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ViewCount")
                         .HasColumnType("int");
 
                     b.HasKey("ProductID");
@@ -427,6 +492,21 @@ namespace BookOnlineShop.Migrations
                     b.ToTable("Reviews");
                 });
 
+            modelBuilder.Entity("BookOnlineShop.Models.ReviewAnswer", b =>
+                {
+                    b.Property<int>("ReviewID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AnswerID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ReviewID", "AnswerID");
+
+                    b.HasIndex("AnswerID");
+
+                    b.ToTable("ReviewAnswers");
+                });
+
             modelBuilder.Entity("BookOnlineShop.Models.ReviewProduct", b =>
                 {
                     b.Property<int>("ReviewID")
@@ -440,6 +520,44 @@ namespace BookOnlineShop.Migrations
                     b.HasIndex("ProductID");
 
                     b.ToTable("ReviewProducts");
+                });
+
+            modelBuilder.Entity("BookOnlineShop.Models.Visit", b =>
+                {
+                    b.Property<int>("VisitID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ProductID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("userIP")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("VisitID");
+
+                    b.ToTable("Visits");
+                });
+
+            modelBuilder.Entity("BookOnlineShop.Models.WishList", b =>
+                {
+                    b.Property<int>("WishListID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("ProductID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserID")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("WishListID");
+
+                    b.HasIndex("ProductID");
+
+                    b.ToTable("WishLists");
                 });
 
             modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.DeviceFlowCodes", b =>
@@ -728,6 +846,21 @@ namespace BookOnlineShop.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("BookOnlineShop.Models.ReviewAnswer", b =>
+                {
+                    b.HasOne("BookOnlineShop.Models.Answer", "Answer")
+                        .WithMany("ReviewAnswers")
+                        .HasForeignKey("AnswerID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BookOnlineShop.Models.Review", "Review")
+                        .WithMany("ReviewAnswers")
+                        .HasForeignKey("ReviewID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("BookOnlineShop.Models.ReviewProduct", b =>
                 {
                     b.HasOne("BookOnlineShop.Models.Products", "Product")
@@ -741,6 +874,13 @@ namespace BookOnlineShop.Migrations
                         .HasForeignKey("ReviewID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("BookOnlineShop.Models.WishList", b =>
+                {
+                    b.HasOne("BookOnlineShop.Models.Products", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductID");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

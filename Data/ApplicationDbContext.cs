@@ -41,6 +41,17 @@ namespace BookOnlineShop.Data
                 .HasOne(op => op.Product)
                 .WithMany(p => p.ReviewProducts)
                 .HasForeignKey(op => op.ProductID);
+
+            modelBuilder.Entity<ReviewAnswer>()
+            .HasKey(op => new { op.ReviewID, op.AnswerID });
+            modelBuilder.Entity<ReviewAnswer>()
+                .HasOne(op => op.Review)
+                .WithMany(o => o.ReviewAnswers)
+                .HasForeignKey(op => op.ReviewID);
+            modelBuilder.Entity<ReviewAnswer>()
+                .HasOne(op => op.Answer)
+                .WithMany(p => p.ReviewAnswers)
+                .HasForeignKey(op => op.AnswerID);
         }
 
         public DbSet<Categories> Categories { get; set; }
@@ -51,5 +62,9 @@ namespace BookOnlineShop.Data
         public DbSet <OrderProducts> OrderProducts { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<ReviewProduct> ReviewProducts { get; set; }
+        public DbSet<ReviewAnswer> ReviewAnswers { get; set; }
+        public DbSet<Blog> Blogs { get; set; }
+        public DbSet<WishList> WishLists { get; set; }
+        public DbSet<Visit> Visits { get; set; }
     }
 }

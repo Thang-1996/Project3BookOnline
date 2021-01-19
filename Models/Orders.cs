@@ -12,16 +12,16 @@ namespace BookOnlineShop.Models
         [Key]
         public int ID { get; set; }
 
-        [Required(ErrorMessage = "The Order Name field is required"), Column(TypeName = "nvarchar(255)")]
-
       
+
+        public string CustomerName { get; set; }
         public string Address { get; set; }
         public string Telephone { get; set; }
         [Column(TypeName ="ntext")]
         public string OrderNote { get; set; }
-        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
+  
         public DateTime? CreateAt { get; set; }
-        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
+  
         public DateTime? UpdateAt { get; set; }
         public int paymenttype { get; set; }
 
