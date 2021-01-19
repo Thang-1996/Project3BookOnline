@@ -1,4 +1,4 @@
-﻿@model IEnumerable<BookOnlineShop.Models.Products>
+﻿@model IEnumerable<BookOnlineShop.Models.Blog>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,19 +13,19 @@
                     <i class="kt-font-brand flaticon2-line-chart"></i>
                 </span>
                 <h3 class="kt-portlet__head-title">
-                    Products List
+                    Danh sách bài viết
                 </h3>
             </div>
             <div class="kt-portlet__head-toolbar">
                 <div class="kt-portlet__head-wrapper">
-                    <a href="#" class="btn btn-clean btn-icon-sm">
+                    <a asp-action="Index" asp-area="admin" asp-controller="blogs" class="btn btn-clean btn-icon-sm">
                         <i class="la la-long-arrow-left"></i>
                         Back
                     </a>
                     &nbsp;
                     <div class="dropdown dropdown-inline">
-                        <a asp-action="Create" asp-area="admin" asp-controller="Products" class="btn btn-brand btn-icon-sm" aria-haspopup="true" aria-expanded="false">
-                            <i class="flaticon2-plus"></i> Add New Product
+                        <a asp-action="Create" asp-area="admin" asp-controller="blogs" class="btn btn-brand btn-icon-sm" aria-haspopup="true" aria-expanded="false">
+                            <i class="flaticon2-plus"></i> Thêm mới bài viết
                         </a>
 
                     </div>
@@ -39,21 +39,17 @@
                 <div class="row align-items-center">
                     <div class="col-xl-8 order-2 order-xl-1">
                         <div class="row align-items-center">
-                     @*       <form asp-action="Index" method="GET">
-                                <div class="col-md-8 kt-margin-b-20-tablet-and-mobile">
+                            @*             <div class="col-md-4 kt-margin-b-20-tablet-and-mobile">
                                     <div class="kt-input-icon kt-input-icon--left">
-                                        <input style="width: 400px" type="text" class="form-control" name="search" placeholder="Search..." id="generalSearch">
+                                        <input type="text" class="form-control" placeholder="Search..." id="generalSearch">
                                         <span class="kt-input-icon__icon kt-input-icon__icon--left">
                                             <span><i class="la la-search"></i></span>
                                         </span>
                                     </div>
-                                    <button type="submit" class="btn btn-sm btn-primary" style="margin-top: 15px">Search</button>
-                                </div>
-                            </form>*@
+                                </div>*@
 
                         </div>
                     </div>
-
                 </div>
             </div>
 
@@ -61,78 +57,50 @@
         </div>
         <div class="kt-portlet__body kt-portlet__body--fit">
             <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
+
                 <!--begin: Datatable -->
-                <table class="table table-striped">
+                <table class="table">
                     <thead>
                         <tr>
-
+                            <th>STT</th>
                             <th>
-                                Tên sản phẩm
-                            </th>
-                            <th>
-                                Hình ảnh
+                                Tiêu đề
                             </th>
 
                             <th>
-                                Giá tiền
+                                Mô tả
                             </th>
                             <th>
-                                Số lượng
-                            </th>
-
-
-                            <th>
-                                Thể loại
-                            </th>
-                            <th>
-                                Tác giả
-                            </th>
-                            <th>
-                                Nhà xuất bản
-
+                                Ảnh Bìa
                             </th>
                             <th>
                                 Trạng thái
                             </th>
                             <th>
-
+                                Người viết
+                            </th>
+                            <th>
+                                Số lượt xem
                             </th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
+                        @{ var index = 1;}
                         @foreach (var item in Model)
                         {
                         <tr>
-
+                            <td>@index</td>
                             <td>
-                                @item.ProductName
-                            </td>
-
-                            <td>
-                                <img src="~/images/@item.ProductImage" style="width: 60px; height: 60px" alt="ProductImage" />
-                            </td>
-
-
-                            <td>
-                                @item.Price
+                                @item.Title
                             </td>
                             <td>
-                                @item.Quantity
+                                @item.Description
                             </td>
-
-
-
-
                             <td>
-                                @item.Category.CategoryName
+                                <img src="~/images/@item.BlogImage" style="width :50px; height: 50px" />
                             </td>
-                            <th>
-                                @string.Join(", ", item.AuthorProducts.Select(p => p.Author.AuthorName))
-                            </th>
-                            <th>
-                                @string.Join(", ", item.PublisherProducts.Select(p => p.Publisher.PublisherName))
-                            </th>
+
                             <td>
                                 @if (item.Status == 1)
                                 {
@@ -141,33 +109,30 @@
                                 else
                                 {
                                     <span class="kt-badge  kt-badge--danger kt-badge--inline kt-badge--pill">Lock</span>
+
                                 }
-
                             </td>
-                   
-
-
                             <td>
-                                <span style="overflow: visible; position: relative; width: 110px;">
-                                    <a asp-action="Details" asp-area="admin" asp-route-id="@item.ProductID" title="View details" class="btn btn-sm btn-clean btn-icon btn-icon-md">
-                                        <i class="la la-folder"></i>
-                                    </a>
-                                    <a asp-action="Edit" asp-area="admin" asp-route-id="@item.ProductID" title="Edit details" class="btn btn-sm btn-clean btn-icon btn-icon-md">
-                                        <i class="la la-edit"></i>
-                                    </a>
-                                    <a asp-action="Delete" asp-area="admin" asp-route-id="@item.ProductID" title="Delete" class="btn btn-sm btn-clean btn-icon btn-icon-md">
-                                        <i class="la la-trash"></i>
-
-                                    </a>
-                                </span>
+                                @item.UserName
+                            </td>
+                            <td>
+                                @item.ViewCount
+                            </td>
+                            <td>
+                                <a class="btn btn-sm btn-clean btn-icon btn-icon-md" asp-area="admin" asp-action="Edit" asp-route-id="@item.BlogID"><i class="la la-edit"></i></a> |
+                                <a class="btn btn-sm btn-clean btn-icon btn-icon-md" asp-area="admin" asp-action="Details" asp-route-id="@item.BlogID"><i class="la la-info"></i></a> |
+                                <a class="btn btn-sm btn-clean btn-icon btn-icon-md" asp-area="admin" asp-action="Delete" asp-route-id="@item.BlogID"><i class="la la-remove"></i></a>
                             </td>
                         </tr>
+                            index++;
+
                         }
                     </tbody>
                 </table>
-                <!--end: Datatable -->
             </div>
+            <!--end: Datatable -->
         </div>
+    </div>
 </div>
 
 

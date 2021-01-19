@@ -34,8 +34,12 @@ namespace BookOnlineShop.Controllers.api
                 .ThenInclude(p => p.Publisher)
                     .Include(rp => rp.ReviewProducts)
                 .ThenInclude(r => r.Review)
+                .ThenInclude(ra => ra.ReviewAnswers)
+                .ThenInclude(a => a.Answer)
                      .Include(op => op.OrderProducts)
                 .ThenInclude(o => o.Orders)
+                .Include(c=>c.Category)
+                
              .ToListAsync();
         }
 

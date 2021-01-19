@@ -190,6 +190,27 @@ namespace BookOnlineShop.Controllers.api
             }
             return Ok(response);
         }
+        public async Task<ActionResult<Answer>> sendAnswer(AnswerP answer)
+        {
+            Answer ans = new Answer()
+            {
+                AnswerTime = DateTime.Now,
+                Message = answer.Message,
+                UserName = answer.UserName,
+                Status = 1,
+            };
+            _context.Add(ans);
+            _context.SaveChanges();
+            ReviewAnswer ra = new ReviewAnswer()
+            {
+                AnswerID = ans.AnswerID,
+                ReviewID = answer.ReviewID,
+            };
+            _context.Add(ra);
+            _context.SaveChanges();
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
 
     }
    

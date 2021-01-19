@@ -17,5 +17,6 @@ namespace BookOnlineShop.Models
         public string idUser { get; set; }
         public int Status { get; set; }
         public ICollection<ReviewProduct> ReviewProducts { get; set; }
+        public ICollection<ReviewAnswer> ReviewAnswers { get; set; }
     }
 }

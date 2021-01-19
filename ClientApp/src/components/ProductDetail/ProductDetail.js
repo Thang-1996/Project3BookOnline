@@ -15,6 +15,7 @@ class ProductDetail extends Component {
             productID: this.props.match.params.id,
             product: null,
             quantity: 1,
+            rw: null,
             currentUser: props.currentUser,
             review: {
                 Message: '',
@@ -22,8 +23,16 @@ class ProductDetail extends Component {
                 UserID: '',
                 Status: '',
                 ProductID: '',
-                idUser : '',
+                idUser: '',
             },
+            answers: {
+                Message: '',
+                UserName: '',
+                Status: 1,
+                ReviewID : '',
+   
+            },
+            display : 'none'
         };
         this.addToCart = this.addToCart.bind(this);
     }
@@ -52,6 +61,43 @@ class ProductDetail extends Component {
 
            });
         } 
+    }
+    setValue = (event) => {
+        let nameValue = event.target.name;
+        let answers = this.state.answers;
+        answers[nameValue] = event.target.value;
+        this.setState({ answers: answers })
+    }
+    saveAnswer = async (event) => {
+        if (event.charCode === 13) {
+           
+            let currentUser = this.state.currentUser;
+            let answer = this.state.answers;
+            let reviewID = 0;
+            let rw = this.state.rw;
+            if (rw) {
+                reviewID = rw.reviewID;
+            }
+            answer.UserName = currentUser.userName;
+            answer.ReviewID = reviewID;
+            this.setState({ answers: answer })
+            await API.post(Adapter.sendAnswer.url, answer)
+                .then(res => {
+                    console.log(res);
+
+                }).catch(err => {
+
+                });
+
+            this.props.updateProduct();
+        }
+    }
+
+    answer = (item) => {
+        this.setState({
+            rw: item,
+            display : ''
+        })
     }
     ratingChanged = (newRating) => {
         let review = this.state.review;
@@ -144,10 +190,18 @@ class ProductDetail extends Component {
         this.setState({quantity : quantity})
     }
     render() {
-        const { product, currentUser, review } = this.state;
+        const { product, currentUser, review, rw, display, answers } = this.state;
+     
         let reviewProduct = product ? product.reviewProducts : [];
+       
+     
         let orderProduct = product ? product.orderProducts : [];
+<<<<<<< HEAD
 
+=======
+        console.log(product);
+       
+>>>>>>> 26a469ddeb4cc9fc08bd27c3c17f1c91e868f13a
         return (
             <div>
                 <div className="breadcrumbs-area mb-70">
@@ -183,24 +237,7 @@ class ProductDetail extends Component {
                                                     <h1>{ product ? product.productName : ""}</h1>
                                                 </div>
                                                 <div className="product-info-stock-sku">
-                                                    <div className="product-attribute">
-                                                        {
-                                                            product ? product.authorProducts.map((e, index) => {
-                                                                return (
-                                                                    <span key={ index} className="value">Tác giả: { e.author.authorName }   |</span>
-                                                                    )
-                                                            }) : null
-                                                        }
-                                                        
-                                                        <span>Tái bản lần {product ? product.reprinttimes : ""} |</span>
-                                                        {
-                                                            product ? product.publisherProducts.map((e, index) => {
-                                                                return (
-                                                                    <span key={index} className="value">Nhà xuất bản: {e.publisher.publisherName}  |</span>
-                                                                )
-                                                            }) : null
-                                                        }
-                                                    </div>
+                                            
                                                 </div>
                                                 <div className="product-reviews-summary">
                                                     <div className="rating-summary">
@@ -211,9 +248,11 @@ class ProductDetail extends Component {
                                                         <a href="#"><i className="fa fa-star" /></a>
                                                     </div>
                                                     <div className="reviews-actions">
-                                                        <a href="#">3 Reviews    |</a>
-                                                        <a href="#">   Đánh giá</a>
+                                                        <span>{reviewProduct.length} Đánh giá | 100 Lượt xem  |   <a className="btn btn-primary text-white">Đọc thử</a></span>
+                                                 
                                                     </div>
+                                                  
+                                            
                                                 </div>
                                                 <div className="product-info-price">
                                                     <div className="price-final">
@@ -242,24 +281,30 @@ class ProductDetail extends Component {
                                 </div>
                                 <div className="left">
                                     <h4 className="BlockTitle__Wrapper-qpz3fo-0 jHTCJn">Thông tin chi tiết</h4>
-                                    <div class="group">
+                                    <div className="group">
                                     <div className="content has-table" >
                                     <table>
                                         <tbody>
                                             <tr>
-                                                <td>Công ty phát hành</td><td>Nhã Nam</td>
+                                                        <td>Thuộc thể loại</td><td>{ product ? product.category.categoryName : ''}</td>
                                             </tr>
                                             <tr>
                                                 <td>Ngày xuất bản</td>
-                                                <td>08-2017</td>
+                                                        <td>{product ? product.publishingTime : ''}</td>
                                             </tr>
                                             <tr>
                                                 <td>Kích thước</td>
                                                 <td>14 x 20.5 cm</td>
                                             </tr>
                                             <tr>
-                                                <td>Dịch Giả</td>
-                                                <td>Phan Thu Vân</td>
+                                                <td>Tác giả</td>
+                                                        <td>{
+                                                            product ? product.authorProducts.map((item, index) => {
+
+                                                                return <span key={index}>{ item.author.authorName} | </span>
+                                                            }): null
+
+                                                        }</td>
                                             </tr>
                                             <tr>
                                                 <td>Loại bìa</td>
@@ -269,13 +314,16 @@ class ProductDetail extends Component {
                                                 <td>Số trang</td>
                                                 <td>432</td>
                                             </tr>
-                                            <tr>
-                                                <td>SKU</td>
-                                                <td>2435793318144</td>
-                                            </tr>
+                                          
                                             <tr>
                                                 <td>Nhà xuất bản</td>
-                                                <td>Nhà Xuất Bản Thế Giới</td>
+                                                        <td>{
+                                                            product ? product.publisherProducts.map((item, index) => {
+
+                                                                return <span key={index}>{item.publisher.publisherName} | </span>
+                                                            }) : null
+
+                                                        }</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -285,11 +333,11 @@ class ProductDetail extends Component {
                                 <div className="product-info-area mt-80">
                            
                                     <ul className="nav">
-                                        <li><a className="active" href="#Details" data-toggle="tab">Mô tả sách</a></li>
-                                        <li><a href="#Reviews" data-toggle="tab">Đánh giá</a></li>
+                                        <li><a className="active" href="#Reviews" data-toggle="tab">Đánh giá</a></li>
+                                        <li><a  href="#Details" data-toggle="tab">Mô tả sách</a></li>
                                     </ul>
                                     <div className="tab-content">
-                                        <div className="tab-pane fade show active" id="Details">
+                                        <div className="tab-pane fade" id="Details">
                                             <div className="valu">
                                                 <p style={{ fontSize:"16px" }}>{product ? product.productDescription : ""}</p>
                                             </div>
@@ -297,7 +345,7 @@ class ProductDetail extends Component {
                                         {
 
                                             currentUser ?
-                                                <div className="tab-pane fade" id="Reviews">
+                                                <div className="tab-pane fade show active" id="Reviews">
                                             <div className="valu valu-2">
                                                 <div className="section-title mb-60 mt-60">
                                                             <div className="review-add">
@@ -306,12 +354,13 @@ class ProductDetail extends Component {
                                                     <h2>Khách hàng đánh giá</h2>
                                                         </div>
                                                         <div className="comment-title-wrap mt-20">
-                                                            <h6>{reviewProduct.length} Review</h6>
+                                                            <h6>{reviewProduct.length} Đánh giá  </h6>
                                                         </div>
                                                         <div className="comment-reply-wrap mt-20">
                                                             <ul>
                                                                 {
-                                                                    reviewProduct.map((item,index) => {
+                                                                    reviewProduct.map((item, index) => {
+                                                                        var answerData = item.review.reviewAnswers;
                                                                         return <li key={ index}>
                                                                             <div className="public-comment">
                                                                                 <div className="comment-img">
@@ -337,6 +386,45 @@ class ProductDetail extends Component {
                                                                                        
                                                                                     </div>
                                                                                     <p>{item.review.message}</p>
+                                                                                    <a  onClick={this.answer.bind(this, item)} className="btn btn-sm btn-info text-white" style={{float : 'right'}}>Trả lời</a>
+                                                                                </div>
+                                                                           
+                                                                            </div>
+                                                                            {
+
+                                                                                answerData ? answerData.map((item, index) => {
+                                                                                    return <div key={ index} className="public-comment public-comment-2">
+                                                                                        <div className="comment-img" style={{ marginTop: '12px' }}>
+                                                                                         
+                                                                                        </div>
+                                                                                        <div className="public-text" style={{ marginTop: '12px' }}>
+                                                                                            <div className="single-comm-top" >
+                                                                                                <span>{item.answer.userName}</span>
+                                                                                                <span style={{ marginLeft: '5px' }}>{
+                                                                                                    item.answer.answerTime
+
+
+                                                                                                }</span>
+                                                                                            </div>
+                                                                                            <p>{item.answer.message}</p>
+                                                                                        </div>
+                                                                                            </div> 
+
+                                                                                }) : null
+                                                                            }
+                                                          
+                                                                           
+                                                                   
+                                                                            <div className="public-comment public-comment-2">
+                                                                                <div className="comment-img" style={{ marginTop: '12px' }}>
+                                                                                 
+                                                                                </div>
+                                                                                <div className="public-text" style={{ marginTop: '12px', display: display }}>
+                                                                                    <div className="single-comm-top" >
+                                                                                       
+
+                                                                                    </div>
+                                                                                    <input style={{ backgroundColor: '#DAF0FF' }} onChange={this.setValue} onKeyPress={this.saveAnswer} name="Message" value={answers.Message} className="form-control" placeholder="Viết phản hổi..." />
                                                                                 </div>
                                                                             </div>
                                                                         </li>
@@ -365,8 +453,8 @@ class ProductDetail extends Component {
                                                 <div className="review-form">
                                                     <div className="single-form">
                                                         <label style={{ fontSize: '18px' }}>Review <sup>*</sup></label>
-                                                        <form action="#">
-                                                            <textarea onChange={this.changeValue} value={review.Message} name="Message" cols={10} rows={4} />
+                                                                <form action="#">
+                                                                    <textarea onChange={this.changeValue} value={review.Message} name="Message" cols={10} rows={4} />
                                                         </form>
                                                     </div>
                                                 </div>
@@ -565,6 +653,7 @@ class ProductDetail extends Component {
                         </div>
                     </div>
                 </div>
+    
             </div>
         );
     }
