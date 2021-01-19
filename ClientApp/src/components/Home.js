@@ -140,6 +140,83 @@ export class Home extends Component {
                     </div>
                 </div>
             </div>
+            <div className="recent-post-area pt-95 pb-100">
+                <div className="container">
+                    <div className="row">
+                        <div className="col-lg-12">
+                            <div className="section-title text-center mb-30 section-title-res">
+                                <h2>Latest from our blog</h2>
+                            </div>
+                        </div>
+                        <div className="post-active owl-carousel text-center">
+                            <div className="col-lg-12">
+                                <div className="single-post">
+                                    <div className="post-img">
+                                        <a href="#"><img src="img/post/1.jpg" alt="post" /></a>
+                                        <div className="blog-date-time">
+                                            <span className="day-time">06</span>
+                                            <span className="moth-time">Dec</span>
+                                        </div>
+                                    </div>
+                                    <div className="post-content">
+                                        <h3><a href="#">Nam tincidunt vulputate felis</a></h3>
+                                        <span className="meta-author"> Demo koparion </span>
+                                        <p>Discover five of our favourite dresses from our new collection that are destined to be worn and loved immediately.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-lg-12">
+                                <div className="single-post">
+                                    <div className="post-img">
+                                        <a href="blog-details.html"><img src="img/post/2.jpg" alt="post" /></a>
+                                        <div className="blog-date-time">
+                                            <span className="day-time">06</span>
+                                            <span className="moth-time">Dec</span>
+                                        </div>
+                                    </div>
+                                    <div className="post-content">
+                                        <h3><a href="blog-details.html">Interdum et malesuada</a></h3>
+                                        <span className="meta-author"> Demo koparion </span>
+                                        <p>Discover five of our favourite dresses from our new collection that are destined to be worn and loved immediately.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-lg-12">
+                                <div className="single-post">
+                                    <div className="post-img">
+                                        <a href="blog-details.html"><img src="img/post/3.jpg" alt="post" /></a>
+                                        <div className="blog-date-time">
+                                            <span className="day-time">07</span>
+                                            <span className="moth-time">Dec</span>
+                                        </div>
+                                    </div>
+                                    <div className="post-content">
+                                        <h3><a href="blog-details.html">What is Bootstrap?</a></h3>
+                                        <span className="meta-author"> Demo koparion </span>
+                                        <p>Discover five of our favourite dresses from our new collection that are destined to be worn and loved immediately.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-lg-12">
+                                <div className="single-post">
+                                    <div className="post-img">
+                                        <a href="blog-details.html"><img src="img/post/4.jpg" alt="post" /></a>
+                                        <div className="blog-date-time">
+                                            <span className="day-time">08</span>
+                                            <span className="moth-time">Dec</span>
+                                        </div>
+                                    </div>
+                                    <div className="post-content">
+                                        <h3><a href="blog-details.html">Etiam eros massa</a></h3>
+                                        <span className="meta-author"> Demo koparion </span>
+                                        <p>Discover five of our favourite dresses from our new collection that are destined to be worn and loved immediately.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div className="banner-area banner-res-large pb-100">
                 <div className="container">
                     <div className="row">

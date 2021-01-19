@@ -499,11 +499,11 @@ class ProductDetail extends Component {
                                                 
                                                     </div>
                                                 </div>
-
-
                                         }
-                                  
                                     </div>
+                                </div>
+                                <div className="section-title text-center mb-30">
+                                    <h3 style={{ margin: "30px 0 -25px" }}>Sản phẩm đang giảm giá</h3>
                                 </div>
                                 <div className="new-book-area mt-60">
                                     <Owldemo1 products={this.state.products} />
