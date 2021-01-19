@@ -177,7 +177,6 @@ class ProductDetail extends Component {
             review.ProductID = product.productID;
         }
         this.setState({ review: review });
-        console.log(review);
         await API.post(Adapter.sendReview.url, review)
             .then(res => {
              
@@ -221,7 +220,15 @@ class ProductDetail extends Component {
        
      
         let orderProduct = product ? product.orderProducts : [];
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+
+=======
+        console.log(product);
+>>>>>>> 1c1329143205b0d9002b61bfe16e6f50c1a49fa2
        
+>>>>>>> 26a469ddeb4cc9fc08bd27c3c17f1c91e868f13a
         return (
             <div>
                 <div className="breadcrumbs-area mb-70">
@@ -231,6 +238,7 @@ class ProductDetail extends Component {
                                 <div className="breadcrumbs-menu">
                                     <ul>
                                         <li><Link to="/">Trang chủ</Link></li>
+                                        <li><Link to="/category/0">Sản phẩm</Link></li>
                                         <li>Chi tiết sản phẩm</li>
                                     </ul>
                                 </div>

@@ -132,6 +132,7 @@ export default class App extends Component {
             <Layout categories={categories} cart={cart}>
             <Route exact path='/' component={() => <Home products={products} />} />
             <Route exact path='/product' component={() => <Product categories={categories} updateCartState={this.updateCartState} cart={cart} products={products} />} />
+            <Route exact path='/category/:categoryid' component={() => <Product categories={categories} updateCartState={this.updateCartState} cart={cart} products={products} />} />
             <Route exact path='/cart' component={() => <Cart updateCartState={this.updateCartState} cart={cart} />} />
             <Route exact path='/contact' component={() => <Contact />} />
                 <Route path='/product/:id' component={() => <ProductDetail products={products} updateCartState={this.updateCartState} cart={cart} currentUser={currentUser} updateProduct={this.updateProduct} />} />
