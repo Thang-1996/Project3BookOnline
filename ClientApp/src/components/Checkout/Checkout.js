@@ -73,6 +73,14 @@ export default class Checkout extends Component {
             orders: orders,
             carts: cart,
         }
+        if (cart.length == 0) {
+            this.setState({
+                isLoading: false,
+            });
+            notification('warning', 'Trong giỏ hàng hiện chưa có cuốn sách nào!');
+
+            return;
+        }
         if (orders.Address == '') {
             this.setState({
                 isLoading: false,
@@ -138,16 +146,16 @@ export default class Checkout extends Component {
                                             <div className="row">
                                                 <div className="col-lg-12 col-md-12 col-12">
                                                     <div className="checkout-form-list">
-                                                        <label>Tên Khách Hàng <span className="required">*</span></label>
+                                                        <label>Tên khách hàng <span className="required">*</span></label>
                                                         <input readOnly={true} defaultValue={currentUser ? currentUser.name : ''} type="text" />
                                                     </div>
                                                     <div className="checkout-form-list">
                                                         <label>Địa chỉ nhận hàng <span className="required">*</span></label>
-                                                        <input onChange={this.handleOnChange} required value={orders.Address} name="Address" type="text" placeholder="Street address" />
+                                                        <input onChange={this.handleOnChange} required value={orders.Address} name="Address" type="text"/>
                                                     </div>
                                                     <div className="checkout-form-list">
                                                         <label>Số điện thoại: <span className="required">*</span></label>
-                                                        <input onChange={this.handleOnChange} type="text" value={orders.Telephone} name="Telephone" placeholder="Số điện thoại" />
+                                                        <input onChange={this.handleOnChange} type="text" value={orders.Telephone} name="Telephone" />
                                                     </div>
                                                     <div className="different-address">
                                                         <div className="order-notes">
@@ -168,7 +176,7 @@ export default class Checkout extends Component {
                                     </div>
                                     <div className="col-lg-6 col-md-12 col-12">
                                         <div className="your-order">
-                                            <h4>Đơn hàng của bạn</h4>
+                                            <h4>ĐƠN HÀNG CỦA BẠN</h4>
                                             <div className="your-order-table table-responsive">
                                                 <table>
                                                     <thead>
@@ -201,7 +209,7 @@ export default class Checkout extends Component {
                                                             <td><span className="amount">{Adapter.format_money(total)}</span></td>
                                                         </tr>
                                                         <tr className="shipping">
-                                                            <th data-toggle="tooltip" data-placement="left" title="Miễn phí ship với đơn hàng lớn hơn 500.000đ">Shipping</th>
+                                                            <th data-toggle="tooltip" data-placement="left" title="Miễn phí ship với đơn hàng lớn hơn 500.000đ">Phí ship</th>
                                                             <td>
                                                                 <ul>
                                                                     <li>

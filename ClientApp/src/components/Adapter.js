@@ -81,7 +81,11 @@
         },
         method: "POST",
     },
-     
+    formatDate: function (date) {
+        let date1 = new Date(date);
+        date1 = date1.toLocaleDateString();
+        return date1;
+    }
     
     
 };

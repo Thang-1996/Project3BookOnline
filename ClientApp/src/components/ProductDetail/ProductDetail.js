@@ -196,12 +196,6 @@ class ProductDetail extends Component {
        
      
         let orderProduct = product ? product.orderProducts : [];
-<<<<<<< HEAD
-
-=======
-        console.log(product);
-       
->>>>>>> 26a469ddeb4cc9fc08bd27c3c17f1c91e868f13a
         return (
             <div>
                 <div className="breadcrumbs-area mb-70">
@@ -248,8 +242,8 @@ class ProductDetail extends Component {
                                                         <a href="#"><i className="fa fa-star" /></a>
                                                     </div>
                                                     <div className="reviews-actions">
-                                                        <span>{reviewProduct.length} Đánh giá | 100 Lượt xem  |   <a className="btn btn-primary text-white">Đọc thử</a></span>
-                                                 
+                                                        <span>{reviewProduct.length} Đánh giá | 100 Lượt xem  </span>
+                                                        <span style={{ cursor: "pointer", color: "orange" }} data-toggle="modal" data-target=".bd-example-modal-lg">|  Đọc thử </span>
                                                     </div>
                                                   
                                             
@@ -653,7 +647,18 @@ class ProductDetail extends Component {
                         </div>
                     </div>
                 </div>
-    
+                <div className="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                    <div className="modal-dialog modal-lg">
+                        <div className="container">
+                            <div className="modal-content">
+                                <h4>Đọc thử {product ? product.productName : null} </h4>
+                                {
+                                    product ? product.productDescription : null
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         );
     }
