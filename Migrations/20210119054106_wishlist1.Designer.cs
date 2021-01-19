@@ -4,14 +4,16 @@ using BookOnlineShop.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BookOnlineShop.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210119054106_wishlist1")]
+    partial class wishlist1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -397,9 +399,6 @@ namespace BookOnlineShop.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<int>("ViewCount")
-                        .HasColumnType("int");
-
                     b.HasKey("ProductID");
 
                     b.HasIndex("AuthorsAuthorID");
@@ -520,24 +519,6 @@ namespace BookOnlineShop.Migrations
                     b.HasIndex("ProductID");
 
                     b.ToTable("ReviewProducts");
-                });
-
-            modelBuilder.Entity("BookOnlineShop.Models.Visit", b =>
-                {
-                    b.Property<int>("VisitID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("ProductID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("userIP")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("VisitID");
-
-                    b.ToTable("Visits");
                 });
 
             modelBuilder.Entity("BookOnlineShop.Models.WishList", b =>

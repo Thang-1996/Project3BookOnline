@@ -7,6 +7,7 @@ class Product extends Component {
     constructor(props) {
         super(props);
         this.state = {
+       
             cart: props.cart,
             products: props.products,
             categories: props.categories,
@@ -175,7 +176,7 @@ class Product extends Component {
                                             {
                                                 products ? products.map((product, index) => {
                                                     count++;
-                                                    return <ProductItems updateCartState={this.updateCartState} product={product} key={index} />
+                                                    return <ProductItems currentUser={this.props.currentUser} updateCartState={this.updateCartState} product={product} key={index} />
                                                 }) : null
                                             }
                                     

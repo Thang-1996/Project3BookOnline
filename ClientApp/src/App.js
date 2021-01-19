@@ -14,6 +14,7 @@ import ProFile from './components/Profile/ProFile';
 import ProductDetail from './components/ProductDetail/ProductDetail';
 import Contact from './components/Contact/Contact';
 import Loading from './components/isLoading';
+import WishList from './components/WishList/WishList';
 
 export default class App extends Component {
     static displayName = App.name;
@@ -29,6 +30,8 @@ export default class App extends Component {
             categories: [],
             orders: [],
             isLoading: false,
+            wishlist : [],
+        
         };
         this.updateCartState = this.updateCartState.bind(this);
         this.updateUser = this.updateUser.bind(this);
@@ -39,11 +42,19 @@ export default class App extends Component {
             isLoading: true,
         })
         let id = 0;
-        API.get(Adapter.getProducts.url)
+         API.get(Adapter.getProducts.url)
             .then(res => {
                 this.setState({
                     products: res.data,
                 });
+            }).catch(err => {
+
+            });
+        await API.get(Adapter.currentUserInfo.url)
+            .then(res => {
+                id = res.data.id;
+                this.setState({ currentUser: res.data })
+
             }).catch(err => {
 
             });
@@ -55,14 +66,7 @@ export default class App extends Component {
             }).catch(err => {
 
             });
-        await API.get(Adapter.currentUserInfo.url)
-            .then(res => {
-                id = res.data.id;
-                this.setState({ currentUser: res.data })
-               
-            }).catch(err => {
-
-            });
+    
        
         API.get(Adapter.getOrderByUser.url, {
             params: {
@@ -100,21 +104,47 @@ export default class App extends Component {
 
             });
     }
+    updateWishList = () => {
+        let id = 0;
+        let currentUser = this.state.currentUser;
+        if (currentUser) {
+            id = currentUser.id;
+        }
+        API.get(Adapter.getWishList.url, {
+            params: {
+                id: id
+            }
+        }).then(res => {
+            this.setState({
+                wishlist: res.data
+            })
+        }).catch(err => {
+
+        });
+    }
+    refresh = (e) => {
+        this.setState({ products : e })
+    }
+
    
     render() {
-        const { products, currentUser, categories, orders } = this.state;
+
+        const { products, currentUser, categories, orders, wishlist } = this.state;
+        console.log(products);
        
         const cart = this.state.cart;
         return (
             <Layout categories={categories} cart={cart}>
-            <Route exact path='/' component={() => <Home products={products} />} />
-            <Route exact path='/product' component={() => <Product categories={categories} updateCartState={this.updateCartState} cart={cart} products={products} />} />
+                <Route exact path='/' component={() => <Home products={products} />} />
+                <Route exact path='/product' component={() => <Product categories={categories} currentUser={currentUser} updateCartState={this.updateCartState} cart={cart} products={products} refresh={this.refresh} />} />
             <Route exact path='/category/:categoryid' component={() => <Product categories={categories} updateCartState={this.updateCartState} cart={cart} products={products} />} />
             <Route exact path='/cart' component={() => <Cart updateCartState={this.updateCartState} cart={cart} />} />
             <Route exact path='/contact' component={() => <Contact />} />
-            <Route path='/product/:id' component={() => <ProductDetail products={products} updateCartState={this.updateCartState} cart={cart} currentUser={currentUser} updateProduct={this.updateProduct} />} />
-            <AuthorizeRoute path='/check-out' component={() => <Checkout currentUser={currentUser} cartState={this.updateCartState} cart={cart} />} />
-            <AuthorizeRoute path='/profile' component={() => <ProFile currentUser={currentUser} updateUser={this.updateUser} orders={orders} />} />
+                <Route path='/product/:id' component={() => <ProductDetail products={products} updateCartState={this.updateCartState} cart={cart} currentUser={currentUser} updateProduct={this.updateProduct} />} />
+                <AuthorizeRoute path='/check-out' component={() => <Checkout currentUser={currentUser} cartState={this.updateCartState} cart={cart} updateProduct={this.updateProduct} />} />
+                <AuthorizeRoute path='/profile' component={() => <ProFile currentUser={currentUser} updateUser={this.updateUser} orders={orders} />} />
+                <AuthorizeRoute path='/wishlist' component={() => <WishList currentUser={currentUser} updateCartState={this.updateCartState} updateWishList={this.updateWishList} />} />
+           
 
             <Route path={ApplicationPaths.ApiAuthorizationPrefix} component={ApiAuthorizationRoutes} />
             <Loading isLoading={this.state.isLoading} />

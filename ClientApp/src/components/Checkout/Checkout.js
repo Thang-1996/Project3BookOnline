@@ -103,7 +103,7 @@ export default class Checkout extends Component {
                     notification('success', 'Đặt hàng thành công vui lòng kiểm tra email');
                     this.setState({ redirect: true })
                     this.props.cartState();
-                
+                    this.props.updateProduct();
                 }
             }).catch(err => {
                
@@ -111,6 +111,7 @@ export default class Checkout extends Component {
         this.setState({
             isLoading: false,
         });
+     
     }
     render() {
         const { cart, currentUser, orders, redirect } = this.state;

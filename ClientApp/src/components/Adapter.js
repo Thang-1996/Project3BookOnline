@@ -85,8 +85,34 @@
         let date1 = new Date(date);
         date1 = date1.toLocaleDateString();
         return date1;
-    }
-    
-    
+    },
+    saveWishList: {
+        url: "api/Payment/SaveWishList",
+        params: {
+
+        },
+        method : "POST",
+    },
+    getWishList: {
+        url: "api/Payment/getWishList",
+        params: {
+
+        },
+        method : "GET",
+    },
+    deleteWishList: {
+        url: "api/Payment/deleteWishList",
+        params: {
+
+        },
+        method: "POST",
+    },
+    increaseCount: {
+        url: "api/Payment/increaseCount",
+        params: {
+
+        },
+        method : "POST",
+    }  
 };
 export default Adapter;

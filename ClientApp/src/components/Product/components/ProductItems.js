@@ -1,11 +1,18 @@
 ﻿import React, { Component } from 'react';
 import Adapter from '../../Adapter';
 import { Link } from 'react-router-dom';
+import publicIP from 'public-ip';
+import API from '../../API';
 
 export default class ProductItems extends Component {
     constructor(props) {
         super(props);
+        
         this.state = {
+            visit: {
+                userIP: '',
+                ProductID : '',
+            },
             product : props.product,
         };
         this.addToCart = this.addToCart.bind(this);
@@ -21,6 +28,33 @@ export default class ProductItems extends Component {
             //Perform some operation here
             this.setState({ product: this.props.product });
         }
+    }
+    increaseCount = async (e) => {
+    
+        let userIP = await publicIP.v4();
+        let visit = this.state.visit;
+        visit.userIP = userIP;
+        visit.ProductID = e.productID;
+        this.setState({ visit: visit })
+
+        await API.post(Adapter.increaseCount.url,visit)
+            .then(res => {
+          
+                 
+             
+            }).catch(err => {
+
+            });
+        
+        this.resetProduct();
+    }
+    resetProduct = () => {
+        API.get(Adapter.getProducts.url)
+            .then(res => {
+              
+            }).catch(err => {
+
+            });
     }
     addToCart() {
         const product = this.props.product;
@@ -49,6 +83,8 @@ export default class ProductItems extends Component {
     }
     render() {
         let product = this.state.product;
+        let currentUser = this.props.currentUser;
+   
         
         return (
             <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6">
@@ -58,7 +94,7 @@ export default class ProductItems extends Component {
                             <img src={"/images/" + (product.productImage)} alt="book" className="primary" style={{ width: "400px", height: "250px" }} />
                         </a>
                         <div className="quick-view">
-                            <Link  title="Quick View" to={"/product/" + (product.productID)}><i className="fa fa-search-plus" /></Link>
+                            <Link onClick={this.increaseCount.bind(this,product)} title="Quick View" to={"/product/" + (product.productID)}><i className="fa fa-search-plus" /></Link>
                         </div>
                         <div className="product-flag">
                             <ul>
@@ -90,7 +126,7 @@ export default class ProductItems extends Component {
                         </div>
                         <div className="add-to-link">
                             <ul>
-                                <li><Link to={"/product/" + (product.productID)}><i className="fa fa-external-link" /></Link></li>
+                                <li><Link onClick={this.increaseCount.bind(this, product)} to={"/product/" + (product.productID)}><i className="fa fa-external-link" /></Link></li>
                             </ul>
                         </div>
                     </div>

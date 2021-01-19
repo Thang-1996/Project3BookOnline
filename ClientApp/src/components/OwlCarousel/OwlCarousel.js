@@ -3,10 +3,17 @@ import OwlCarousel from 'react-owl-carousel';
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
 import { Link } from 'react-router-dom';
+import publicIP from 'public-ip';
+import API from '../API';
+import Adapter from '../Adapter';
 export class Owldemo1 extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            visit: {
+                userIP: '',
+                ProductID: '',
+            },
             products: props.products,
         };
     }
@@ -17,6 +24,23 @@ export class Owldemo1 extends Component {
             };
         }
         return null;;
+    }
+    increaseCount = async (e) => {
+
+        let userIP = await publicIP.v4();
+        let visit = this.state.visit;
+        visit.userIP = userIP;
+        visit.ProductID = e.productID;
+        this.setState({ visit: visit })
+
+        await API.post(Adapter.increaseCount.url, visit)
+            .then(res => {
+
+            }).catch(err => {
+
+            });
+
+
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -38,7 +62,7 @@ export class Owldemo1 extends Component {
                         products ? products.map((e, index) => {
                             return (
                                 <div key={index}>
-                                    <Link to={"/product/" + e.productID}>
+                                    <Link onClick={this.increaseCount.bind(this,e)} to={"/product/" + e.productID}>
                                         <img className="img" src={'/images/' + e.productImage} />
                                     </Link>
                                 </div>
