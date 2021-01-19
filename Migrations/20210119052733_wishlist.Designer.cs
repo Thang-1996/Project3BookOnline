@@ -4,14 +4,16 @@ using BookOnlineShop.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BookOnlineShop.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210119052733_wishlist")]
+    partial class wishlist
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -526,7 +528,7 @@ namespace BookOnlineShop.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("ProductID")
+                    b.Property<int?>("ProductsProductID")
                         .HasColumnType("int");
 
                     b.Property<string>("UserID")
@@ -534,7 +536,7 @@ namespace BookOnlineShop.Migrations
 
                     b.HasKey("WishListID");
 
-                    b.HasIndex("ProductID");
+                    b.HasIndex("ProductsProductID");
 
                     b.ToTable("WishLists");
                 });
@@ -857,9 +859,9 @@ namespace BookOnlineShop.Migrations
 
             modelBuilder.Entity("BookOnlineShop.Models.WishList", b =>
                 {
-                    b.HasOne("BookOnlineShop.Models.Products", "Product")
+                    b.HasOne("BookOnlineShop.Models.Products", "Products")
                         .WithMany()
-                        .HasForeignKey("ProductID");
+                        .HasForeignKey("ProductsProductID");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -75,7 +75,7 @@ namespace BookOnlineShop.Controllers.api
             var cart = payment.carts;
             var orders = payment.orders;
             decimal total = 0;
-       
+      
             Console.WriteLine(JsonConvert.SerializeObject(payment));
             if(orders.GrandTotal < 500000)
             {
@@ -102,6 +102,8 @@ namespace BookOnlineShop.Controllers.api
             _context.SaveChanges();
             foreach (var item in cart)
             {
+                var product = _context.Products.Where(p => p.ProductID == item.product.ProductID).FirstOrDefault();
+                product.Quantity -= item.quantity;
                 OrderProducts orderProducts = new OrderProducts();
                 orderProducts.OrderID = orders1.ID;
                 orderProducts.ProductID = item.product.ProductID;
@@ -211,7 +213,56 @@ namespace BookOnlineShop.Controllers.api
             await _context.SaveChangesAsync();
             return Ok();
         }
+        [HttpPost]
+        [ActionName("SaveWishList")]
+        public async Task<ActionResult<WishList>> SaveWishList(WishList wishlist)
+        {
+            var response = true;
+            if (_context.WishLists.Any(w => w.Product.ProductID == wishlist.Product.ProductID && w.UserID.Equals(wishlist.UserID)))
+            {
+                response = false;
+                return Ok(response);
 
+            }
+
+            var product = _context.Products.Where(p => p.ProductID == wishlist.Product.ProductID).FirstOrDefault();
+            Console.WriteLine(product);
+
+            var wishlist1 = new WishList();
+            wishlist1.Product = product;
+            wishlist1.UserID = wishlist.UserID;
+            _context.Add(wishlist1);
+            await _context.SaveChangesAsync();
+
+
+
+            return Ok(response);
+        }
+        [HttpGet]
+        [ActionName("getWishList")]
+        public async Task<ActionResult<IEnumerable<WishList>>> getWishList(string id)
+        {
+            if (!string.IsNullOrEmpty(id))
+            {
+              
+                var wishlist = await _context.WishLists.Where(w => w.UserID.Equals(id))
+                    .Include(p=>p.Product)
+                    .ToListAsync();
+                return wishlist;
+            }
+            return NotFound();
+         
+        }
+        [HttpPost]
+        [ActionName("deleteWishList")]
+        public async Task<ActionResult<WishList>> deleteWishList(WishList wishlist)
+        {
+            var wishlist1 = _context.WishLists.Where(w => w.WishListID == wishlist.WishListID).FirstOrDefault();
+            _context.WishLists.Remove(wishlist1);
+            await _context.SaveChangesAsync();
+            return Ok(true);
+
+        }
     }
    
 }

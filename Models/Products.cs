@@ -22,7 +22,7 @@ namespace BookOnlineShop.Models
         public string ProductDescription { get; set; }
         public string ProductContent { get; set; }
         public double Price { get; set; }
-        [Range(1, int.MaxValue)]
+        [Range(0, int.MaxValue)]
         public int Quantity { get; set; }
         [DefaultValue(1)]
         public int Status { get; set; }
