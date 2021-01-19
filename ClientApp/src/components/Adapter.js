@@ -101,6 +101,13 @@
 
         },
         method: "POST",
+    },
+    increaseCount: {
+        url: "api/Payment/increaseCount",
+        params: {
+
+        },
+        method : "POST",
     }
 
      

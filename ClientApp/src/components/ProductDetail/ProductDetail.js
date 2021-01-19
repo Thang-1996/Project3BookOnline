@@ -11,6 +11,7 @@ class ProductDetail extends Component {
     constructor(props) {
         super(props);
         this.state = {
+        
             products: props.products,
             productID: this.props.match.params.id,
             product: null,
@@ -87,7 +88,6 @@ class ProductDetail extends Component {
             this.setState({ answers: answer })
             await API.post(Adapter.sendAnswer.url, answer)
                 .then(res => {
-                    console.log(res);
 
                 }).catch(err => {
 
@@ -117,6 +117,7 @@ class ProductDetail extends Component {
 
             };
         }
+
         return null;;
     }
 
@@ -220,15 +221,6 @@ class ProductDetail extends Component {
        
      
         let orderProduct = product ? product.orderProducts : [];
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-
-=======
-        console.log(product);
->>>>>>> 1c1329143205b0d9002b61bfe16e6f50c1a49fa2
-       
->>>>>>> 26a469ddeb4cc9fc08bd27c3c17f1c91e868f13a
         return (
             <div>
                 <div className="breadcrumbs-area mb-70">
@@ -279,7 +271,9 @@ class ProductDetail extends Component {
                                                         <a><i className="fa fa-star" /></a>
                                                     </div>
                                                     <div className="reviews-actions">
-                                                        <a href="#">{reviewProduct.length}Đánh giá</a> | 
+                                                        <a>{reviewProduct.length} Đánh giá</a> | 
+
+                                                        <a>{product ? product.viewCount : ''} Lượt xem</a> | 
                                                         <a  className="btn btn-info text-white">Đọc thử</a> 
                                                     </div>
                                                 </div>

@@ -122,16 +122,21 @@ export default class App extends Component {
 
         });
     }
+    refresh = (e) => {
+        this.setState({ products : e })
+    }
 
    
     render() {
+
         const { products, currentUser, categories, orders, wishlist } = this.state;
+        console.log(products);
        
         const cart = this.state.cart;
         return (
             <Layout categories={categories} cart={cart}>
-            <Route exact path='/' component={() => <Home products={products} />} />
-            <Route exact path='/product' component={() => <Product categories={categories} updateCartState={this.updateCartState} cart={cart} products={products} />} />
+                <Route exact path='/' component={() => <Home products={products} />} />
+                <Route exact path='/product' component={() => <Product categories={categories} currentUser={currentUser} updateCartState={this.updateCartState} cart={cart} products={products} refresh={this.refresh} />} />
             <Route exact path='/category/:categoryid' component={() => <Product categories={categories} updateCartState={this.updateCartState} cart={cart} products={products} />} />
             <Route exact path='/cart' component={() => <Cart updateCartState={this.updateCartState} cart={cart} />} />
             <Route exact path='/contact' component={() => <Contact />} />

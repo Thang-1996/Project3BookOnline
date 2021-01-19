@@ -30,6 +30,7 @@ namespace BookOnlineShop.Models
         public int? Reprinttimes { get; set; }
         public int CategoryID { get; set; }
         public virtual Categories Category { get; set; }
+        public int ViewCount { get; set; }
 
         public Products()
         {

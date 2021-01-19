@@ -263,6 +263,33 @@ namespace BookOnlineShop.Controllers.api
             return Ok(true);
 
         }
+        [HttpPost]
+        [ActionName("increaseCount")]
+        public async Task<ActionResult<Visit>> increaseCount(Visit visit)
+        {
+            var response = true;
+            if (_context.Visits.Any(v => v.ProductID == visit.ProductID && v.userIP.Equals(visit.userIP)))
+            {
+                response = false;
+                return Ok(response);
+
+            }
+
+            var visit1 = new Visit()
+            {
+                ProductID = visit.ProductID,
+                userIP = visit.userIP,
+            };
+         
+            _context.Add(visit1);
+            _context.SaveChanges();
+            var product = _context.Products.Where(p => p.ProductID == visit.ProductID).FirstOrDefault();
+            product.ViewCount += 1;
+            _context.Update(product);
+            _context.SaveChanges();
+            await _context.SaveChangesAsync();
+            return Ok(response);
+        }
     }
    
 }
