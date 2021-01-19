@@ -64,5 +64,7 @@ namespace BookOnlineShop.Data
         public DbSet<ReviewProduct> ReviewProducts { get; set; }
         public DbSet<ReviewAnswer> ReviewAnswers { get; set; }
         public DbSet<Blog> Blogs { get; set; }
+        public DbSet<WishList> WishLists { get; set; }
+        public DbSet<Visit> Visits { get; set; }
     }
 }

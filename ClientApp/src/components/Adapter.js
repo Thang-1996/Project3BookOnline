@@ -81,6 +81,35 @@
         },
         method: "POST",
     },
+    saveWishList: {
+        url: "api/Payment/SaveWishList",
+        params: {
+
+        },
+        method : "POST",
+    },
+    getWishList: {
+        url: "api/Payment/getWishList",
+        params: {
+
+        },
+        method : "GET",
+    },
+    deleteWishList: {
+        url: "api/Payment/deleteWishList",
+        params: {
+
+        },
+        method: "POST",
+    },
+    increaseCount: {
+        url: "api/Payment/increaseCount",
+        params: {
+
+        },
+        method : "POST",
+    }
+
      
     
     

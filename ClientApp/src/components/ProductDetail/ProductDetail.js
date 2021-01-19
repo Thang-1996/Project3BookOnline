@@ -11,6 +11,7 @@ class ProductDetail extends Component {
     constructor(props) {
         super(props);
         this.state = {
+        
             products: props.products,
             productID: this.props.match.params.id,
             product: null,
@@ -32,7 +33,11 @@ class ProductDetail extends Component {
                 ReviewID : '',
    
             },
-            display : 'none'
+            display: 'none',
+            wishlist: {
+                product: null,
+                UserID : '',
+            }
         };
         this.addToCart = this.addToCart.bind(this);
     }
@@ -83,7 +88,6 @@ class ProductDetail extends Component {
             this.setState({ answers: answer })
             await API.post(Adapter.sendAnswer.url, answer)
                 .then(res => {
-                    console.log(res);
 
                 }).catch(err => {
 
@@ -113,6 +117,7 @@ class ProductDetail extends Component {
 
             };
         }
+
         return null;;
     }
 
@@ -136,7 +141,7 @@ class ProductDetail extends Component {
         let count = 0;
         for (let i = 0; i < cart.length; i++) {
             if (cart[i].product.productID === product.productID) {
-                if (cart[i].quantity < product.quantity) {
+                if (quantity < product.quantity) {
                    cart[i].quantity += Number(quantity);
                 } else {
                     alert("Hàng trong kho không đủ")
@@ -173,7 +178,6 @@ class ProductDetail extends Component {
             review.ProductID = product.productID;
         }
         this.setState({ review: review });
-        console.log(review);
         await API.post(Adapter.sendReview.url, review)
             .then(res => {
              
@@ -190,6 +194,26 @@ class ProductDetail extends Component {
         quantity < 1 ? quantity = 1 : quantity = event.target.value
         this.setState({quantity : quantity})
     }
+    saveWishList = async item => {
+        let currentUser = this.state.currentUser;
+        let wishlist = this.state.wishlist;
+        wishlist.product = item;
+        wishlist.UserID = currentUser.id;
+        this.setState({ wishlist: wishlist })
+    
+        await API.post(Adapter.saveWishList.url, wishlist)
+            .then(res => {
+                if (res.data == true) {
+                    notification("success", "Thêm vào danh sách yêu thích thành công")
+                }
+                if (res.data == false) {
+                    notification("warning", "Đã có sản phẩm trong danh sách yêu thích")
+                }
+            }).catch(err => {
+
+            })
+       
+     }
     render() {
         const { product, currentUser, review, rw, display, answers } = this.state;
      
@@ -197,8 +221,6 @@ class ProductDetail extends Component {
        
      
         let orderProduct = product ? product.orderProducts : [];
-        console.log(product);
-       
         return (
             <div>
                 <div className="breadcrumbs-area mb-70">
@@ -208,6 +230,7 @@ class ProductDetail extends Component {
                                 <div className="breadcrumbs-menu">
                                     <ul>
                                         <li><Link to="/">Trang chủ</Link></li>
+                                        <li><Link to="/category/0">Sản phẩm</Link></li>
                                         <li>Chi tiết sản phẩm</li>
                                     </ul>
                                 </div>
@@ -233,26 +256,30 @@ class ProductDetail extends Component {
                                                     <h1>{ product ? product.productName : ""}</h1>
                                                 </div>
                                                 <div className="product-info-stock-sku">
-                                            
+                                                    <span>{product ? product.quantity > 0 ? "Còn Hàng" : "Hết Hàng" : ''}</span>
+                                                    <div className="product-attribute">
+                                                        <span></span>
+                                                        <span className="value">Còn lại {product ? product.quantity : 0} Sản phẩm</span>
+                                                    </div>
                                                 </div>
                                                 <div className="product-reviews-summary">
                                                     <div className="rating-summary">
-                                                        <a href="#"><i className="fa fa-star" /></a>
-                                                        <a href="#"><i className="fa fa-star" /></a>
-                                                        <a href="#"><i className="fa fa-star" /></a>
-                                                        <a href="#"><i className="fa fa-star" /></a>
-                                                        <a href="#"><i className="fa fa-star" /></a>
+                                                        <a><i className="fa fa-star" /></a>
+                                                        <a><i className="fa fa-star" /></a>
+                                                        <a><i className="fa fa-star" /></a>
+                                                        <a><i className="fa fa-star" /></a>
+                                                        <a><i className="fa fa-star" /></a>
                                                     </div>
                                                     <div className="reviews-actions">
-                                                        <span>{reviewProduct.length} Đánh giá | 100 Lượt xem  |   <a className="btn btn-primary text-white">Đọc thử</a></span>
-                                                 
+                                                        <a>{reviewProduct.length} Đánh giá</a> | 
+
+                                                        <a>{product ? product.viewCount : ''} Lượt xem</a> | 
+                                                        <a  className="btn btn-info text-white">Đọc thử</a> 
                                                     </div>
-                                                  
-                                            
                                                 </div>
                                                 <div className="product-info-price">
                                                     <div className="price-final">
-                                                        <span>{product ? Adapter.format_money(product.price) : ""}</span>
+                                                        <span>{product ? Adapter.format_money(product.price) : ""}</span> 
                                                     </div>
                                                 </div>
                                                 <div className="product-add-form">
@@ -265,7 +292,7 @@ class ProductDetail extends Component {
                                                 </div>
                                                 <div className="product-social-links">
                                                     <div className="product-addto-links">
-                                                        <a href="#"><i className="fa fa-heart" /></a>
+                                                        <a onClick={this.saveWishList.bind(this, product)}><i className="fa fa-heart" /></a>
                                                     </div>
                                                     <div className="product-addto-links-text">
                                                         <p>Bạn hãy NHẬP ĐỊA CHỈ nhận hàng để được dự báo thời gian & chi phí giao hàng một cách chính xác nhất. </p>
@@ -642,7 +669,9 @@ class ProductDetail extends Component {
                                     </div>
                                     <div className="left-title-2">
                                         <h2>My Wish List</h2>
-                                        <p>You have no items in your wish list.</p>
+                                        <p>
+                                            <Link to="/wishlist" className="btn btn-info text-white"><i className="fa fa-heart" /> WishList</Link>
+                                        </p>
                                     </div>
                                 </div>
                             </div>
