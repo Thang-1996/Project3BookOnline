@@ -165,7 +165,7 @@ export class NavMenu extends Component {
                       </div>
                   </div>
               </div>
-              <div className="header-bottom-area mb-3 " style={{ backgroundColor: "f8f7f7", fontSize: "18px", marginTop: "0rem!important"}}>
+              <div className="header-bottom-area" style={{ backgroundColor: "f8f7f7", fontSize: "18px", marginTop: "0rem!important"}}>
                   <div className="container">
                       <div className="row">
                           <div className="col-lg-12 col-md-12">
@@ -180,7 +180,7 @@ export class NavMenu extends Component {
                                                       category ? category.map((e, index) => {
                                                           return <li className="mega-menu-column">
                                                               <ul>
-                                                                  <Link to="" className="nav-header">{e.categoryName}</Link>
+                                                                  <Link to={"/category/"+e.categoryID} className="nav-header">{e.categoryName}</Link>
                                                               </ul>
                                                           </li>
                                                       }) : null
