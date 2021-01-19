@@ -75,7 +75,6 @@ export default class WishList extends Component {
     }
     render() {
         const { wishlist } = this.state;
-        console.log(wishlist);
         
  
      

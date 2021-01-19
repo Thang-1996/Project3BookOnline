@@ -57,9 +57,6 @@
 * {
     padding: 0, margin: 0
 }
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800|Rufina:400,700');
-=======
->>>>>>> 220bc2414a48c46a82bb152721d17006212cef0a
 
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800|Roboto:400,700');
 *{
@@ -68,6 +65,7 @@
 html,
 body {
     height: 100%;
+    font-family: 'Roboto', sans-serif;
 }
 .header-top-area {
     background: #ffffff!important;

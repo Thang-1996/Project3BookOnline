@@ -12,7 +12,11 @@ export class NavMenu extends Component {
             collapsed: true,
             cart: props.cart,
             menu: "none",
-            category : [],
+            category: [],
+            key: "",
+            products: [],
+            search: "hidden",
+            searchData: [],
       };
       this.showMenu = this.showMenu.bind(this);
     } 
@@ -34,7 +38,15 @@ export class NavMenu extends Component {
                 })
             }).catch(err => {
 
-            })
+            });
+        await API.get(Adapter.getProducts.url)
+            .then(res => {
+                this.setState({
+                    products: res.data,
+                });
+            }).catch(err => {
+
+            });
     }
     componentDidUpdate(prevProps, prevState) {
         if (prevProps.cart !== this.props.cart) {
@@ -85,8 +97,49 @@ export class NavMenu extends Component {
         this.setState({ cart: cart });
 
     }
+    searchProduct = (e) => {
+        this.setState({
+            key: e.target.value,
+        })
+    }
+    hiddenSearch = (e) => {
+        this.setState({
+            search: "hidden",
+        })
+    }
+    handleSearch = (e) => {
+        if (e.key === 'Enter') {
+            let products = this.state.products;
+            let key = this.state.key;
+            const lowercasedFilter = Adapter.removeVietnameseTones(key).toLowerCase();
+            const filteredData = products.filter(item => {
+                return Object.keys(item).some(key =>
+                    Adapter.removeVietnameseTones(item.productName).toLowerCase().includes(lowercasedFilter),
+                );
+            });
+            this.setState({
+                searchData: filteredData,
+                search: "visible",
+            })
+        }
+    }
+    handleSearch2 = (e) => {
+        let products = this.state.products;
+        let key = this.state.key;
+        const lowercasedFilter = Adapter.removeVietnameseTones(key).toLowerCase();
+        const filteredData = products.filter(item => {
+            return Object.keys(item).some(key =>
+                Adapter.removeVietnameseTones(item.productName).toLowerCase().includes(lowercasedFilter),
+            );
+        });
+        this.setState({
+            searchData: filteredData,
+            search: "visible",
+        })
+    }
+   
     render() {
-        const { cart, category } = this.state;
+        const { cart, category, searchData } = this.state;
         let total = 0;
      
       return (
@@ -168,7 +221,7 @@ export class NavMenu extends Component {
                       <div className="row">
                           <div className="col-lg-12 col-md-12">
                               <nav className="navbar navbar-expand-lg navbar-light " style={{ backgroundColor: "f8f7f7", fontSize: "17px" }}>
-                                  <Link to="/" style={{ marginLeft:"-15px" }}>Trang chủ</Link>
+                                  <Link to="/" style={{ marginLeft: "-15px", color: "black" }}>Trang chủ</Link>
                                   <div className="collapse navbar-collapse nav-item dropdown active ml-5" id="navbarSupportedContent">
                                       <ul className="navbar-nav mr-auto">
                                           <li className="dropdown ">
@@ -178,7 +231,7 @@ export class NavMenu extends Component {
                                                       category ? category.map((e, index) => {
                                                           return <li key={ index} className="mega-menu-column">
                                                               <ul>
-                                                                  <Link to={"/category/"+e.categoryID} className="nav-header">{e.categoryName}</Link>
+                                                                  <Link to={"/category/" + e.categoryID} style={{color: "black" }} className="nav-header">{e.categoryName}</Link>
                                                               </ul>
                                                           </li>
                                                       }) : null
@@ -194,11 +247,41 @@ export class NavMenu extends Component {
                                           
                                       </ul>
                                       <div className="header-bottom-search">
-                                          <form action="#">
-                                              <input type="text" placeholder="Tìm kiếm ..." />
-                                              <a href="#"><i className="fa fa-search" /></a>
-                                          </form>
-                                         
+
+                                          <input className="form-control" onKeyDown={this.handleSearch} onChange={this.searchProduct} type="text" defaultValue={this.state.key} placeholder="Tìm kiếm ..." />
+                                          <a onClick={this.handleSearch2} href><i style={{ color: "black", position: "absolute", top: "10px", right: "10px", cursor: "pointer" }} className="fa fa-search" /></a>
+                                          <table className="table" style={{ position: "absolute", zIndex: "100", backgroundColor: "white", width: "600px", visibility: this.state.search, left: "-200px" }}>
+                                              <thead>
+                                                  <tr>
+                                                      <th style={{ whiteSpace: "nowrap"}}>STT</th>
+                                                      <th style={{ whiteSpace: "nowrap" }}>Tên sách</th>
+                                                      <th style={{ whiteSpace: "nowrap" }}>Ảnh</th>
+                                                      <th style={{ whiteSpace: "nowrap" }}>Giá tiền</th>
+                                                      <th style={{ whiteSpace: "nowrap" }}>Số lượng</th>
+                                                      <th style={{ whiteSpace: "nowrap" }}>Chi tiết</th>
+                                                      <th onClick={this.hiddenSearch} style={{ position: "absolute", right: "-5px", top: "-14px", border: "none", cursor: "pointer" }}>X </th>
+                                                  </tr>
+                                              </thead>
+                                              <tbody>
+                                                  {
+                                                      searchData ? searchData.map((e, index) => {
+                                                          return (
+                                                              <tr key={ index}>
+                                                                  <td>{++index}</td>
+                                                                  <td>{e.productName}</td>
+                                                                  <td><img src={"/images/" + e.productImage} style={{ width: "100px", height: "100px" }} /></td>
+                                                                  <td>{Adapter.format_money(e.price)}</td>
+                                                                  <td>{e.quantity}</td>
+                                                                  <td><Link onClick={this.hiddenSearch } style={{ cursor: "pointer" }} to={"/product/" + e.productID}> Xem </Link></td>
+                                                              </tr>
+                                                              )
+                                                      }) : null
+                                                  }
+                                                  
+                                              </tbody>
+
+                                          </table>
+                                          
                                       </div>
                                   </div>
                               </nav>
