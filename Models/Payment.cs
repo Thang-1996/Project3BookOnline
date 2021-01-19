@@ -9,6 +9,7 @@ namespace BookOnlineShop.Models
     {
         public Orders orders { get; set; }
         public List<Cart> carts { get; set; }
+        public string PayPalStatus { get; set; }
 
     }
 }

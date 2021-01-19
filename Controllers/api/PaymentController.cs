@@ -74,8 +74,14 @@ namespace BookOnlineShop.Controllers.api
         {
             var cart = payment.carts;
             var orders = payment.orders;
+            var statuspaypal = payment.PayPalStatus;
             decimal total = 0;
-      
+            var status = orders.Status;
+            if (statuspaypal.Equals("success"))
+            {
+
+                status = 2;
+            }
             Console.WriteLine(JsonConvert.SerializeObject(payment));
             if(orders.GrandTotal < 500000)
             {
@@ -92,7 +98,7 @@ namespace BookOnlineShop.Controllers.api
                 paymenttype = orders.paymenttype,
                 Telephone = orders.Telephone,
                 OrderNote = orders.OrderNote,
-                Status = orders.Status,
+                Status = status,
                 GrandTotal = total,
                 UserID = orders.UserID,
                 CreateAt = DateTime.Now,
@@ -112,6 +118,7 @@ namespace BookOnlineShop.Controllers.api
                 _context.Add(orderProducts);
                 _context.SaveChanges();
             }
+      
             await _context.SaveChangesAsync();
             return Ok();
         }

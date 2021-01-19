@@ -315,7 +315,7 @@ body {
 }
 
 .ptb-50 {
-    padding: 50px 0;
+    padding: 40px 0;
 }
 
 .ptb-40 {
@@ -2489,7 +2489,7 @@ body {
 /*----------------------------------------*/
 
 footer {
-    background: #222222;
+    background: #bde8ef !important;
 }
 
 /*----------------------------------------*/
@@ -2523,16 +2523,16 @@ footer {
     display: none;
 }
 
-.footer-top-menu ul li a {
-    color: #fff;
-    display: block;
-    font-size: 14px;
-    line-height: 24px;
-    text-transform: capitalize;
-    text-decoration: none;
-    transition: .3s;
-    font-weight: 400;
-}
+    .footer-top-menu ul li a {
+        color: #000;
+        display: block;
+        font-size: 16px;
+        line-height: 24px;
+        text-transform: capitalize;
+        text-decoration: none;
+        transition: .3s;
+        font-weight: 600;
+    }
 
 .bb-2 {
     border-bottom: 2px solid #393939;
@@ -2543,7 +2543,7 @@ footer {
 /*----------------------------------------*/
 
 .single-footer .footer-title h3 {
-    color: #ffffff;
+    color: #000;
     font-size: 16px;
     font-weight: 600;
     line-height: 24px;
@@ -2551,13 +2551,13 @@ footer {
 }
 
 .footer-mid-menu ul li a {
-    color: #fff;
+    color: #000;
     display: block;
     font-weight: 400;
     text-decoration: none;
     transition: all 0.5s ease 0s;
     line-height: 30px;
-    font-family: 'Rufina', serif;
+    font-family: 'Open Sans', sans-serif;
     font-weight: 400;
 }
 
@@ -2570,8 +2570,8 @@ footer {
 }
 
 .footer-contact p {
-    color: #fff;
-    font-family: 'Rufina', serif;
+    color: #000;
+    font-family: 'Open Sans', sans-serif;
     font-weight: 400;
 }
 
@@ -2580,7 +2580,7 @@ footer {
 }
 
 .footer-contact p span {
-    color: #fff;
+    color: #000;
 }
 
 .footer-contact p.adress span {
@@ -2593,20 +2593,20 @@ footer {
 /*----------------------------------------*/
 
 .bt-2 {
-    border-top: 2px solid #393939;
+    border-top: 2px solid #000 !important;
     padding: 30px 0;
 }
 
 .copy-right-area p {
-    color: #fff;
+    color: #030303;
     margin-bottom: 0;
     margin-top: 8px;
-    font-family: 'Rufina', serif;
+    font-family: 'Open Sans', sans-serif;
     font-weight: 400;
 }
 
 .copy-right-area p a {
-    color: #fff;
+    color: #000;
 }
 
 .copy-right-area p a:hover {
@@ -7832,3 +7832,4 @@ input::-moz-focus-inner {
     -webkit-transform: translateZ(0);
 }	
     /*------ end Compare Page Wrapper -----*/
+
