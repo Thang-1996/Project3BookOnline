@@ -1,4 +1,5 @@
 ﻿import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import Adapter from '../../Adapter';
 
 export default class Product extends Component {
@@ -73,8 +74,8 @@ export default class Product extends Component {
         const { product } = this.state;
         return (
             <tr >
-                <td className="product-thumbnail"><a ><img src={"/images/" +product.product.productImage} alt="man" /></a></td>
-                <td className="product-name"><a >{product.product.productName}</a></td>
+                <td className="product-thumbnail"><Link to={"/product/" + product.product.productID}><img src={"/images/" + product.product.productImage} alt="man" /></Link></td>
+                <td className="product-name"><Link to={"/product/" + product.product.productID}>{product.product.productName}</Link></td>
                 <td className="product-price"><span className="amount">{Adapter.format_money(product.product.price)}</span></td>
                 <td className="product-quantity"><input onChange={this.tangGiamSL} type="number" defaultValue={product.quantity} /></td>
                 <td className="product-subtotal">{Adapter.format_money(product.product.price * product.quantity)}</td>

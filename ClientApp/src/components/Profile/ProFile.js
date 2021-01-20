@@ -250,8 +250,8 @@ export default class ProFile extends Component {
                                             total += e.quantity * e.products.price;
                                             return (
                                                 <tr key={index}>
-                                                    <td>{e.products.productName}</td>
-                                                    <td><img style={{ width: "50px", height: "50px" }} src={"/images/" + e.products.productImage} /></td>
+                                                    <td><Link to={"/product/"+e.product.productID}>{e.products.productName}</Link></td>
+                                                    <td><Link to={"/product/" + e.product.productID}><img style={{ width: "50px", height: "50px" }} src={"/images/" + e.products.productImage} /></Link></td>
                                                     <td>{e.quantity}</td>
                                                     <td>{Adapter.format_money(e.products.price)}</td>
                                                     <td>{Adapter.format_money(e.quantity * e.products.price)}</td>

@@ -392,7 +392,7 @@ class ProductDetail extends Component {
                                     <div className="tab-content">
                                         <div className="tab-pane fade" id="Details">
                                             <div className="valu">
-                                                <p style={{ fontSize:"16px" }}>{product ? product.productDescription : ""}</p>
+                                                <p style={{ fontSize: "16px" }} dangerouslySetInnerHTML={{ __html: product ? product.productDescription : "" }}></p>
                                             </div>
                                         </div>
                                         {
@@ -705,7 +705,7 @@ class ProductDetail extends Component {
                     </div>
                 </div>
                 <div className="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                    <div className="modal-dialog modal-lg">
+                    <div className="modal-dialog modal-xl">
                         <div className="container p-4">
                             <div className="modal-content p-4" >
                                 <div className="col-md-12 row">

@@ -213,7 +213,7 @@ export default class Checkout extends Component {
                                                                 return (
                                                                     <tr key={index} className="cart_item">
                                                                         <td className="product-name">
-                                                                            {e.product.productName} <strong className="product-quantity"> × {e.quantity}</strong>
+                                                                            <Link to={"/product/"+e.product.productName}>{e.product.productName}</Link> <strong className="product-quantity"> × {e.quantity}</strong>
                                                                         </td>
                                                                         <td className="product-total">
                                                                             <span className="amount">{Adapter.format_money(e.product.price * e.quantity)}</span>
