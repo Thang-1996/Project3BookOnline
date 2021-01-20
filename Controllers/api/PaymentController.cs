@@ -28,6 +28,37 @@ namespace BookOnlineShop.Controllers.api
             passwordHasher = passwordHash;
 
         }
+        [HttpGet]
+        [ActionName("reactAPICall")]
+        public async Task<ActionResult<ReactAPIModel>> reactAPICall()
+        {
+            var currentUser = await _userManager.GetUserAsync(User);
+            if (currentUser == null) return null;
+            var product =  _context.Products
+                .Include(at => at.AuthorProducts)
+                .ThenInclude(a => a.Author)
+                  .Include(pp => pp.PublisherProducts)
+                .ThenInclude(p => p.Publisher)
+                    .Include(rp => rp.ReviewProducts)
+                .ThenInclude(r => r.Review)
+                .ThenInclude(ra => ra.ReviewAnswers)
+                .ThenInclude(a => a.Answer)
+                     .Include(op => op.OrderProducts)
+                .ThenInclude(o => o.Orders)
+                .Include(c => c.Category) 
+                .ToList();
+            var category =  _context.Categories.ToList();
+            var orders =  _context.Orders
+                .Include(od => od.OrderProducts)
+                .ThenInclude(p => p.Products)
+                .Where(od => od.UserID == currentUser.Id).ToList();
+            var reactapicall = new  ReactAPIModel();
+            reactapicall.currentUser = currentUser;
+            reactapicall.Products = product;
+            reactapicall.Categories = category;
+            reactapicall.Orders = orders;
+            return reactapicall;
+        }
         // GET: api/<PaymentController>
         [HttpGet]
         [ActionName("getUserInfo")]

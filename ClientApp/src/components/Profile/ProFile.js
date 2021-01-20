@@ -247,11 +247,12 @@ export default class ProFile extends Component {
                                 <tbody>
                                     {
                                         order ? order.orderProducts.map((e, index) => {
+                                            console.log(e);
                                             total += e.quantity * e.products.price;
                                             return (
                                                 <tr key={index}>
-                                                    <td><Link to={"/product/"+e.product.productID}>{e.products.productName}</Link></td>
-                                                    <td><Link to={"/product/" + e.product.productID}><img style={{ width: "50px", height: "50px" }} src={"/images/" + e.products.productImage} /></Link></td>
+                                                    <td><Link to={"/product/" + e.products.productID}>{e.products.productName}</Link></td>
+                                                    <td><Link to={"/product/" + e.products.productID}><img style={{ width: "50px", height: "50px" }} src={"/images/" + e.products.productImage} /></Link></td>
                                                     <td>{e.quantity}</td>
                                                     <td>{Adapter.format_money(e.products.price)}</td>
                                                     <td>{Adapter.format_money(e.quantity * e.products.price)}</td>

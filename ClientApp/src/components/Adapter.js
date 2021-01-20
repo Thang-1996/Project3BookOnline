@@ -8,6 +8,13 @@
         },
         method: "GET"
     },
+    reactAPICall: {
+        url: "api/Payment/reactAPICall",
+        params: {
+
+        },
+        method: "GET"
+    },
     getCategories: {
         url: "api/Categories/GetCategories",
         params: {
