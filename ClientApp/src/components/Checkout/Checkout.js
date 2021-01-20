@@ -5,6 +5,7 @@ import API from '../API';
 import { Link } from 'react-router-dom';
 import notification from '../../notification';
 import Loading from '../isLoading';
+import PayPal from '../../PayPal';
 export default class Checkout extends Component {
     constructor(props) {
         super(props);
@@ -18,14 +19,16 @@ export default class Checkout extends Component {
                 Status: 1,
                 GrandTotal: 0,
                 OrderNote: '',
-                paymenttype: 1,
+                paymenttype: '',
                 UserID: '',
           
             },
             cart: props.cart,
             currentUser: props.currentUser,
             redirect: false,
-            isLoading: false
+            isLoading: false,
+            PayPalStatus : '',
+   
         };
         this.checkOut = this.checkOut.bind(this);
         
@@ -62,16 +65,31 @@ export default class Checkout extends Component {
             });
         }
     }
+    getOrderDetailPayPal = async (e) => {
+        this.setState({ PayPalStatus: e })
+ 
+    }
     checkOut() {
         this.setState({
             isLoading: true,
         });
         let cart = this.state.cart;
         let orders = this.state.orders;
+        let PayPalStatus = this.state.PayPalStatus;
         let currentUser = this.state.currentUser;
         let payment = {
             orders: orders,
             carts: cart,
+            PayPalStatus: PayPalStatus,
+
+        }
+        if (cart.length == 0) {
+            this.setState({
+                isLoading: false,
+            });
+            notification('warning', 'Trong giỏ hàng hiện chưa có cuốn sách nào!');
+
+            return;
         }
         if (orders.Address == '') {
             this.setState({
@@ -105,9 +123,18 @@ export default class Checkout extends Component {
         });
      
     }
+    setCOD = () => {
+        let orders = this.state.orders;
+        orders.paymenttype = 1;
+        this.setState({ orders: orders })
+    }
+    setPayPal = () => {
+        let orders = this.state.orders;
+        orders.paymenttype = 2;
+        this.setState({ orders: orders })
+    }
     render() {
         const { cart, currentUser, orders, redirect } = this.state;
-        console.log(currentUser);
         if (redirect) {
             return <Redirect to='/' />;
         }
@@ -128,6 +155,7 @@ export default class Checkout extends Component {
                         </div>
                     </div>
                 </div>
+                
                 <div className="checkout-area mb-70">
                     <div className="container">
                         <div className="row">
@@ -139,22 +167,22 @@ export default class Checkout extends Component {
                                             <div className="row">
                                                 <div className="col-lg-12 col-md-12 col-12">
                                                     <div className="checkout-form-list">
-                                                        <label>Tên Khách Hàng <span className="required">*</span></label>
+                                                        <label>Tên khách hàng <span className="required">*</span></label>
                                                         <input readOnly={true} defaultValue={currentUser ? currentUser.name : ''} type="text" />
                                                     </div>
                                                     <div className="checkout-form-list">
                                                         <label>Địa chỉ nhận hàng <span className="required">*</span></label>
-                                                        <input onChange={this.handleOnChange} required value={orders.Address} name="Address" type="text" placeholder="Street address" />
+                                                        <input onChange={this.handleOnChange} required value={orders.Address} name="Address" type="text"/>
                                                     </div>
                                                     <div className="checkout-form-list">
                                                         <label>Số điện thoại: <span className="required">*</span></label>
-                                                        <input onChange={this.handleOnChange} type="text" value={orders.Telephone} name="Telephone" placeholder="Số điện thoại" />
+                                                        <input onChange={this.handleOnChange} type="text" value={orders.Telephone} name="Telephone" />
                                                     </div>
                                                     <div className="different-address">
                                                         <div className="order-notes">
                                                             <div className="checkout-form-list">
                                                                 <label>Ghi chú</label>
-                                                                <textarea onChange={this.handleOnChange} value={orders.OrderNote} name="OrderNote" placeholder="Ghi chú về đơn đặt hàng của bạn, ví dụ: Lưu ý đặc biệt để giao hàng." rows={10} cols={30} id="checkout-mess" defaultValue={""} />
+                                                                <textarea onChange={this.handleOnChange} value={orders.OrderNote} name="OrderNote" placeholder="Ghi chú về đơn đặt hàng của bạn, ví dụ: Lưu ý đặc biệt để giao hàng." rows={10} cols={30} id="checkout-mess" />
 
                                                             </div>
                                                         </div>
@@ -169,7 +197,7 @@ export default class Checkout extends Component {
                                     </div>
                                     <div className="col-lg-6 col-md-12 col-12">
                                         <div className="your-order">
-                                            <h4>Đơn hàng của bạn</h4>
+                                            <h4>ĐƠN HÀNG CỦA BẠN</h4>
                                             <div className="your-order-table table-responsive">
                                                 <table>
                                                     <thead>
@@ -202,7 +230,7 @@ export default class Checkout extends Component {
                                                             <td><span className="amount">{Adapter.format_money(total)}</span></td>
                                                         </tr>
                                                         <tr className="shipping">
-                                                            <th data-toggle="tooltip" data-placement="left" title="Miễn phí ship với đơn hàng lớn hơn 500.000đ">Shipping</th>
+                                                            <th data-toggle="tooltip" data-placement="left" title="Miễn phí ship với đơn hàng lớn hơn 500.000đ">Phí ship</th>
                                                             <td>
                                                                 <ul>
                                                                     <li>
@@ -223,23 +251,7 @@ export default class Checkout extends Component {
                                                 <div className="payment-accordion">
                                                     <div className="collapses-group">
                                                         <div className="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                                                            <div className="panel panel-default">
-                                                                <div className="panel-heading" role="tab" id="headingOne">
-                                                                    <h4 className="panel-title">
-                                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                                                            VNPay
-                                      </a>
-                                                                    </h4>
-                                                                </div>
-                                                                <div id="collapseOne" className="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                                                                    <div className="panel-body">
-                                                                        <p>
-                                                                            <input type="radio" name="thanhtoan" value={2} />
-                                                                            VNPay
-                                                                        </p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
+                                                         
                                                             <div className="panel panel-default">
                                                                 <div className="panel-heading" role="tab" id="headingTwo">
                                                                     <h4 className="panel-title">
@@ -250,25 +262,23 @@ export default class Checkout extends Component {
                                                                 </div>
                                                                 <div id="collapseTwo" className="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                                                                     <div className="panel-body">
-                                                                        <p>
-                                                                            <input type="radio" name="thanhtoan" value={1} />
-                                                                        Vui lòng hoàn thiện tiền hàng cho shipper sau khi nhận hàng.</p>
+                                                                        <a onClick={this.setCOD}>
+                                                                            <input  type="radio" name="thanhtoan" value={1} />
+                                                                        Vui lòng hoàn thiện tiền hàng cho shipper sau khi nhận hàng.</a>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div className="panel panel-default">
                                                                 <div className="panel-heading" role="tab" id="headingThree">
                                                                     <h4 className="panel-title">
-                                                                        <a className="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                                                            PayPal <img src="img/2.png" alt="payment" />
+                                                                        <a onClick={ this.setPayPal} className="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                                                            PayPal 
                                                                         </a>
                                                                     </h4>
                                                                 </div>
                                                                 <div id="collapseThree" className="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
                                                                     <div className="panel-body">
-                                                                        <p>
-                                                                            <input type="radio" name="thanhtoan" value={1} /> Thanh toán bằng paypal
-                                                                        </p>
+                                                                        <PayPal getOrderDetailPayPal={this.getOrderDetailPayPal} orders={orders} cart={cart} />
                                                                     </div>
                                                                 </div>
                                                             </div>

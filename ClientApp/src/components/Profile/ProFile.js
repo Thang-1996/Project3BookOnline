@@ -141,11 +141,11 @@ export default class ProFile extends Component {
                                                                     <tbody>
                                                                         {
                                                                             orders ? orders.map((e, index) => {
-                                                                     
+                                                                                const date = new Date(e.createAt);
                                                                                 return (
                                                                                     <tr key={ index}>
-                                                                                        <td>{ ++index }</td>
-                                                                                        <td>{e.createAt}</td>
+                                                                                        <td>{++index}</td>
+                                                                                        <td>{date.toLocaleDateString()}</td>
                                                                                         <td>{this.checkStatusOrder(e.status)}</td>
                                                                                         <td>{Adapter.format_money(e.grandTotal)}</td>
                                                                                         <td>
@@ -223,10 +223,10 @@ export default class ProFile extends Component {
                                 <h6>Thông tin vận chuyển :</h6>
                                 <p style={{fontSize : '14px'}} >Tên người nhận : {order ? order.customerName : ''}</p>
                                 <p style={{ fontSize: '14px' }}>Địa chỉ nhận hàng  : {order ? order.address : ''}</p>
-                                <p style={{ fontSize: '14px' }}>Ngày đặt hàng : {order ? order.createAt : ''}</p>
+                                <p style={{ fontSize: '14px' }}>Ngày đặt hàng : {order ? Adapter.formatDate(order.createAt) : ''}</p>
                                 <p style={{ fontSize: '14px' }}>Điện thoại : {order ? order.telephone : ''}</p>
                                 {
-                                   order ? order.status == 2 ? <p style={{ fontSize: '14px' }}>Thời gian nhận hàng : {order ? order.updateAt : ''}</p> : <p style={{ fontSize: '14px' }}>Đang giao hàng</p> : ''
+                                    order ? order.status == 2 ? <p style={{ fontSize: '14px' }}>Thời gian nhận hàng : {order ? Adapter.formatDate(order.updateAt) : ''}</p> : <p style={{ fontSize: '14px' }}>Đang giao hàng</p> : ''
                                 }
                             
 

@@ -11,7 +11,6 @@ export class Layout extends Component {
         super(props);
         this.state = {
             cart: props.cart,
- 
           
         };
     }

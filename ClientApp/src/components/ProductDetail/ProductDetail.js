@@ -6,6 +6,7 @@ import API from '../API';
 import Owldemo1 from '../OwlCarousel/OwlCarousel';
 import notification from '../../notification';
 import ReactStars from "react-rating-stars-component";
+import MyWishList from '../OwlCarousel/MyWishList';
 class ProductDetail extends Component {
     
     constructor(props) {
@@ -37,7 +38,8 @@ class ProductDetail extends Component {
             wishlist: {
                 product: null,
                 UserID : '',
-            }
+            },
+            wishlistUser: [],
         };
         this.addToCart = this.addToCart.bind(this);
     }
@@ -65,7 +67,24 @@ class ProductDetail extends Component {
             }).catch (err => {
 
            });
-        } 
+       } 
+       let currentUser = this.props.currentUser;
+
+       let id = 0;
+       if (currentUser) {
+           id = currentUser.id;
+       }
+       API.get(Adapter.getWishList.url, {
+           params: {
+               id: id
+           }
+       }).then(res => {
+           this.setState({
+               wishlistUser: res.data
+           })
+       }).catch(err => {
+
+       });
     }
     setValue = (event) => {
         let nameValue = event.target.name;
@@ -204,6 +223,23 @@ class ProductDetail extends Component {
         await API.post(Adapter.saveWishList.url, wishlist)
             .then(res => {
                 if (res.data == true) {
+                    let currentUser = this.state.currentUser;
+
+                    let id = 0;
+                    if (currentUser) {
+                        id = currentUser.id;
+                    }
+                    API.get(Adapter.getWishList.url, {
+                        params: {
+                            id: id
+                        }
+                    }).then(res => {
+                        this.setState({
+                            wishlistUser: res.data
+                        })
+                    }).catch(err => {
+
+                    });
                     notification("success", "Thêm vào danh sách yêu thích thành công")
                 }
                 if (res.data == false) {
@@ -263,18 +299,12 @@ class ProductDetail extends Component {
                                                     </div>
                                                 </div>
                                                 <div className="product-reviews-summary">
-                                                    <div className="rating-summary">
-                                                        <a><i className="fa fa-star" /></a>
-                                                        <a><i className="fa fa-star" /></a>
-                                                        <a><i className="fa fa-star" /></a>
-                                                        <a><i className="fa fa-star" /></a>
-                                                        <a><i className="fa fa-star" /></a>
-                                                    </div>
                                                     <div className="reviews-actions">
                                                         <a>{reviewProduct.length} Đánh giá</a> | 
 
                                                         <a>{product ? product.viewCount : ''} Lượt xem</a> | 
-                                                        <a  className="btn btn-info text-white">Đọc thử</a> 
+                                                        <span style={{ cursor: "pointer", color: "orange" }} data-toggle="modal" data-target=".bd-example-modal-lg">  Đọc thử </span>
+
                                                     </div>
                                                 </div>
                                                 <div className="product-info-price">
@@ -292,7 +322,7 @@ class ProductDetail extends Component {
                                                 </div>
                                                 <div className="product-social-links">
                                                     <div className="product-addto-links">
-                                                        <a onClick={this.saveWishList.bind(this, product)}><i className="fa fa-heart" /></a>
+                                                        <a onClick={this.saveWishList.bind(this, product)} style={{cursor: "pointer"}}><i className="fa fa-heart" /></a>
                                                     </div>
                                                     <div className="product-addto-links-text">
                                                         <p>Bạn hãy NHẬP ĐỊA CHỈ nhận hàng để được dự báo thời gian & chi phí giao hàng một cách chính xác nhất. </p>
@@ -312,8 +342,8 @@ class ProductDetail extends Component {
                                                         <td>Thuộc thể loại</td><td>{ product ? product.category.categoryName : ''}</td>
                                             </tr>
                                             <tr>
-                                                <td>Ngày xuất bản</td>
-                                                        <td>{product ? product.publishingTime : ''}</td>
+                                                        <td>Ngày xuất bản</td>
+                                                        <td>{product ? Adapter.formatDate(product.publishingTime) : ''}</td>
                                             </tr>
                                             <tr>
                                                 <td>Kích thước</td>
@@ -409,7 +439,7 @@ class ProductDetail extends Component {
                                                                                        
                                                                                     </div>
                                                                                     <p>{item.review.message}</p>
-                                                                                    <a  onClick={this.answer.bind(this, item)} className="btn btn-sm btn-info text-white" style={{float : 'right'}}>Trả lời</a>
+                                                                                    <a  onClick={this.answer.bind(this, item)} className="btn btn-sm btn-info text-white" style={{float : 'right', cursor:"pointer"}}>Trả lời</a>
                                                                                 </div>
                                                                            
                                                                             </div>
@@ -663,22 +693,40 @@ class ProductDetail extends Component {
                                             <a href="#"><img src="img/banner/33.jpg" alt="banner" /></a>
                                         </div>
                                     </div>
-                                    <div className="left-title-2 mb-30">
-                                        <h2>Compare Products</h2>
-                                        <p>You have no items to compare.</p>
-                                    </div>
                                     <div className="left-title-2">
-                                        <h2>My Wish List</h2>
-                                        <p>
-                                            <Link to="/wishlist" className="btn btn-info text-white"><i className="fa fa-heart" /> WishList</Link>
-                                        </p>
+                                        <h2><Link to="/wishlist">Những cuốn bạn thích</Link></h2>
+
+                                        <MyWishList wishlist={this.state.wishlistUser} />
+                                        
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-    
+                <div className="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                    <div className="modal-dialog modal-lg">
+                        <div className="container p-4">
+                            <div className="modal-content p-4" >
+                                <div className="col-md-12 row">
+                                    <div className="col-md-10">
+                                        Đọc thử cuốn: <h4> {product ? product.productName : null} </h4>
+
+                                    </div>
+                                    <div className="col-md-2">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                    </div>
+                                    <div dangerouslySetInnerHTML={{ __html: product?  product.productContent : null }} className="col-md-12" style={{ width: "100%", height: "700px", overflow: "scroll" }}>
+                                       
+                                    </div>
+                                    
+                                </div>
+
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         );
     }
