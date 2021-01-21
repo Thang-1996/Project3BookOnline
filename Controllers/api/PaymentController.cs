@@ -80,7 +80,7 @@ namespace BookOnlineShop.Controllers.api
             if (statuspaypal.Equals("success"))
             {
 
-                status = 2;
+                status = 4;
             }
             Console.WriteLine(JsonConvert.SerializeObject(payment));
             if(orders.GrandTotal < 500000)

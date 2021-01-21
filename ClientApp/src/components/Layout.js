@@ -11,13 +11,14 @@ export class Layout extends Component {
         super(props);
         this.state = {
             cart: props.cart,
-          
+            currentUser: props.currentUser
         };
     }
     static getDerivedStateFromProps(nextProps, prevState) {
         if (nextProps.cart !== prevState.cart) {
             return {
                 cart: nextProps.cart,
+                currentUser: nextProps.currentUser,
           
            
             };
@@ -30,6 +31,7 @@ export class Layout extends Component {
             //Perform some operation here
             this.setState({
                 cart: this.props.cart,
+                currentUser: this.props.currentUser,
               
               
             });
@@ -37,11 +39,11 @@ export class Layout extends Component {
     }
    
     render() {
-        const { cart } = this.state;
+        const { cart, currentUser } = this.state;
     
     return (
         <div>
-            <NavMenu cart={cart} />
+            <NavMenu currentUser={currentUser} cart={cart} />
             
                 {this.props.children}
             

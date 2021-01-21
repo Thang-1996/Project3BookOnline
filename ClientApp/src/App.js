@@ -130,19 +130,19 @@ export default class App extends Component {
     render() {
 
         const { products, currentUser, categories, orders, wishlist } = this.state;
-       
+        
         const cart = this.state.cart;
         return (
-            <Layout categories={categories} cart={cart}>
+            <Layout currentUser={currentUser} categories={categories} cart={cart}>
                 <Route exact path='/' component={() => <Home products={products} />} />
                 <Route exact path='/product' component={() => <Product categories={categories} currentUser={currentUser} updateCartState={this.updateCartState} cart={cart} products={products} refresh={this.refresh} />} />
             <Route exact path='/category/:categoryid' component={() => <Product categories={categories} updateCartState={this.updateCartState} cart={cart} products={products} />} />
             <Route exact path='/cart' component={() => <Cart updateCartState={this.updateCartState} cart={cart} />} />
             <Route exact path='/contact' component={() => <Contact />} />
                 <Route path='/product/:id' component={() => <ProductDetail products={products} updateCartState={this.updateCartState} cart={cart} currentUser={currentUser} updateProduct={this.updateProduct} />} />
-                <AuthorizeRoute path='/check-out' component={() => <Checkout currentUser={currentUser} cartState={this.updateCartState} cart={cart} updateProduct={this.updateProduct} />} />
-                <AuthorizeRoute path='/profile' component={() => <ProFile currentUser={currentUser} updateUser={this.updateUser} orders={orders} />} />
-                <AuthorizeRoute path='/wishlist' component={() => <WishList currentUser={currentUser} updateCartState={this.updateCartState} updateWishList={this.updateWishList} />} />
+                <Route path='/check-out' component={() => <Checkout currentUser={currentUser} cartState={this.updateCartState} cart={cart} updateProduct={this.updateProduct} />} />
+                <Route path='/profile' component={() => <ProFile currentUser={currentUser} updateUser={this.updateUser} orders={orders} />} />
+                <Route path='/wishlist' component={() => <WishList currentUser={currentUser} updateCartState={this.updateCartState} updateWishList={this.updateWishList} />} />
            
 
             <Route path={ApplicationPaths.ApiAuthorizationPrefix} component={ApiAuthorizationRoutes} />

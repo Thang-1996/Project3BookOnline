@@ -43,7 +43,8 @@
                                         <div class="kt-form__control">
                                             <select class="form-control kt-select2" id="kt_select2_1" name="status">
                                                 <option value="">All</option>
-                                                <option value="1">Đang giao hàng</option>
+                                                <option value="1">Đang giao hàng(Chưa TT)</option>
+                                                <option value="4">Đang giao hàng(Đã TT)</option>
                                                 <option value="2">Hoàn thành</option>
                                                 <option value="3">Đã hủy</option>
 
@@ -185,7 +186,7 @@
                                 <td>
                                     @if (item.Status == 1)
                                     {
-                                        <span class="kt-badge  kt-badge--warning kt-badge--inline kt-badge--pill">Đang giao hàng</span>
+                                        <span class="kt-badge  kt-badge--warning kt-badge--inline kt-badge--pill">Đang giao hàng(Chưa TT)</span>
                                     }
                                     @if (item.Status == 2)
                                     {
@@ -194,6 +195,10 @@
                                     @if (item.Status == 3)
                                     {
                                         <span class="kt-badge  kt-badge--danger kt-badge--inline kt-badge--pill">Đã hủy</span>
+                                    }
+                                    @if (item.Status == 4)
+                                    {
+                                        <span class="kt-badge  kt-badge--brand kt-badge--inline kt-badge--pill">Đang giao hàng(Đã TT)</span>
                                     }
                                 </td>
                                 <td>

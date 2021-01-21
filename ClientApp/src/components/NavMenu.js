@@ -17,6 +17,7 @@ export class NavMenu extends Component {
             products: [],
             search: "hidden",
             searchData: [],
+            currentUser: props.currentUser
       };
       this.showMenu = this.showMenu.bind(this);
     } 
@@ -25,6 +26,7 @@ export class NavMenu extends Component {
             return {
                 cart: nextProps.cart,
                 categories: nextProps.categories,
+                currentUser: nextProps.currentUser,
 
             };
         }
@@ -53,6 +55,7 @@ export class NavMenu extends Component {
             //Perform some operation here
             this.setState({
                 cart: this.props.cart,
+                currentUser: this.props.currentUser,
               
             });
         }
@@ -139,9 +142,9 @@ export class NavMenu extends Component {
     }
    
     render() {
-        const { cart, category, searchData } = this.state;
+        const { cart, category, searchData, currentUser } = this.state;
         let total = 0;
-     
+        console.log(currentUser)
       return (
           <header>
             

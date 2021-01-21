@@ -66,13 +66,16 @@ export default class ProFile extends Component {
         let statusResult = "";
         switch (status) {
             case 1:
-                statusResult = "Đang giao";
+                statusResult = "<button class='btn btn-warning'>Đang giao(Chưa thanh toán)</button>";
                 break;
             case 2:
-                statusResult = "Hoàn thành";
+                statusResult = "<button class='btn btn-success'>Hoàn thành</button>";
                 break;
             case 3:
-                statusResult = "Hủy đơn";
+                statusResult = "<button class='btn btn-danger'>Hủy đơn</button>";
+                break;
+            case 3:
+                statusResult = "<button class='btn btn-brand'>Đang giao (Đã thanh toán)</button>";
                 break;
             default:
                 break;
@@ -146,7 +149,7 @@ export default class ProFile extends Component {
                                                                                     <tr key={ index}>
                                                                                         <td>{++index}</td>
                                                                                         <td>{date.toLocaleDateString()}</td>
-                                                                                        <td>{this.checkStatusOrder(e.status)}</td>
+                                                                                        <td dangerouslySetInnerHTML={{ __html: this.checkStatusOrder(e.status) }}>{}</td>
                                                                                         <td>{Adapter.format_money(e.grandTotal)}</td>
                                                                                         <td>
                                                                                             <button type="button" className="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg" onClick={this.orderDetails.bind(this, e)}>Chi tiết</button>
@@ -187,13 +190,13 @@ export default class ProFile extends Component {
                                                                         <legend>Password change</legend>
                                                                         <div className="single-input-item">
                                                                             <label htmlFor="current-pwd" className="required">Mật khẩu hiện tại</label>
-                                                                            <input type="password" readOnly={ true} defaultValue={currentUser ? currentUser.passwordHash : ''} placeholder="Mật khẩu hiện tại" />
+                                                                            <input type="password"  defaultValue={''} placeholder="Mật khẩu hiện tại" />
                                                                         </div>
                                                                         <div className="row">
                                                                             <div className="col-lg-12">
                                                                                 <div className="single-input-item">
                                                                                     <label htmlFor="new-pwd" className="required">Mật khẩu mới</label>
-                                                                                    <input type="password" name="passwordHash" value={(currentUser ? currentUser.passwordHash : '') || ''} onChange={this.changeValue} placeholder="Mật khẩu mới" />
+                                                                                    <input type="password" name="passwordHash" value={''} onChange={this.changeValue} placeholder="Mật khẩu mới" />
                                                                                 </div>
                                                                             </div>
                                                                        
@@ -245,20 +248,7 @@ export default class ProFile extends Component {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {
-                                        order ? order.orderProducts.map((e, index) => {
-                                            total += e.quantity * e.products.price;
-                                            return (
-                                                <tr key={index}>
-                                                    <td><Link to={"/product/"+e.product.productID}>{e.products.productName}</Link></td>
-                                                    <td><Link to={"/product/" + e.product.productID}><img style={{ width: "50px", height: "50px" }} src={"/images/" + e.products.productImage} /></Link></td>
-                                                    <td>{e.quantity}</td>
-                                                    <td>{Adapter.format_money(e.products.price)}</td>
-                                                    <td>{Adapter.format_money(e.quantity * e.products.price)}</td>
-                                                </tr>
-                                                )
-                                        }) : null
-                                    }
+                                    
                                 </tbody>
                             </table>
                             <h6 className="text-right">Tổng tiền đơn hàng : {Adapter.format_money(total)} </h6>
