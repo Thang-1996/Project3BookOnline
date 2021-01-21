@@ -124,8 +124,31 @@ export class NavMenu extends Component {
                     Adapter.removeVietnameseTones(item.productName).toLowerCase().includes(lowercasedFilter),
                 );
             });
+            const filteredData1 = [];
+            for (let i = 0; i < products.length; i++) {
+                let filterData3 = [];
+                filterData3 = products[i].authorProducts.filter(item => {
+                    return Object.keys(item).some(key =>
+                        Adapter.removeVietnameseTones(item.author.authorName).toLowerCase().includes(lowercasedFilter),
+                    );
+                });
+                if (filterData3.length != 0) {
+                    filteredData1.push(filterData3[0])
+                }
+            }
+            let pp = filteredData1.filter((ele, ind) => ind === filteredData1.findIndex(elem => elem.authorID === ele.authorID))
+            let filteredData4 = [];
+            for (let j = 0; j < pp.length; j++) {
+                for (let k = 0; k < pp[j].author.authorProducts.length; k++) {
+                    filteredData4.push(pp[j].author.authorProducts[k].product);
+                }
+
+            }
+            let filterData5 = filteredData4.concat(filteredData);
+            let filterData6 = filterData5.filter((ele, ind) => ind === filterData5.findIndex(elem => elem.productID === ele.productID))
+            
             this.setState({
-                searchData: filteredData,
+                searchData: filterData6,
                 search: "visible",
             })
         }
@@ -139,8 +162,30 @@ export class NavMenu extends Component {
                 Adapter.removeVietnameseTones(item.productName).toLowerCase().includes(lowercasedFilter),
             );
         });
+        const filteredData1 = [];
+        for (let i = 0; i < products.length; i++) {
+            let filterData3 = [];
+            filterData3 = products[i].authorProducts.filter(item => {
+                return Object.keys(item).some(key =>
+                    Adapter.removeVietnameseTones(item.author.authorName).toLowerCase().includes(lowercasedFilter),
+                );
+            });
+            if (filterData3.length != 0) {
+                filteredData1.push(filterData3[0])
+            }
+        }
+        let pp = filteredData1.filter((ele, ind) => ind === filteredData1.findIndex(elem => elem.authorID === ele.authorID))
+        let filteredData4 = [];
+        for (let j = 0; j < pp.length; j++) {
+            for (let k = 0; k < pp[j].author.authorProducts.length; k++) {
+                filteredData4.push(pp[j].author.authorProducts[k].product);
+            }
+            
+        }
+        let filterData5 = filteredData4.concat(filteredData);
+        let filterData6 = filterData5.filter((ele, ind) => ind === filterData5.findIndex(elem => elem.productID === ele.productID))
         this.setState({
-            searchData: filteredData,
+            searchData: filterData6,
             search: "visible",
         })
     }
@@ -186,7 +231,7 @@ export class NavMenu extends Component {
                                           </ul>
                                           :
                                           <ul style={{ margin: '10px 10px 10px 0' }}>
-                                              <li><Link to="/profile">{currentUser ? currentUser.userName : ''}</Link></li>
+                                              <li>Xin Chào, <Link to="/profile">{currentUser ? (currentUser.name ? currentUser.name : 'Bạn') : ''}</Link></li>
                                               <li> <a onClick={this.logOut}>Đăng Xuất</a></li>
                                           </ul>
 
@@ -295,7 +340,6 @@ export class NavMenu extends Component {
                                                       <th style={{ whiteSpace: "nowrap" }}>Tên sách</th>
                                                       <th style={{ whiteSpace: "nowrap" }}>Ảnh</th>
                                                       <th style={{ whiteSpace: "nowrap" }}>Giá tiền</th>
-                                                      <th style={{ whiteSpace: "nowrap" }}>Số lượng</th>
                                                       <th style={{ whiteSpace: "nowrap" }}>Chi tiết</th>
                                                       <th onClick={this.hiddenSearch} style={{ position: "absolute", right: "-5px", top: "-14px", border: "none", cursor: "pointer" }}>X </th>
                                                   </tr>
@@ -309,7 +353,7 @@ export class NavMenu extends Component {
                                                                   <td>{e.productName}</td>
                                                                   <td><img src={"/images/" + e.productImage} style={{ width: "100px", height: "100px" }} /></td>
                                                                   <td>{Adapter.format_money(e.price)}</td>
-                                                                  <td>{e.quantity}</td>
+                                                                
                                                                   <td><Link onClick={this.hiddenSearch } style={{ cursor: "pointer" }} to={"/product/" + e.productID}> Xem </Link></td>
                                                               </tr>
                                                               )
