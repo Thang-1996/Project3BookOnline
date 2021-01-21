@@ -113,6 +113,7 @@ class Product extends Component {
     }
     render() {
         let { products, categories } = this.state;
+        console.log(this.state)
         let count = 0;
         return (
             <div>

@@ -97,10 +97,7 @@ export default class ProductItems extends Component {
                             <Link onClick={this.increaseCount.bind(this,product)} title="Quick View" to={"/product/" + (product.productID)}><i className="fa fa-search-plus" /></Link>
                         </div>
                         <div className="product-flag">
-                            <ul>
-                                <li><span className="sale">new</span></li>
-                                <li><span className="discount-percentage">-5%</span></li>
-                            </ul>
+                           
                         </div>
                     </div>
                     <div className="product-details text-center">

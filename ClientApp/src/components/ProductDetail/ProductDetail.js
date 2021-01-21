@@ -7,6 +7,7 @@ import Owldemo1 from '../OwlCarousel/OwlCarousel';
 import notification from '../../notification';
 import ReactStars from "react-rating-stars-component";
 import MyWishList from '../OwlCarousel/MyWishList';
+import ViewProducts from './WithPublisher';
 class ProductDetail extends Component {
     
     constructor(props) {
@@ -40,6 +41,7 @@ class ProductDetail extends Component {
                 UserID : '',
             },
             wishlistUser: [],
+            viewProducts: [],
         };
         this.addToCart = this.addToCart.bind(this);
     }
@@ -48,7 +50,7 @@ class ProductDetail extends Component {
        let products = this.state.products;
        let product = {};
        await products.find((item) => {
-           if (this.state.productID == item.productID) {
+           if (this.props.match.params.id == item.productID) {
                product = item
                 this.setState({
                     product: item,
@@ -249,9 +251,56 @@ class ProductDetail extends Component {
 
             })
        
-     }
+    }
+    viewProducts = (e) => {
+        this.setState({
+            viewProducts: e
+        })
+    }
+     setProduct = async (e) => {
+        let products = this.state.products;
+        let product = {};
+        await products.find((item) => {
+            if (e.productID == item.productID) {
+                product = item
+                this.setState({
+                    product: item,
+                })
+            }
+        });
+        if (product !== null) {
+            API.get(Adapter.getCategoriesID.url, {
+                params: {
+                    id: product.categoryID
+                }
+            }).then(res => {
+                this.setState({
+                    products: res.data,
+                });
+            }).catch(err => {
+
+            });
+        }
+        let currentUser = this.props.currentUser;
+
+        let id = 0;
+        if (currentUser) {
+            id = currentUser.id;
+        }
+        API.get(Adapter.getWishList.url, {
+            params: {
+                id: id
+            }
+        }).then(res => {
+            this.setState({
+                wishlistUser: res.data
+            })
+        }).catch(err => {
+
+        });
+    }
     render() {
-        const { product, currentUser, review, rw, display, answers } = this.state;
+        const { product, currentUser, review, rw, display, answers, viewProducts } = this.state;
      
         let reviewProduct = product ? product.reviewProducts : [];
        
@@ -353,8 +402,14 @@ class ProductDetail extends Component {
                                                 <td>Tác giả</td>
                                                         <td>{
                                                             product ? product.authorProducts.map((item, index) => {
-
-                                                                return <span key={index}>{ item.author.authorName} | </span>
+                                                                return (
+                                                                    <span
+                                                                        onClick={this.viewProducts.bind(this, item.author.authorProducts)}
+                                                                        data-toggle="modal" data-target=".view-products"
+                                                                        key={index}>
+                                                                        {item.author.authorName} |
+                                                                    </span>
+                                                                )
                                                             }): null
 
                                                         }</td>
@@ -373,7 +428,11 @@ class ProductDetail extends Component {
                                                         <td>{
                                                             product ? product.publisherProducts.map((item, index) => {
 
-                                                                return <span key={index}>{item.publisher.publisherName} | </span>
+                                                                return <span
+                                                                    onClick={this.viewProducts.bind(this, item.publisher.publisherProducts)}
+                                                                    data-toggle="modal" data-target=".view-products"
+                                                                    key={index}>{item.publisher.publisherName}
+                                                                    | </span>
                                                             }) : null
 
                                                         }</td>
@@ -533,160 +592,16 @@ class ProductDetail extends Component {
                                     </div>
                                 </div>
                                 <div className="section-title text-center mb-30">
-                                    <h3 style={{ margin: "30px 0 -25px" }}>Sản phẩm đang giảm giá</h3>
+                                    <h3 style={{ margin: "30px 0 -25px" }}>Sản phẩm liên quan</h3>
                                 </div>
                                 <div className="new-book-area mt-60">
-                                    <Owldemo1 products={this.state.products} />
+                                    <Owldemo1 setProduct={this.setProduct} products={product ? product.category.products : []} />
                                 </div>
                             </div>
                             <div className="col-lg-3 col-md-12 col-12 order-lg-2 order-2">
                                 <div className="shop-left">
                                     <div className="left-title mb-20">
                                         <h4>Ưu đãi ngay hôm nay</h4>
-                                    </div>
-                                    <div className="random-area mb-30">
-                                        <div className="product-active-2 owl-carousel">
-                                            <div className="product-total-2">
-                                                <div className="single-most-product bd mb-18">
-                                                    <div className="most-product-img">
-                                                        <a href="#"><img src="img/product/20.jpg" alt="book" /></a>
-                                                    </div>
-                                                    <div className="most-product-content">
-                                                        <div className="product-rating">
-                                                            <ul>
-                                                                <li><a href="#"><i className="fa fa-star" /></a></li>
-                                                                <li><a href="#"><i className="fa fa-star" /></a></li>
-                                                                <li><a href="#"><i className="fa fa-star" /></a></li>
-                                                                <li><a href="#"><i className="fa fa-star" /></a></li>
-                                                                <li><a href="#"><i className="fa fa-star" /></a></li>
-                                                            </ul>
-                                                        </div>
-                                                        <h4><a href="#">Endeavor Daytrip</a></h4>
-                                                        <div className="product-price">
-                                                            <ul>
-                                                                <li>$30.00</li>
-                                                                <li className="old-price">$33.00</li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="single-most-product bd mb-18">
-                                                    <div className="most-product-img">
-                                                        <a href="#"><img src="img/product/21.jpg" alt="book" /></a>
-                                                    </div>
-                                                    <div className="most-product-content">
-                                                        <div className="product-rating">
-                                                            <ul>
-                                                                <li><a href="#"><i className="fa fa-star" /></a></li>
-                                                                <li><a href="#"><i className="fa fa-star" /></a></li>
-                                                                <li><a href="#"><i className="fa fa-star" /></a></li>
-                                                                <li><a href="#"><i className="fa fa-star" /></a></li>
-                                                                <li><a href="#"><i className="fa fa-star" /></a></li>
-                                                            </ul>
-                                                        </div>
-                                                        <h4><a href="#">{ product ? product.productName : ""}</a></h4>
-                                                        <div className="product-price">
-                                                            <ul>
-                                                                <li>$30.00</li>
-                                                                <li className="old-price">$35.00</li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="single-most-product">
-                                                    <div className="most-product-img">
-                                                        <a href="#"><img src="img/product/22.jpg" alt="book" /></a>
-                                                    </div>
-                                                    <div className="most-product-content">
-                                                        <div className="product-rating">
-                                                            <ul>
-                                                                <li><a href="#"><i className="fa fa-star" /></a></li>
-                                                                <li><a href="#"><i className="fa fa-star" /></a></li>
-                                                                <li><a href="#"><i className="fa fa-star" /></a></li>
-                                                                <li><a href="#"><i className="fa fa-star" /></a></li>
-                                                                <li><a href="#"><i className="fa fa-star" /></a></li>
-                                                            </ul>
-                                                        </div>
-                                                        <h4><a href="#">Compete Track Tote</a></h4>
-                                                        <div className="product-price">
-                                                            <ul>
-                                                                <li>$35.00</li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="product-total-2">
-                                                <div className="single-most-product bd mb-18">
-                                                    <div className="most-product-img">
-                                                        <a href="#"><img src="img/product/23.jpg" alt="book" /></a>
-                                                    </div>
-                                                    <div className="most-product-content">
-                                                        <div className="product-rating">
-                                                            <ul>
-                                                                <li><a href="#"><i className="fa fa-star" /></a></li>
-                                                                <li><a href="#"><i className="fa fa-star" /></a></li>
-                                                                <li><a href="#"><i className="fa fa-star" /></a></li>
-                                                                <li><a href="#"><i className="fa fa-star" /></a></li>
-                                                                <li><a href="#"><i className="fa fa-star" /></a></li>
-                                                            </ul>
-                                                        </div>
-                                                        <h4><a href="#">Voyage Yoga Bag</a></h4>
-                                                        <div className="product-price">
-                                                            <ul>
-                                                                <li>$30.00</li>
-                                                                <li className="old-price">$33.00</li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="single-most-product bd mb-18">
-                                                    <div className="most-product-img">
-                                                        <a href="#"><img src="img/product/24.jpg" alt="book" /></a>
-                                                    </div>
-                                                    <div className="most-product-content">
-                                                        <div className="product-rating">
-                                                            <ul>
-                                                                <li><a href="#"><i className="fa fa-star" /></a></li>
-                                                                <li><a href="#"><i className="fa fa-star" /></a></li>
-                                                                <li><a href="#"><i className="fa fa-star" /></a></li>
-                                                                <li><a href="#"><i className="fa fa-star" /></a></li>
-                                                                <li><a href="#"><i className="fa fa-star" /></a></li>
-                                                            </ul>
-                                                        </div>
-                                                        <h4><a href="#">Impulse Duffle</a></h4>
-                                                        <div className="product-price">
-                                                            <ul>
-                                                                <li>$70.00</li>
-                                                                <li className="old-price">$74.00</li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="single-most-product">
-                                                    <div className="most-product-img">
-                                                        <a href="#"><img src="img/product/22.jpg" alt="book" /></a>
-                                                    </div>
-                                                    <div className="most-product-content">
-                                                        <div className="product-rating">
-                                                            <ul>
-                                                                <li><a href="#"><i className="fa fa-star" /></a></li>
-                                                                <li><a href="#"><i className="fa fa-star" /></a></li>
-                                                                <li><a href="#"><i className="fa fa-star" /></a></li>
-                                                                <li><a href="#"><i className="fa fa-star" /></a></li>
-                                                                <li><a href="#"><i className="fa fa-star" /></a></li>
-                                                            </ul>
-                                                        </div>
-                                                        <h4><a href="#">Fusion Backpack</a></h4>
-                                                        <div className="product-price">
-                                                            <ul>
-                                                                <li>$59.00</li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                     <div className="banner-area mb-30">
                                         <div className="banner-img-2">
@@ -697,7 +612,7 @@ class ProductDetail extends Component {
                                         <h2><Link to="/wishlist">Những cuốn bạn thích</Link></h2>
 
                                         <MyWishList wishlist={this.state.wishlistUser} />
-                                        
+
                                     </div>
                                 </div>
                             </div>
@@ -714,7 +629,7 @@ class ProductDetail extends Component {
 
                                     </div>
                                     <div className="col-md-2">
-                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                        <button type="button" className="close" data-dismiss="modal" aria-hidden="true">×</button>
                                     </div>
                                     <div dangerouslySetInnerHTML={{ __html: product?  product.productContent : null }} className="col-md-12" style={{ width: "100%", height: "700px", overflow: "scroll" }}>
                                        
@@ -727,6 +642,7 @@ class ProductDetail extends Component {
                         </div>
                     </div>
                 </div>
+                <ViewProducts setProduct={this.setProduct} products={viewProducts}/> 
             </div>
         );
     }

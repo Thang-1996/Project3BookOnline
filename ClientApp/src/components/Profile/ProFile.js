@@ -263,7 +263,6 @@ export default class ProFile extends Component {
                                                 )
                                         }) : null
                                     }
-
                                 </tbody>
                             </table>
                             <h6 className="text-right">Tổng tiền đơn hàng : {Adapter.format_money(total)} </h6>
