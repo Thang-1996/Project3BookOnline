@@ -21,6 +21,7 @@ namespace BookOnlineShop.Models
         public string ProductImage { get; set; }
         public string ProductDescription { get; set; }
         public string ProductContent { get; set; }
+        public int? SellCount { get; set; }
         public double Price { get; set; }
         [Range(0, int.MaxValue)]
         public int Quantity { get; set; }

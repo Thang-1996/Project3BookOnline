@@ -177,6 +177,9 @@ namespace BookOnlineShop.Controllers.api
             {
                 var product = _context.Products.Where(p => p.ProductID == item.product.ProductID).FirstOrDefault();
                 product.Quantity -= item.quantity;
+                product.SellCount = item.quantity;
+                _context.Update(product);
+                _context.SaveChanges();
                 OrderProducts orderProducts = new OrderProducts();
                 orderProducts.OrderID = orders1.ID;
                 orderProducts.ProductID = item.product.ProductID;
