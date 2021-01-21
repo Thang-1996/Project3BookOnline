@@ -1,8 +1,8 @@
 ﻿import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { LoginMenu } from './api-authorization/LoginMenu';
 import Adapter from './Adapter';
 import API from './API';
+import Loading from './isLoading';
 export class NavMenu extends Component {
     static displayName = NavMenu.name;
     constructor(props) {
@@ -17,7 +17,8 @@ export class NavMenu extends Component {
             products: [],
             search: "hidden",
             searchData: [],
-            currentUser: props.currentUser
+            currentUser: null,
+            isLoading: false,
       };
       this.showMenu = this.showMenu.bind(this);
     } 
@@ -33,22 +34,24 @@ export class NavMenu extends Component {
         return null;
     }
     async componentDidMount() {
-        await API.get(Adapter.getCategories.url)
+        await API.get(Adapter.reactAPICall.url)
             .then(res => {
                 this.setState({
-                    category: res.data
+                    category: res.data.categories,
+                    products : res.data.products
                 })
             }).catch(err => {
 
             });
-        await API.get(Adapter.getProducts.url)
+        API.get(Adapter.reactAPICallWithUser.url)
             .then(res => {
                 this.setState({
-                    products: res.data,
-                });
+                    currentUser: res.data.currentUser,
+                })
             }).catch(err => {
 
             });
+    
     }
     componentDidUpdate(prevProps, prevState) {
         if (prevProps.cart !== this.props.cart) {
@@ -56,6 +59,7 @@ export class NavMenu extends Component {
             this.setState({
                 cart: this.props.cart,
                 currentUser: this.props.currentUser,
+
               
             });
         }
@@ -140,11 +144,29 @@ export class NavMenu extends Component {
             search: "visible",
         })
     }
+    logOut = () => {
+        this.setState({
+            isLoading: true,
+        })
+        const returnUrl = {
+            returnUrl : '/'
+        };
+        API.post(Adapter.logOut.url, returnUrl)
+        .then(res => {
+            if (res.status == 200) {
+                window.location.href = "/";
+                this.setState({ isLoading : false });
+            }
+        }).catch({
+
+        });
+    }
    
     render() {
         const { cart, category, searchData, currentUser } = this.state;
         let total = 0;
-        console.log(currentUser)
+        console.log(currentUser);
+
       return (
           <header>
             
@@ -155,9 +177,22 @@ export class NavMenu extends Component {
                           </div>
                           <div className="col-lg-6 col-md-6 col-12">
                               <div className="account-area text-right">
-                                  <ul>
-                                      <LoginMenu></LoginMenu>
-                                  </ul>
+                                 
+                                      {
+                                          !currentUser ? 
+                                          <ul style={{ margin: '10px 10px 10px 0' }}>
+                                              <li><a href="/Identity/Account/Login">Đăng Nhập</a></li>
+                                              <li><a href="/Identity/Account/Register">Đăng Ký</a></li>
+                                          </ul>
+                                          :
+                                          <ul style={{ margin: '10px 10px 10px 0' }}>
+                                              <li><Link to="/profile">{currentUser ? currentUser.userName : ''}</Link></li>
+                                              <li> <a onClick={this.logOut}>Đăng Xuất</a></li>
+                                          </ul>
+
+                                      }
+                                      
+                           
                               </div>
                           </div>
                       </div>
@@ -245,7 +280,7 @@ export class NavMenu extends Component {
                                               <Link className="nav-link" to="/contact">Liên hệ <span className="sr-only">(current)</span></Link>
                                           </li>
                                           <li className="nav-item active ml-5">
-                                              <a className="nav-link" >Blog</a>
+                                              <Link className="nav-link" to="/blog">Blog</Link>
                                           </li>
                                           
                                       </ul>
@@ -293,7 +328,7 @@ export class NavMenu extends Component {
                       </div>
                   </div>
               </div>
-      
+              <Loading isLoading={this.state.isLoading} />
       </header>
     );
   }

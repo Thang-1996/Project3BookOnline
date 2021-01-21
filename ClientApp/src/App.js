@@ -12,6 +12,8 @@ import ProductDetail from './components/ProductDetail/ProductDetail';
 import Contact from './components/Contact/Contact';
 import Loading from './components/isLoading';
 import WishList from './components/WishList/WishList';
+import Blog from './components/Blog/Blog';
+import BlogDetail from './components/BlogDetail/BlogDetail';
 
 export default class App extends Component {
     static displayName = App.name;
@@ -27,23 +29,33 @@ export default class App extends Component {
             categories: [],
             orders: [],
             isLoading: false,
-            wishlist : [],
+            wishlist: [],
+            blogs : [],
         
         };
         this.updateCartState = this.updateCartState.bind(this);
         this.updateUser = this.updateUser.bind(this);
         this.updateProduct = this.updateProduct.bind(this);
     }
-     componentDidMount() {
+    async  componentDidMount() {
         this.setState({
             isLoading: true,
         })
-         API.get(Adapter.reactAPICall.url)
+            await API.get(Adapter.reactAPICall.url)
             .then(res => {
                 this.setState({
                     products: res.data.products,
-                    currentUser: res.data.currentUser,
+                    blogs: res.data.blogs,
                     categories: res.data.categories,
+                   
+                })
+            }).catch(err => {
+
+            })
+            API.get(Adapter.reactAPICallWithUser.url)
+            .then(res => {
+                this.setState({
+                    currentUser: res.data.currentUser,
                     orders: res.data.orders,
                 })
             }).catch(err => {
@@ -74,13 +86,13 @@ export default class App extends Component {
 
             });
     }
-    updateWishList = () => {
+     updateWishList = () => {
         let id = 0;
         let currentUser = this.state.currentUser;
         if (currentUser) {
             id = currentUser.id;
         }
-        API.get(Adapter.getWishList.url, {
+         API.get(Adapter.getWishList.url, {
             params: {
                 id: id
             }
@@ -99,7 +111,12 @@ export default class App extends Component {
    
     render() {
 
+<<<<<<< HEAD
         const { products, currentUser, categories, orders, wishlist } = this.state;
+=======
+        const { products, currentUser, categories, orders, wishlist, blogs } = this.state;
+        console.log(this.state);
+>>>>>>> be0d3892e5dea0067ac7b79a5610370c2ff8f82c
 
         const cart = this.state.cart;
         return (
@@ -110,9 +127,13 @@ export default class App extends Component {
             <Route exact path='/cart' component={() => <Cart updateCartState={this.updateCartState} cart={cart} />} />
             <Route exact path='/contact' component={() => <Contact />} />
                 <Route path='/product/:id' component={() => <ProductDetail products={products} updateCartState={this.updateCartState} cart={cart} currentUser={currentUser} updateProduct={this.updateProduct} />} />
+               
                 <Route path='/check-out' component={() => <Checkout currentUser={currentUser} cartState={this.updateCartState} cart={cart} updateProduct={this.updateProduct} />} />
                 <Route path='/profile' component={() => <ProFile currentUser={currentUser} updateUser={this.updateUser} orders={orders} />} />
                 <Route path='/wishlist' component={() => <WishList currentUser={currentUser} updateCartState={this.updateCartState} updateWishList={this.updateWishList} />} />
+                <Route exact path='/blog' component={() => <Blog blogs={blogs} />} />
+                <Route path='/blog/:id' component={() => <BlogDetail blogs={blogs} />} />
+
            
 
             <Loading isLoading={this.state.isLoading} />
