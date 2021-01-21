@@ -69,9 +69,9 @@ namespace BookOnlineShop.Controllers.api
                 .Include(c => c.Category) 
                 .ToListAsync();
             var category = await _context.Categories.ToListAsync();
-          
+            var blogs = await _context.Blogs.ToListAsync();
             var reactapicall = new  ReactAPIModel();
- 
+            reactapicall.Blogs = blogs;
             reactapicall.Products = product;
             reactapicall.Categories = category;
        

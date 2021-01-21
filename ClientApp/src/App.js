@@ -12,6 +12,8 @@ import ProductDetail from './components/ProductDetail/ProductDetail';
 import Contact from './components/Contact/Contact';
 import Loading from './components/isLoading';
 import WishList from './components/WishList/WishList';
+import Blog from './components/Blog/Blog';
+import BlogDetail from './components/BlogDetail/BlogDetail';
 
 export default class App extends Component {
     static displayName = App.name;
@@ -27,7 +29,8 @@ export default class App extends Component {
             categories: [],
             orders: [],
             isLoading: false,
-            wishlist : [],
+            wishlist: [],
+            blogs : [],
         
         };
         this.updateCartState = this.updateCartState.bind(this);
@@ -42,7 +45,7 @@ export default class App extends Component {
             .then(res => {
                 this.setState({
                     products: res.data.products,
-                   
+                    blogs: res.data.blogs,
                     categories: res.data.categories,
                    
                 })
@@ -108,7 +111,7 @@ export default class App extends Component {
    
     render() {
 
-        const { products, currentUser, categories, orders, wishlist } = this.state;
+        const { products, currentUser, categories, orders, wishlist, blogs } = this.state;
         console.log(this.state);
 
         const cart = this.state.cart;
@@ -120,9 +123,13 @@ export default class App extends Component {
             <Route exact path='/cart' component={() => <Cart updateCartState={this.updateCartState} cart={cart} />} />
             <Route exact path='/contact' component={() => <Contact />} />
                 <Route path='/product/:id' component={() => <ProductDetail products={products} updateCartState={this.updateCartState} cart={cart} currentUser={currentUser} updateProduct={this.updateProduct} />} />
+               
                 <Route path='/check-out' component={() => <Checkout currentUser={currentUser} cartState={this.updateCartState} cart={cart} updateProduct={this.updateProduct} />} />
                 <Route path='/profile' component={() => <ProFile currentUser={currentUser} updateUser={this.updateUser} orders={orders} />} />
                 <Route path='/wishlist' component={() => <WishList currentUser={currentUser} updateCartState={this.updateCartState} updateWishList={this.updateWishList} />} />
+                <Route exact path='/blog' component={() => <Blog blogs={blogs} />} />
+                <Route path='/blog/:id' component={() => <BlogDetail blogs={blogs} />} />
+
            
 
             <Loading isLoading={this.state.isLoading} />

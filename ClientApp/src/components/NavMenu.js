@@ -280,7 +280,7 @@ export class NavMenu extends Component {
                                               <Link className="nav-link" to="/contact">Liên hệ <span className="sr-only">(current)</span></Link>
                                           </li>
                                           <li className="nav-item active ml-5">
-                                              <a className="nav-link" >Blog</a>
+                                              <Link className="nav-link" to="/blog">Blog</Link>
                                           </li>
                                           
                                       </ul>
