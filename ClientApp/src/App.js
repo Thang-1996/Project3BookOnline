@@ -107,6 +107,17 @@ export default class App extends Component {
     refresh = (e) => {
         this.setState({ products : e })
     }
+    refreshOrder = () => {
+        API.get(Adapter.reactAPICallWithUser.url)
+            .then(res => {
+                this.setState({
+                 
+                    orders: res.data.orders,
+                })
+            }).catch(err => {
+
+            })
+    }
 
    
     render() {
@@ -123,8 +134,8 @@ export default class App extends Component {
             <Route exact path='/cart' component={() => <Cart updateCartState={this.updateCartState} cart={cart} />} />
             <Route exact path='/contact' component={() => <Contact />} />
                 <Route path='/product/:id' component={() => <ProductDetail products={products} updateCartState={this.updateCartState} cart={cart} currentUser={currentUser} updateProduct={this.updateProduct} />} />
-                <Route path='/check-out' component={() => <Checkout currentUser={currentUser} cartState={this.updateCartState} cart={cart} updateProduct={this.updateProduct} />} />
-                <Route path='/profile' component={() => <ProFile currentUser={currentUser} updateUser={this.updateUser} orders={orders} />} />
+                <Route path='/check-out' component={() => <Checkout currentUser={currentUser} cartState={this.updateCartState} cart={cart} updateProduct={this.updateProduct} refreshOrder={this.refreshOrder} />} />
+                <Route exact path='/profile' component={() => <ProFile currentUser={currentUser} updateUser={this.updateUser} orders={orders} />} />
                 <Route path='/wishlist' component={() => <WishList currentUser={currentUser} updateCartState={this.updateCartState} updateWishList={this.updateWishList} />} />
                 
                 <Route exact path='/blog' component={() => <Blog blogs={blogs} />} />

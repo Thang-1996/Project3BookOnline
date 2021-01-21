@@ -84,7 +84,7 @@ export default class ProFile extends Component {
     }
     render() {
         const { currentUser, orders, order, redirect } = this.state;
-        console.log(currentUser);
+      
         let total = 0;
         if (redirect) {
             return <Redirect to='/profile' />;
@@ -250,7 +250,7 @@ export default class ProFile extends Component {
                                 <tbody>
                                     {
                                         order ? order.orderProducts.map((e, index) => {
-                                            console.log(e);
+                                         
                                             total += e.quantity * e.products.price;
                                             return (
                                                 <tr key={index}>

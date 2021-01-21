@@ -41,6 +41,7 @@ export default class Checkout extends Component {
             orders.Address = currentUser.address;
             orders.Telephone = currentUser.phoneNumber;
             orders.CustomerName = currentUser.name;
+            orders.UserID = currentUser.id;
         }
         this.setState({ orders: orders })
     }
@@ -122,6 +123,7 @@ export default class Checkout extends Component {
                     this.setState({ redirect: true })
                     this.props.cartState();
                     this.props.updateProduct();
+                    this.props.refreshOrder();
                 }
             }).catch(err => {
                
