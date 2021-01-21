@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import { Route } from 'react-router';
 import { Layout } from './components/Layout';
 import { Home } from './components/Home';
-import AuthorizeRoute from './components/api-authorization/AuthorizeRoute';
-import ApiAuthorizationRoutes from './components/api-authorization/ApiAuthorizationRoutes';
-import { ApplicationPaths } from './components/api-authorization/ApiAuthorizationConstants';
 import Product from './components/Product/Product';
 import Cart from './components/Cart/Cart';
 import Adapter from './components/Adapter';
@@ -103,11 +100,7 @@ export default class App extends Component {
     render() {
 
         const { products, currentUser, categories, orders, wishlist } = this.state;
-<<<<<<< HEAD
-        
-=======
-        console.log(this.state);
->>>>>>> d57333444bdecb654a0dd590cf30d2373cefbf33
+
         const cart = this.state.cart;
         return (
             <Layout currentUser={currentUser} categories={categories} cart={cart}>
