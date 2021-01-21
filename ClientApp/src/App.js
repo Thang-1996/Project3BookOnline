@@ -111,12 +111,8 @@ export default class App extends Component {
    
     render() {
 
-<<<<<<< HEAD
-        const { products, currentUser, categories, orders, wishlist } = this.state;
-=======
         const { products, currentUser, categories, orders, wishlist, blogs } = this.state;
         console.log(this.state);
->>>>>>> be0d3892e5dea0067ac7b79a5610370c2ff8f82c
 
         const cart = this.state.cart;
         return (

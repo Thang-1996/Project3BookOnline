@@ -50,19 +50,22 @@ export class Owldemo1 extends Component {
             });
         }
     }
+    setProduct = (e) => {
+        this.props.setProduct(e);
+    }
     render() {
         const { products } = this.state;
         return (
             <div className='container-fluid' >
                 <OwlCarousel 
                     className="owl-theme"
-                    items={3} margin={8} autoplay={true} 
+                    items={3} margin={8} autoplay={true} nav
                 >
                     {
                         products ? products.map((e, index) => {
                             return (
-                                <div key={index}>
-                                    <Link onClick={this.increaseCount.bind(this,e)} to={"/product/" + e.productID}>
+                                <div className="item" key={index}>
+                                    <Link onClick={this.increaseCount.bind(this,e), this.setProduct.bind(this, e)} to={"/product/" + e.productID}>
                                         <img className="img" src={'/images/' + e.productImage} />
                                     </Link>
                                 </div>
