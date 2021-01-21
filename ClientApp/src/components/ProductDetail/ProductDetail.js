@@ -163,7 +163,7 @@ class ProductDetail extends Component {
         for (let i = 0; i < cart.length; i++) {
             if (cart[i].product.productID === product.productID) {
                 if (quantity < product.quantity) {
-                   cart[i].quantity += Number(quantity);
+                    cart[i].quantity += Number(quantity);
                 } else {
                     alert("Hàng trong kho không đủ")
                 }
@@ -171,7 +171,7 @@ class ProductDetail extends Component {
             }
         }
         if (count === 0) {
-            cart.push({ product: product, quantity: quantity });
+            cart.push({ product: product, quantity: Number(quantity) });
             alert("Thêm thành công")
         }
 
