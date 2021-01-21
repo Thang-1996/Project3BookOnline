@@ -245,14 +245,14 @@ export class NavMenu extends Component {
                                               <Link className="nav-link" to="/contact">Liên hệ <span className="sr-only">(current)</span></Link>
                                           </li>
                                           <li className="nav-item active ml-5">
-                                              <a className="nav-link" href="#">Blog</a>
+                                              <a className="nav-link" >Blog</a>
                                           </li>
                                           
                                       </ul>
                                       <div className="header-bottom-search">
 
                                           <input className="form-control" onKeyDown={this.handleSearch} onChange={this.searchProduct} type="text" defaultValue={this.state.key} placeholder="Tìm kiếm ..." />
-                                          <a onClick={this.handleSearch2} href><i style={{ color: "black", position: "absolute", top: "10px", right: "10px", cursor: "pointer" }} className="fa fa-search" /></a>
+                                          <a onClick={this.handleSearch2}><i style={{ color: "black", position: "absolute", top: "10px", right: "10px", cursor: "pointer" }} className="fa fa-search" /></a>
                                           <table className="table" style={{ position: "absolute", zIndex: "100", backgroundColor: "white", width: "600px", visibility: this.state.search, left: "-200px" }}>
                                               <thead>
                                                   <tr>

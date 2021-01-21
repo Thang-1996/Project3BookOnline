@@ -248,7 +248,25 @@ export default class ProFile extends Component {
                                     </tr>
                                 </thead>
                                 <tbody>
+<<<<<<< HEAD
                                     
+=======
+                                    {
+                                        order ? order.orderProducts.map((e, index) => {
+                                            console.log(e);
+                                            total += e.quantity * e.products.price;
+                                            return (
+                                                <tr key={index}>
+                                                    <td><Link to={"/product/" + e.products.productID}>{e.products.productName}</Link></td>
+                                                    <td><Link to={"/product/" + e.products.productID}><img style={{ width: "50px", height: "50px" }} src={"/images/" + e.products.productImage} /></Link></td>
+                                                    <td>{e.quantity}</td>
+                                                    <td>{Adapter.format_money(e.products.price)}</td>
+                                                    <td>{Adapter.format_money(e.quantity * e.products.price)}</td>
+                                                </tr>
+                                                )
+                                        }) : null
+                                    }
+>>>>>>> d57333444bdecb654a0dd590cf30d2373cefbf33
                                 </tbody>
                             </table>
                             <h6 className="text-right">Tổng tiền đơn hàng : {Adapter.format_money(total)} </h6>

@@ -37,48 +37,21 @@ export default class App extends Component {
         this.updateUser = this.updateUser.bind(this);
         this.updateProduct = this.updateProduct.bind(this);
     }
-    async componentDidMount() {
+     componentDidMount() {
         this.setState({
             isLoading: true,
         })
-        let id = 0;
-         API.get(Adapter.getProducts.url)
+         API.get(Adapter.reactAPICall.url)
             .then(res => {
                 this.setState({
-                    products: res.data,
-                });
+                    products: res.data.products,
+                    currentUser: res.data.currentUser,
+                    categories: res.data.categories,
+                    orders: res.data.orders,
+                })
             }).catch(err => {
 
-            });
-        await API.get(Adapter.currentUserInfo.url)
-            .then(res => {
-                id = res.data.id;
-                this.setState({ currentUser: res.data })
-
-            }).catch(err => {
-
-            });
-        API.get(Adapter.getCategories.url)
-            .then(res => {
-                this.setState({
-                    categories: res.data,
-                });
-            }).catch(err => {
-
-            });
-    
-       
-        API.get(Adapter.getOrderByUser.url, {
-            params: {
-                id: id
-            }
-        }).then(res => {
-            this.setState({
-                orders : res.data
             })
-            }).catch(err => {
-
-            });
         this.setState({
             isLoading: false,
         })
@@ -130,7 +103,11 @@ export default class App extends Component {
     render() {
 
         const { products, currentUser, categories, orders, wishlist } = this.state;
+<<<<<<< HEAD
         
+=======
+        console.log(this.state);
+>>>>>>> d57333444bdecb654a0dd590cf30d2373cefbf33
         const cart = this.state.cart;
         return (
             <Layout currentUser={currentUser} categories={categories} cart={cart}>
@@ -145,7 +122,6 @@ export default class App extends Component {
                 <Route path='/wishlist' component={() => <WishList currentUser={currentUser} updateCartState={this.updateCartState} updateWishList={this.updateWishList} />} />
            
 
-            <Route path={ApplicationPaths.ApiAuthorizationPrefix} component={ApiAuthorizationRoutes} />
             <Loading isLoading={this.state.isLoading} />
       </Layout>
     );
