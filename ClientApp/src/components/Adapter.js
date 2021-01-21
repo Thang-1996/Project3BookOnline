@@ -8,8 +8,22 @@
         },
         method: "GET"
     },
+    logOut: {
+        url: "api/Payment/logOut",
+        params: {
+
+        },
+        method: "POST"
+    },
     reactAPICall: {
         url: "api/Payment/reactAPICall",
+        params: {
+
+        },
+        method: "GET"
+    },
+    reactAPICallWithUser: {
+        url: "api/Payment/reactAPICallWithUser",
         params: {
 
         },

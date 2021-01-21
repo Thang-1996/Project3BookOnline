@@ -14,8 +14,8 @@ export default class Checkout extends Component {
                 CustomerName : '',
                 CreateAt: '',
                 UpdateAt: '',
-                Telephone: '0969677264',
-                Address: 'Văn Môn Yên Phong Bắc Ninh',
+                Telephone: '',
+                Address: '',
                 Status: 1,
                 GrandTotal: 0,
                 OrderNote: '',
@@ -31,16 +31,24 @@ export default class Checkout extends Component {
    
         };
         this.checkOut = this.checkOut.bind(this);
+       
         
+    }
+    componentDidMount() {
+        let currentUser = this.state.currentUser;
+        let orders = this.state.orders;
+        if (currentUser) {
+            orders.Address = currentUser.address;
+            orders.Telephone = currentUser.phoneNumber;
+            orders.CustomerName = currentUser.name;
+        }
+        this.setState({ orders: orders })
     }
     handleOnChange = event => {
         let orders = this.state.orders;
         let currentUser = this.props.currentUser;
         let nameValue = event.target.name;
         orders[nameValue] = event.target.value;
-        if (currentUser) {
-            orders.UserID = currentUser.id;
-        }
       
         this.setState({ orders: orders })
     }
@@ -168,7 +176,7 @@ export default class Checkout extends Component {
                                                 <div className="col-lg-12 col-md-12 col-12">
                                                     <div className="checkout-form-list">
                                                         <label>Tên khách hàng <span className="required">*</span></label>
-                                                        <input readOnly={true} defaultValue={currentUser ? currentUser.name : ''} type="text" />
+                                                        <input onChange={this.handleOnChange} value={orders.CustomerName} name="CustomerName" type="text" />
                                                     </div>
                                                     <div className="checkout-form-list">
                                                         <label>Địa chỉ nhận hàng <span className="required">*</span></label>

@@ -1,8 +1,10 @@
-﻿using BookOnlineShop.Data;
+﻿using BookOnlineShop.Areas.Identity.Pages.Account;
+using BookOnlineShop.Data;
 using BookOnlineShop.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -20,21 +22,40 @@ namespace BookOnlineShop.Controllers.api
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ApplicationDbContext _context;
         private IPasswordHasher<ApplicationUser> passwordHasher;
-        public PaymentController(UserManager<ApplicationUser> userManager, ApplicationDbContext context, IPasswordHasher<ApplicationUser> passwordHash)
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly ILogger<LogoutModel> _logger;
+        public PaymentController(UserManager<ApplicationUser> userManager, ApplicationDbContext context, IPasswordHasher<ApplicationUser> passwordHash, SignInManager<ApplicationUser> signInManager, ILogger<LogoutModel> logger)
         {
     
             _userManager = userManager;
             _context = context;
             passwordHasher = passwordHash;
+            _signInManager = signInManager;
+            _logger = logger;
 
+        }
+        [HttpPost]
+        [ActionName("logOut")]
+        public async Task<ActionResult<returnUrlReact>> logOut(returnUrlReact url)
+        {
+            var returnUrl = url.returnUrl;
+            await _signInManager.SignOutAsync();
+            _logger.LogInformation("User logged out.");
+            if (returnUrl != null)
+            {
+                return LocalRedirect(returnUrl);
+            }
+            else
+            {
+                return NotFound("erorr");
+            }
         }
         [HttpGet]
         [ActionName("reactAPICall")]
         public async Task<ActionResult<ReactAPIModel>> reactAPICall()
         {
-            var currentUser = await _userManager.GetUserAsync(User);
-            if (currentUser == null) return null;
-            var product =  _context.Products
+        
+            var product =  await _context.Products
                 .Include(at => at.AuthorProducts)
                 .ThenInclude(a => a.Author)
                   .Include(pp => pp.PublisherProducts)
@@ -46,18 +67,33 @@ namespace BookOnlineShop.Controllers.api
                      .Include(op => op.OrderProducts)
                 .ThenInclude(o => o.Orders)
                 .Include(c => c.Category) 
-                .ToList();
-            var category =  _context.Categories.ToList();
-            var orders =  _context.Orders
-                .Include(od => od.OrderProducts)
-                .ThenInclude(p => p.Products)
-                .Where(od => od.UserID == currentUser.Id).ToList();
+                .ToListAsync();
+            var category = await _context.Categories.ToListAsync();
+          
             var reactapicall = new  ReactAPIModel();
-            reactapicall.currentUser = currentUser;
+ 
             reactapicall.Products = product;
             reactapicall.Categories = category;
-            reactapicall.Orders = orders;
+       
             return reactapicall;
+        }
+        [HttpGet]
+        [ActionName("reactAPICallWithUser")]
+        public async Task<ActionResult<ReactAPIModelWithUser>> reactAPICallWithUser()
+        {
+            var currentUser = await _userManager.GetUserAsync(User);
+            if (currentUser == null) return null;
+            
+           
+            var orders = await _context.Orders
+                .Include(od => od.OrderProducts)
+                .ThenInclude(p => p.Products)
+                .Where(od => od.UserID == currentUser.Id).ToListAsync();
+            var reactapicallwithuser = new ReactAPIModelWithUser();
+            reactapicallwithuser.currentUser = currentUser;
+         
+            reactapicallwithuser.Orders = orders;
+            return reactapicallwithuser;
         }
         // GET: api/<PaymentController>
         [HttpGet]

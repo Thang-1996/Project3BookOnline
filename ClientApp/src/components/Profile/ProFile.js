@@ -84,7 +84,7 @@ export default class ProFile extends Component {
     }
     render() {
         const { currentUser, orders, order, redirect } = this.state;
-        console.log(order);
+        console.log(currentUser);
         let total = 0;
         if (redirect) {
             return <Redirect to='/profile' />;
@@ -248,9 +248,6 @@ export default class ProFile extends Component {
                                     </tr>
                                 </thead>
                                 <tbody>
-<<<<<<< HEAD
-                                    
-=======
                                     {
                                         order ? order.orderProducts.map((e, index) => {
                                             console.log(e);
@@ -266,7 +263,7 @@ export default class ProFile extends Component {
                                                 )
                                         }) : null
                                     }
->>>>>>> d57333444bdecb654a0dd590cf30d2373cefbf33
+
                                 </tbody>
                             </table>
                             <h6 className="text-right">Tổng tiền đơn hàng : {Adapter.format_money(total)} </h6>
