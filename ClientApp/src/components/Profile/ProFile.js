@@ -117,11 +117,11 @@ export default class ProFile extends Component {
                                         <div className="row">
                                             <div className="col-lg-3 col-md-4">
                                                 <div className="myaccount-tab-menu nav" role="tablist">
-                                                    <a href="#orders" data-toggle="tab"><i className="fa fa-cart-arrow-down" />Đơn hàng</a>
+                                                    <a href="#orders" data-toggle="tab"><i className="fa fa-cart-arrow-down" /> Order </a>
                                                                                              
                                                     
-                                                    <a href="#account-info" data-toggle="tab"><i className="fa fa-user" />Thông tin cá nhân</a>
-                                                    <a href="/authentication/logout"><i className="fa fa-sign-out" /> Đăng xuất</a>
+                                                    <a href="#account-info" data-toggle="tab"><i className="fa fa-user" /> Personal information </a>
+                                                    <a href="/authentication/logout"><i className="fa fa-sign-out" /> Log Out</a>
                                                 </div>
                                             </div>
                                             <div className="col-lg-9 col-md-8">
@@ -134,11 +134,11 @@ export default class ProFile extends Component {
                                                                 <table className="table table-bordered">
                                                                     <thead className="thead-light">
                                                                         <tr>
-                                                                            <th>Đơn hàng</th>
-                                                                            <th>Ngày đặt</th>
-                                                                            <th>Trạng thái</th>
-                                                                            <th>Tổng tiền</th>
-                                                                            <th>Chi tiết đơn hàng</th>
+                                                                            <th>Oder</th>
+                                                                            <th>Order date</th>
+                                                                            <th>Status</th>
+                                                                            <th>Total</th>
+                                                                            <th>Order details</th>
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
@@ -167,43 +167,42 @@ export default class ProFile extends Component {
                                            
                                                     <div className="tab-pane fade" id="account-info" role="tabpanel">
                                                         <div className="myaccount-content">
-                                                            <h5>Thông tin cá nhân</h5>
+                                                            <h5>Personal information</h5>
                                                             <div className="account-details-form">
                                                                 <form action="#">
                                                                     <div className="single-input-item">
-                                                                        <label htmlFor="display-name" className="required">Tên </label>
-                                                                        <input type="text" value={(currentUser ? currentUser.name : '') || ''} onChange={this.changeValue} name="name"  placeholder="Tên tài khoản" />
+                                                                        <label htmlFor="display-name" className="required">Name </label>
+                                                                        <input type="text" value={(currentUser ? currentUser.name : '') || ''} onChange={this.changeValue} name="name"  placeholder="Name" />
                                                                     </div>
                                                                     <div className="single-input-item">
                                                                         <label htmlFor="email" className="required">Email</label>
-                                                                        <input type="email" value={(currentUser ? currentUser.email : '') || ''} onChange={this.changeValue} name="email"  placeholder="Địa chỉ email" />
+                                                                        <input type="email" value={(currentUser ? currentUser.email : '') || ''} onChange={this.changeValue} name="email" placeholder="Email address" />
                                                                     </div>
                                                                     <div className="single-input-item">
-                                                                        <label htmlFor="email" className="required">Địa chỉ: </label>
-                                                                        <input type="text" value={(currentUser ? currentUser.address : '') || ''} onChange={this.changeValue} name="address"  placeholder="Địa chỉ" />
+                                                                        <label htmlFor="email" className="required">Address: </label>
+                                                                        <input type="text" value={(currentUser ? currentUser.address : '') || ''} onChange={this.changeValue} name="address" placeholder="Address" />
                                                                     </div>
                                                                     <div className="single-input-item">
-                                                                        <label htmlFor="email" className="required">Số điện thoại: </label>
-                                                                        <input type="text" value={(currentUser ? currentUser.phoneNumber : '') || ''} onChange={this.changeValue} name="phoneNumber" placeholder="Số điện thoại" />
+                                                                        <label htmlFor="email" className="required">Phone: </label>
+                                                                        <input type="text" value={(currentUser ? currentUser.phoneNumber : '') || ''} onChange={this.changeValue} name="phoneNumber" placeholder="Phone" />
                                                                     </div>
                                                                     <fieldset>
                                                                         <legend>Password change</legend>
                                                                         <div className="single-input-item">
-                                                                            <label htmlFor="current-pwd" className="required">Mật khẩu hiện tại</label>
-                                                                            <input type="password"  defaultValue={''} placeholder="Mật khẩu hiện tại" />
+                                                                            <label htmlFor="current-pwd" className="required">Current password</label>
+                                                                            <input type="password" defaultValue={''} placeholder="Current password" />
                                                                         </div>
                                                                         <div className="row">
                                                                             <div className="col-lg-12">
                                                                                 <div className="single-input-item">
-                                                                                    <label htmlFor="new-pwd" className="required">Mật khẩu mới</label>
-                                                                                    <input type="password" name="passwordHash" value={''} onChange={this.changeValue} placeholder="Mật khẩu mới" />
+                                                                                    <label htmlFor="new-pwd" className="required">New password</label>
+                                                                                    <input type="password" name="passwordHash" value={''} onChange={this.changeValue} placeholder="New password" />
                                                                                 </div>
                                                                             </div>
-                                                                       
                                                                         </div>
                                                                     </fieldset>
                                                                     <div className="single-input-item">
-                                                                        <button type="submit" onClick={this.saveChangeUser} className="btn btn-sqr">Lưu</button>
+                                                                        <button type="submit" onClick={this.saveChangeUser} className="btn btn-sqr">Save</button>
                                                                     </div>
                                                                 </form>
                                                             </div>

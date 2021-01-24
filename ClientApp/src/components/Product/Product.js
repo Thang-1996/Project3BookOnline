@@ -123,8 +123,8 @@ class Product extends Component {
                             <div className="col-lg-12">
                                 <div className="breadcrumbs-menu">
                                     <ul>
-                                        <li><Link to="/">Trang chủ</Link></li>
-                                        <li><a className="active">Sản phẩm</a></li>
+                                        <li><Link to="/">HOME</Link></li>
+                                        <li><a className="active">PRODUCT</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -138,11 +138,11 @@ class Product extends Component {
                             <div className="col-lg-3 col-md-12 col-12 order-lg-1 order-2 mt-sm-50 mt-xs-40">
                                 <div className="shop-left">
                                     <div className="left-title mb-20">
-                                        <h4>Các thể loại sách</h4>
+                                        <h4>Types of books</h4>
                                     </div>
                                     <div className="left-menu mb-30">
                                         <ul>
-                                            <li ><Link to={"/category/all"} onClick={this.selectCategory.bind(this, 0)}>Tất cả sách</Link></li>
+                                            <li ><Link to={"/category/all"} onClick={this.selectCategory.bind(this, 0)}>ALL BOOK</Link></li>
                                             {
                                                 categories ? categories.map((e, index) => {
                                                     return <li key={index}><Link to={"/category/"+e.categoryID} onClick={this.selectCategory.bind(this, e.categoryID)}>{e.categoryName}</Link></li>
@@ -160,14 +160,14 @@ class Product extends Component {
                                 </div>
                                 <div className="toolbar mb-30">
                                     <div className="toolbar-sorter">
-                                        <span>Lọc theo</span>
+                                        <span>Filter by</span>
                                         <select onChange={ this.sortProduct} id="sorter" className="sorter-options" data-role="sorter">
-                                            <option value="nameAZ">Tên sản phẩm A-Z</option>
-                                            <option value="nameZA">Tên sản phẩm Z-A</option>
-                                            <option value="priceUp">Giá tiền từ thấp đến cao</option>
-                                            <option value="priceDown">Giá tiền từ cao đến thấp</option>
-                                            <option value="count">Bán chạy</option>
-                                            <option value="view">Phổ biến</option>
+                                            <option value="nameAZ">Product name A-Z</option>
+                                            <option value="nameZA">Product name Z-A</option>
+                                            <option value="priceUp">Prices range from low to high</option>
+                                            <option value="priceDown">Prices range from high to low</option>
+                                            <option value="count">Selling</option>
+                                            <option value="view">Popular</option>
                                         </select>
                                     </div>
                                 </div>

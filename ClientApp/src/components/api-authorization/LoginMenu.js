@@ -47,10 +47,10 @@ export class LoginMenu extends Component {
     authenticatedView(userName, profilePath, logoutPath) {
         return (<Fragment>
             <NavItem>
-                <NavLink tag={Link} className="text-dark" to={profilePath}>Xin chào, Nguyễn Thanh Tuấn {userName}</NavLink>
+                <NavLink tag={Link} className="text-dark" to={profilePath}>HELLO, Nguyễn Thanh Tuấn {userName}</NavLink>
             </NavItem>
             <NavItem>
-                <NavLink tag={Link} className="text-dark" to={logoutPath}>Đăng xuất</NavLink>
+                <NavLink tag={Link} className="text-dark" to={logoutPath}>LOG OUT</NavLink>
             </NavItem>
         </Fragment>);
 
@@ -59,10 +59,10 @@ export class LoginMenu extends Component {
     anonymousView(registerPath, loginPath) {
         return (<Fragment>
             <NavItem>
-                <NavLink tag={Link} className="text-dark" to={registerPath}>Đăng ký</NavLink>
+                <NavLink tag={Link} className="text-dark" to={registerPath}>REGISTER</NavLink>
             </NavItem>
             <NavItem>
-                <NavLink tag={Link} className="text-dark" to={loginPath}>Đăng nhập</NavLink>
+                <NavLink tag={Link} className="text-dark" to={loginPath}>LOGIN</NavLink>
             </NavItem>
         </Fragment>);
     }

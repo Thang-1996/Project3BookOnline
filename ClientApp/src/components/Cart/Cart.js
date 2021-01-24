@@ -40,8 +40,8 @@ export default class Cart extends Component {
                             <div className="col-lg-12">
                                 <div className="breadcrumbs-menu">
                                     <ul>
-                                        <li><Link to="/">Trang chủ</Link></li>
-                                        <li><a className="active">Giỏ hàng</a></li>
+                                        <li><Link to="/">HOME</Link></li>
+                                        <li><a className="active">CART</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -54,7 +54,7 @@ export default class Cart extends Component {
                         <div className="row">
                             <div className="col-lg-12">
                                 <div className="entry-header-title">
-                                    <h2>Giỏ hàng</h2>
+                                    <h2>CART</h2>
                                 </div>
                             </div>
                         </div>
@@ -70,12 +70,12 @@ export default class Cart extends Component {
                                         <table>
                                             <thead>
                                                 <tr>
-                                                    <th className="product-thumbnail">Ảnh</th>
-                                                    <th className="product-name">Tên Sản phẩm</th>
-                                                    <th className="product-price">Giá tiền</th>
-                                                    <th className="product-quantity">Số lượng</th>
-                                                    <th className="product-subtotal">Tổng tiền</th>
-                                                    <th className="product-remove">Xóa</th>
+                                                    <th className="product-thumbnail">Image</th>
+                                                    <th className="product-name">Product Name</th>
+                                                    <th className="product-price">Price</th>
+                                                    <th className="product-quantity">Amount</th>
+                                                    <th className="product-subtotal">Total</th>
+                                                    <th className="product-remove">Delete</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -100,7 +100,7 @@ export default class Cart extends Component {
                                 <div className="buttons-cart mb-30">
                                     <ul>
                                         <li>
-                                            <Link to="/product">Tiếp tục mua sách</Link>
+                                            <Link to="/product">Continue to buy books</Link>
                                          
                                         </li>
                                     </ul>
@@ -110,7 +110,7 @@ export default class Cart extends Component {
                                 <div className="cart_totals">
                                     <h2>Tổng: {Adapter.format_money(total)}</h2>
                                     <div className="wc-proceed-to-checkout mtl-10">
-                                        <Link to="/check-out">Đến trang thanh toán</Link>
+                                        <Link to="/check-out">Go to checkout page</Link>
                                     </div>
                                 </div>
                             </div>

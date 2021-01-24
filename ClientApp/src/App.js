@@ -41,18 +41,18 @@ export default class App extends Component {
         this.setState({
             isLoading: true,
         })
-            await API.get(Adapter.reactAPICall.url)
+        await   API.get(Adapter.reactAPICall.url)
             .then(res => {
                 this.setState({
                     products: res.data.products,
                     blogs: res.data.blogs,
                     categories: res.data.categories,
-                   
+
                 })
             }).catch(err => {
 
             })
-            API.get(Adapter.reactAPICallWithUser.url)
+         API.get(Adapter.reactAPICallWithUser.url)
             .then(res => {
                 this.setState({
                     currentUser: res.data.currentUser,
@@ -61,6 +61,8 @@ export default class App extends Component {
             }).catch(err => {
 
             })
+    
+    
         this.setState({
             isLoading: false,
         })

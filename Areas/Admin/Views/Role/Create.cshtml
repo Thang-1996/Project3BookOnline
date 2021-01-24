@@ -17,14 +17,14 @@
                     <i class="kt-font-brand flaticon2-line-chart"></i>
                 </span>
                 <h3 class="kt-portlet__head-title">
-                    Tạo mới quyền
+                    Create new permissions
                 </h3>
             </div>
             <div class="kt-portlet__head-toolbar">
                 <div class="kt-portlet__head-wrapper">
                     <a asp-action="Index" asp-area="admin" asp-controller="Role" class="btn btn-clean btn-icon-sm">
                         <i class="la la-long-arrow-left"></i>
-                        Quay lại
+                        Back
                     </a>
                     &nbsp;
 
@@ -36,10 +36,10 @@
             <form asp-area="admin" asp-action="Create" method="post">
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="form-group">
-                    <label for="name">Tên quyền : </label>
+                    <label for="name">Name : </label>
                     <input name="name" class="form-control" />
                 </div>
-                <button type="submit" class="btn btn-primary">Thêm mới</button>
+                <button type="submit" class="btn btn-primary">Add New</button>
             </form>
         </div>
     </div>

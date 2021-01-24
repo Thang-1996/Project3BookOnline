@@ -19,7 +19,7 @@ export default class Checkout extends Component {
                 Status: 1,
                 GrandTotal: 0,
                 OrderNote: '',
-                paymenttype: '',
+                paymenttype: '1',
                 UserID: '',
           
             },
@@ -96,7 +96,7 @@ export default class Checkout extends Component {
             this.setState({
                 isLoading: false,
             });
-            notification('warning', 'Trong giỏ hàng hiện chưa có cuốn sách nào!');
+            notification('warning', 'There are no books in the shopping cart!');
 
             return;
         }
@@ -104,7 +104,7 @@ export default class Checkout extends Component {
             this.setState({
                 isLoading: false,
             });
-            notification('warning', 'Vui lòng điền địa chỉ giao hàng');
+            notification('warning', 'Please enter a shipping address');
 
             return;
         }
@@ -119,7 +119,7 @@ export default class Checkout extends Component {
             .then(res => {
                 if (res.status == 200) {
                     localStorage.removeItem("cart");
-                    notification('success', 'Đặt hàng thành công vui lòng kiểm tra email');
+                    notification('success', 'Order successfully please check email');
                     this.setState({ redirect: true })
                     this.props.cartState();
                     this.props.updateProduct();
@@ -157,8 +157,8 @@ export default class Checkout extends Component {
                             <div className="col-lg-12">
                                 <div className="breadcrumbs-menu">
                                     <ul>
-                                        <li><Link to="/">Home</Link></li>
-                                        <li><Link to="/check-out">Thanh toán</Link></li>
+                                        <li><Link to="/">HOME</Link></li>
+                                        <li><Link to="/check-out">CHECK OUT</Link></li>
                                     </ul>
                                 </div>
                             </div>
@@ -173,26 +173,26 @@ export default class Checkout extends Component {
                                 <div className="row">
                                     <div className="col-lg-6 col-md-12 col-12">
                                         <div className="checkbox-form">
-                                            <h3>Chi tiết hóa đơn</h3>
+                                            <h3>Invoice details</h3>
                                             <div className="row">
                                                 <div className="col-lg-12 col-md-12 col-12">
                                                     <div className="checkout-form-list">
-                                                        <label>Tên khách hàng <span className="required">*</span></label>
+                                                        <label>Customer name <span className="required">*</span></label>
                                                         <input onChange={this.handleOnChange} value={orders.CustomerName} name="CustomerName" type="text" />
                                                     </div>
                                                     <div className="checkout-form-list">
-                                                        <label>Địa chỉ nhận hàng <span className="required">*</span></label>
+                                                        <label>Address consignee <span className="required">*</span></label>
                                                         <input onChange={this.handleOnChange} required value={orders.Address} name="Address" type="text"/>
                                                     </div>
                                                     <div className="checkout-form-list">
-                                                        <label>Số điện thoại: <span className="required">*</span></label>
+                                                        <label>Phone number: <span className="required">*</span></label>
                                                         <input onChange={this.handleOnChange} type="text" value={orders.Telephone} name="Telephone" />
                                                     </div>
                                                     <div className="different-address">
                                                         <div className="order-notes">
                                                             <div className="checkout-form-list">
-                                                                <label>Ghi chú</label>
-                                                                <textarea onChange={this.handleOnChange} value={orders.OrderNote} name="OrderNote" placeholder="Ghi chú về đơn đặt hàng của bạn, ví dụ: Lưu ý đặc biệt để giao hàng." rows={10} cols={30} id="checkout-mess" />
+                                                                <label>Note</label>
+                                                                <textarea onChange={this.handleOnChange} value={orders.OrderNote} name="OrderNote" placeholder="Notes on your order, for example: Special note for delivery." rows={10} cols={30} id="checkout-mess" />
 
                                                             </div>
                                                         </div>
@@ -200,20 +200,16 @@ export default class Checkout extends Component {
                                                 </div>
                                             </div>
                                         </div>
-
-
-
-
                                     </div>
                                     <div className="col-lg-6 col-md-12 col-12">
                                         <div className="your-order">
-                                            <h4>ĐƠN HÀNG CỦA BẠN</h4>
+                                            <h4>YOUR ORDER</h4>
                                             <div className="your-order-table table-responsive">
                                                 <table>
                                                     <thead>
                                                         <tr>
-                                                            <th className="product-name">Sản phẩm</th>
-                                                            <th className="product-total">Tổng</th>
+                                                            <th className="product-name">Product</th>
+                                                            <th className="product-total">Total</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -236,11 +232,11 @@ export default class Checkout extends Component {
                                                     </tbody>
                                                     <tfoot>
                                                         <tr className="cart-subtotal">
-                                                            <th>Tổng tiền giỏ hàng</th>
+                                                            <th>Total Money cart</th>
                                                             <td><span className="amount">{Adapter.format_money(total)}</span></td>
                                                         </tr>
                                                         <tr className="shipping">
-                                                            <th data-toggle="tooltip" data-placement="left" title="Miễn phí ship với đơn hàng lớn hơn 500.000đ">Phí ship</th>
+                                                            <th data-toggle="tooltip" data-placement="left" title="Free shipping for larger orders 500.000đ">Shipping fee</th>
                                                             <td>
                                                                 <ul>
                                                                     <li>
@@ -250,7 +246,7 @@ export default class Checkout extends Component {
                                                             </td>
                                                         </tr>
                                                         <tr className="order-total">
-                                                            <th>Tổng tiền thanh toán</th>
+                                                            <th>Total payment amount</th>
                                                             <td><strong><span className="amount">{total > 500000 ? Adapter.format_money(total) : Adapter.format_money(total + 30000)}</span></strong>
                                                             </td>
                                                         </tr>
@@ -266,15 +262,16 @@ export default class Checkout extends Component {
                                                                 <div className="panel-heading" role="tab" id="headingTwo">
                                                                     <h4 className="panel-title">
                                                                         <a className="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                                                            Thanh toán trả sau khi nhận hàng
-                                      </a>
+                                                                            Payment to pay after receiving goods
+                                                                         </a>
                                                                     </h4>
                                                                 </div>
                                                                 <div id="collapseTwo" className="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                                                                     <div className="panel-body">
-                                                                        <a onClick={this.setCOD}>
+                                                                        <a onClick={this.setCOD}> 
                                                                             <input  type="radio" name="thanhtoan" value={1} />
-                                                                        Vui lòng hoàn thiện tiền hàng cho shipper sau khi nhận hàng.</a>
+                                                                                Please refund the shipper after receiving the goods.
+                                                                            </a>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -296,7 +293,7 @@ export default class Checkout extends Component {
                                                     </div>
                                                 </div>
                                                 <div className="order-button-payment">
-                                                    <button className="btn btn-primary" onClick={this.checkOut} >Xác nhận</button>
+                                                    <button className="btn btn-primary" onClick={this.checkOut} >Confirm</button>
                                                 </div>
                                             </div>
                                         </div>

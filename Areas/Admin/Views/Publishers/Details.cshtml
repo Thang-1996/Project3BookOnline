@@ -10,7 +10,7 @@
     <div class="alert alert-light alert-elevate" role="alert">
         <div class="alert-icon"><i class="la la-folder kt-font-brand"></i></div>
         <div class="alert-text">
-            Thông Tin Nhà Xuất Bản
+            Publisher Information
         </div>
     </div>
     <div class="kt-portlet kt-portlet--mobile">
@@ -39,7 +39,7 @@
 
             <dl class="row">
                 <dt class="col-sm-2">
-                    Tên Nhà Xuất Bản
+                    Publisher Name
                 </dt>
                 <dd class="col-sm-10">
                     @Html.DisplayFor(model => model.PublisherName)
@@ -51,13 +51,13 @@
                     @Html.DisplayFor(model => model.Email)
                 </dd>
                 <dt class="col-sm-2">
-                    Địa Chỉ
+                    Address
                 </dt>
                 <dd class="col-sm-10">
                     @Html.DisplayFor(model => model.Address)
                 </dd>
                 <dt class="col-sm-2">
-                    Số Điện Thoại
+                    Phone Number
                 </dt>
                 <dd class="col-sm-10">
                     @Html.DisplayFor(model => model.PhoneNumber)
@@ -74,7 +74,7 @@
                 </dd>
 
                 <dt class="col-sm-2">
-                    Sách :
+                    Book :
                 </dt>
                 <dd>
                     @foreach (var item in publisher.PublisherProducts)

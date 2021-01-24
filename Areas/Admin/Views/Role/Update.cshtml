@@ -13,14 +13,14 @@
                     <i class="kt-font-brand flaticon2-line-chart"></i>
                 </span>
                 <h3 class="kt-portlet__head-title">
-                    Sửa quyền hạn
+                    Edit permissions
                 </h3>
             </div>
             <div class="kt-portlet__head-toolbar">
                 <div class="kt-portlet__head-wrapper">
                     <a asp-action="Index" asp-area="admin" asp-controller="Role" class="btn btn-clean btn-icon-sm">
                         <i class="la la-long-arrow-left"></i>
-                        Quay lại
+                        Back
                     </a>
                     &nbsp;
 
@@ -33,7 +33,7 @@
                 <input type="hidden" name="roleName" value="@Model.Role.Name" />
                 <input type="hidden" name="roleId" value="@Model.Role.Id" />
 
-                <p class=" p-1 ">Danh sách tài khoản:  </p>
+                <p class=" p-1 ">List of accounts :  </p>
                 <table class="table table-striped">
                     @if (Model.NonMembers.Count() == 0)
                     {
@@ -46,7 +46,7 @@
                             <tr>
                                 <td>@user.UserName</td>
                                 <td>
-                                    <label>Cấp quyền</label>
+                                    <label>Authorization</label>
                                     <input type="checkbox" name="AddIds" value="@user.Id">
                                 </td>
                             </tr>
@@ -54,7 +54,7 @@
                     }
                 </table>
 
-                <p class=" p-1 ">Danh sách tài khoản có quyền @Model.Role.Name :  </p>
+                <p class=" p-1 ">List of accounts with rights @Model.Role.Name :  </p>
                 <table class="table table-striped">
                     @if (Model.Members.Count() == 0)
                     {
@@ -67,7 +67,7 @@
                             <tr>
                                 <td>@user.UserName</td>
                                 <td>
-                                    <label>Hủy quyền</label>
+                                    <label>Cancellation of rights</label>
                                     <input type="checkbox" name="DeleteIds" value="@user.Id">
                                 </td>
                             </tr>

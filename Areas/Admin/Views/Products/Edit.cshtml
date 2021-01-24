@@ -26,7 +26,7 @@
                 <div class="kt-portlet__head-wrapper">
                     <a asp-action="Index" asp-area="admin" asp-controller="Products" class="btn btn-clean btn-icon-sm">
                         <i class="la la-long-arrow-left"></i>
-                        Trở Về
+                        Back
                     </a>
                     &nbsp;
 
@@ -39,39 +39,39 @@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" asp-for="ProductID" />
                 <div class="form-group">
-                    <label asp-for="ProductName" class="control-label">Tên Sách</label>
+                    <label asp-for="ProductName" class="control-label">Product Name</label>
                     <input asp-for="ProductName" class="form-control" />
                     <span asp-validation-for="ProductName" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="ProductCode" class="control-label">Mã Sách</label>
+                    <label asp-for="ProductCode" class="control-label">Product Code</label>
                     <input asp-for="ProductCode" class="form-control" />
                     <span asp-validation-for="ProductCode" class="text-danger"></span>
                 </div>
 
                 <div class="form-group">
-                    <label asp-for="ProductDescription " class="control-label">Mô Tả Sách </label>
+                    <label asp-for="ProductDescription " class="control-label">Produc tDescription </label>
                     <textarea asp-for="ProductDescription" id="content2" class="form-control"></textarea>
                     <span asp-validation-for="ProductDescription " class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="ProductContent " class="control-label">Nội Dung Sách </label>
+                    <label asp-for="ProductContent " class="control-label">Product Content </label>
                     <textarea asp-for="ProductContent" id="content" class="form-control"></textarea>
                     <span asp-validation-for="ProductContent " class="text-danger"></span>
 
                 </div>
                 <div class="form-group">
-                    <label asp-for="Quantity " class="control-label"> Số Lượng</label>
+                    <label asp-for="Quantity " class="control-label"> Quantity</label>
                     <input asp-for="Quantity " class="form-control" />
                     <span asp-validation-for="Quantity " class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Price " class="control-label"> Đơn Giá</label>
+                    <label asp-for="Price " class="control-label"> Price </label>
                     <input asp-for="Price " class="form-control" />
                     <span asp-validation-for="Price " class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Status" class="control-label">Trạng Thái</label>
+                    <label asp-for="Status" class="control-label">Status</label>
                     <select asp-for="Status" class="form-control">
                         <option value="1">Active</option>
                         <option value="0">Blog</option>
@@ -79,12 +79,12 @@
                     <span asp-validation-for="Status" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="PublishingTime " class="control-label">Thời Gian Xuất Bản </label>
+                    <label asp-for="PublishingTime " class="control-label">Publishing Time </label>
                     <input asp-for="PublishingTime " class="form-control" />
                     <span asp-validation-for="PublishingTime " class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Reprinttimes " class="control-label"> Số Lần Tái Bản </label>
+                    <label asp-for="Reprinttimes " class="control-label"> Reprinttimes </label>
                     <input asp-for="Reprinttimes " class="form-control" />
                     <span asp-validation-for="Reprinttimes " class="text-danger"></span>
                 </div>
@@ -97,17 +97,17 @@
 
 
                 <div class="form-group">
-                    <label asp-for="CategoryID" class="control-label">Thể Loại</label>
+                    <label asp-for="CategoryID" class="control-label">Category</label>
                     <select asp-for="CategoryID" class="form-control" asp-items="ViewBag.CategoryID"></select>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Authors" class="control-label">Tác Giả</label>
+                    <label asp-for="Authors" class="control-label">Authors</label>
                     @* @Html.ListBox("SelectedCategor", (MultiSelectList)ViewBag.Roles, new { size = 8 }) *@
                     <select asp-for="SelectedAuthor" asp-items="ViewBag.Authors" class="custom-select mt-5 pt-3 ">
                     </select>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Publishers" class="control-label">Nhà Xuất Bản</label>
+                    <label asp-for="Publishers" class="control-label">Publishers</label>
                     @* @Html.ListBox("SelectedCategor", (MultiSelectList)ViewBag.Roles, new { size = 8 }) *@
                     <select asp-for="SelectedPublisher" asp-items="ViewBag.Publishers" class="custom-select mt-5 pt-3 ">
                     </select>

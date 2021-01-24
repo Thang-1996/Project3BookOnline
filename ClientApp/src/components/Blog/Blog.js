@@ -41,8 +41,8 @@ export default class Blog extends Component {
                             <div className="col-lg-12">
                                 <div className="breadcrumbs-menu">
                                     <ul>
-                                        <li><Link to="/">Home</Link></li>
-                                        <li><Link to="/" className="active">Blog</Link></li>
+                                        <li><Link to="/">HOME</Link></li>
+                                        <li><Link to="/" className="active">BLOG</Link></li>
                                     </ul>
                                 </div>
                             </div>

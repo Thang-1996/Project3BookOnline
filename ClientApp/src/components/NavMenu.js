@@ -226,18 +226,16 @@ export class NavMenu extends Component {
                                       {
                                           !currentUser ? 
                                           <ul style={{ margin: '10px 10px 10px 0' }}>
-                                              <li><a href="/Identity/Account/Login">Đăng Nhập</a></li>
-                                              <li><a href="/Identity/Account/Register">Đăng Ký</a></li>
+                                              <li><a href="/Identity/Account/Login">LOGIN</a></li>
+                                              <li><a href="/Identity/Account/Register">REGISTER</a></li>
                                           </ul>
                                           :
                                           <ul style={{ margin: '10px 10px 10px 0' }}>
-                                              <li>Xin Chào, <Link to="/profile">{currentUser ? (currentUser.name ? currentUser.name : 'Bạn') : ''}</Link></li>
-                                              <li> <a onClick={this.logOut}>Đăng Xuất</a></li>
+                                              <li>HELLO, <Link to="/profile">{currentUser ? (currentUser.name ? currentUser.name : 'Bạn') : ''}</Link></li>
+                                              <li> <a onClick={this.logOut}>LOG OUT</a></li>
                                           </ul>
 
                                       }
-                                      
-                           
                               </div>
                           </div>
                       </div>
@@ -285,11 +283,11 @@ export class NavMenu extends Component {
                                                   }
                                               </div>
                                               <div className="cart-totals">
-                                                  <h5>Tổng <span>{total ? Adapter.format_money(total) : 0}</span></h5>
+                                                  <h5>Total <span>{total ? Adapter.format_money(total) : 0}</span></h5>
                                               </div>
                                               <div className="cart-bottom">
-                                                  <Link className="mb-2" to="/cart"> Xem giỏ hàng</Link>
-                                                  <Link to="/check-out"> Thanh toán</Link>
+                                                  <Link className="mb-2" to="/cart"> VIEW CART</Link>
+                                                  <Link to="/check-out"> CHECK OUT</Link>
                                               </div>
                                           </div>
                                       </li>
@@ -304,11 +302,11 @@ export class NavMenu extends Component {
                       <div className="row">
                           <div className="col-lg-12 col-md-12">
                               <nav className="navbar navbar-expand-lg navbar-light " style={{ backgroundColor: "f8f7f7", fontSize: "17px" }}>
-                                  <Link to="/" style={{ marginLeft: "-15px", color: "black" }}>Trang chủ</Link>
+                                  <Link to="/" style={{ marginLeft: "-15px", color: "black" }}>HOME</Link>
                                   <div className="collapse navbar-collapse nav-item dropdown active ml-5" id="navbarSupportedContent">
                                       <ul className="navbar-nav mr-auto">
                                           <li className="dropdown ">
-                                              <Link to="/product" className="nav-link dropdown-toggle " data-toggle="dropdown">Thể Loại <b className="caret" /></Link>
+                                              <Link to="/product" className="nav-link dropdown-toggle " data-toggle="dropdown">CATEGORIES<b className="caret" /></Link>
                                               <ul className="dropdown-menu mega-menu">
                                                   {
                                                       category ? category.map((e, index) => {
@@ -322,25 +320,23 @@ export class NavMenu extends Component {
                                               </ul>
                                           </li>{/* /.dropdown */}
                                           <li className="nav-item active ml-5">
-                                              <Link className="nav-link" to="/contact">Liên hệ <span className="sr-only">(current)</span></Link>
+                                              <Link className="nav-link" to="/contact">CONTACT<span className="sr-only">(current)</span></Link>
                                           </li>
                                           <li className="nav-item active ml-5">
-                                              <Link className="nav-link" to="/blog">Blog</Link>
+                                              <Link className="nav-link" to="/blog">BLOG</Link>
                                           </li>
-                                          
                                       </ul>
                                       <div className="header-bottom-search">
-
-                                          <input className="form-control" onKeyDown={this.handleSearch} onChange={this.searchProduct} type="text" defaultValue={this.state.key} placeholder="Tìm kiếm ..." />
+                                          <input className="form-control" style={{ marginRight:"70px" }} onKeyDown={this.handleSearch} onChange={this.searchProduct} type="text" defaultValue={this.state.key} placeholder="SEARCH ..." />
                                           <a onClick={this.handleSearch2}><i style={{ color: "black", position: "absolute", top: "10px", right: "10px", cursor: "pointer" }} className="fa fa-search" /></a>
                                           <table className="table" style={{ position: "absolute", zIndex: "100", backgroundColor: "white", width: "600px", visibility: this.state.search, left: "-200px" }}>
                                               <thead>
                                                   <tr>
                                                       <th style={{ whiteSpace: "nowrap"}}>STT</th>
-                                                      <th style={{ whiteSpace: "nowrap" }}>Tên sách</th>
-                                                      <th style={{ whiteSpace: "nowrap" }}>Ảnh</th>
-                                                      <th style={{ whiteSpace: "nowrap" }}>Giá tiền</th>
-                                                      <th style={{ whiteSpace: "nowrap" }}>Chi tiết</th>
+                                                      <th style={{ whiteSpace: "nowrap" }}>BOOK NAME</th>
+                                                      <th style={{ whiteSpace: "nowrap" }}>PICTURE</th>
+                                                      <th style={{ whiteSpace: "nowrap" }}>PRICE</th>
+                                                      <th style={{ whiteSpace: "nowrap" }}>DETAILS</th>
                                                       <th onClick={this.hiddenSearch} style={{ position: "absolute", right: "-5px", top: "-14px", border: "none", cursor: "pointer" }}>X </th>
                                                   </tr>
                                               </thead>
@@ -354,7 +350,7 @@ export class NavMenu extends Component {
                                                                   <td><img src={"/images/" + e.productImage} style={{ width: "100px", height: "100px" }} /></td>
                                                                   <td>{Adapter.format_money(e.price)}</td>
                                                                 
-                                                                  <td><Link onClick={this.hiddenSearch } style={{ cursor: "pointer" }} to={"/product/" + e.productID}> Xem </Link></td>
+                                                                  <td><Link onClick={this.hiddenSearch } style={{ cursor: "pointer" }} to={"/product/" + e.productID}> VIEW </Link></td>
                                                               </tr>
                                                               )
                                                       }) : null

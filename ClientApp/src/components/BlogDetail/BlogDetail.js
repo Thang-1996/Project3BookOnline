@@ -10,24 +10,15 @@ class BlogDetail extends Component {
 
             blogs: props.blogs,
             blogID: this.props.match.params.id,
-            blog: null,
-          
-           
+            blog: null, 
         };
-
     }
-
-
-
     static getDerivedStateFromProps(nextProps, prevState) {
         if (nextProps.blogs !== prevState.blogs) {
             return {
                 blogs: nextProps.blogs,
-          
-
             };
         }
-
         return null;;
     }
     async componentDidMount() {
@@ -54,8 +45,6 @@ class BlogDetail extends Component {
     render() {
         const { blog } = this.state;
         console.log(blog);
-
-
         return (
             <div>
                 <div className="breadcrumbs-area mb-70">
@@ -64,8 +53,8 @@ class BlogDetail extends Component {
                             <div className="col-lg-12">
                                 <div className="breadcrumbs-menu">
                                     <ul>
-                                        <li><a href="#">Home</a></li>
-                                        <li><a href="#" className="active">blog-details</a></li>
+                                        <li><a href="#">HOME</a></li>
+                                        <li><a href="#" className="active">BLOG DETAILS</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -80,19 +69,17 @@ class BlogDetail extends Component {
                                 <div className="blog-main-wrapper">
                                     <div className="author-destils mb-30">
                                         <div className="author-left">
-                                        
                                             <div className="author-description">
                                                 <p>Posted by:
-                          <span>{ blog ? blog.userName : ''}</span>
-                                                   
+                                                     <span>{ blog ? blog.userName : ''}</span>
                                                 </p>
                                                 <span>May 15 2017</span>
                                             </div>
-                                        </div>
-                                        
+                                        </div>  
                                     </div>
                                     <div className="blog-img mb-30">
-                                        <img src={blog ? "images/" + (blog.blogImage) : ""} alt="woman" />                                    </div>
+                                        <img src={blog ? "images/" + (blog.blogImage) : ""} alt="woman" />
+                                    </div>
                                     <div className="single-blog-content">
                                         <div className="single-blog-title">
                                             <h3>{ blog ? blog.Title : ''}</h3>
@@ -102,7 +89,6 @@ class BlogDetail extends Component {
 
                                         </div>
                                     </div>
-                               
                                     <div className="sharing-post mt-20">
                                         <div className="share-text">
                                             <span>Share this post</span>
@@ -117,7 +103,6 @@ class BlogDetail extends Component {
                                             </ul>
                                         </div>
                                     </div>
-                                  
                                 </div>
                             </div>
                         </div>

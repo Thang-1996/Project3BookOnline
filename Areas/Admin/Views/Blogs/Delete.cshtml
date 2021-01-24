@@ -12,14 +12,14 @@
                     <i class="kt-font-brand flaticon2-line-chart"></i>
                 </span>
                 <h3 class="kt-portlet__head-title">
-                    Cập Nhật Thông Tin Bài Viết
+                    Update Post Information
                 </h3>
             </div>
             <div class="kt-portlet__head-toolbar">
                 <div class="kt-portlet__head-wrapper">
                     <a asp-action="Index" asp-area="admin" asp-controller="Blogs" class="btn btn-clean btn-icon-sm">
                         <i class="la la-long-arrow-left"></i>
-                        Trờ Về
+                        Back
                     </a>
                     &nbsp;
 
@@ -34,26 +34,26 @@
                 <div class="col-md-12">
                     <dl class="row">
                         <dt class="col-sm-2">
-                            Tiêu Đề
+                            Title
                         </dt>
                         <dd class="col-sm-10">
                             @Html.DisplayFor(model => model.Title)
                         </dd>
                         <dt class="col-sm-2">
-                            Mô Tả Ngắn
+                            Description
                         </dt>
                         <dd class="col-sm-10">
                             @Html.DisplayFor(model => model.Description)
                         </dd>
 
                         <dt class="col-sm-2">
-                            Ảnh Bài Viết
+                            Blog Image
                         </dt>
                         <dd class="col-sm-10">
                             @Html.DisplayFor(model => model.BlogImage)
                         </dd>
                         <dt class="col-sm-2">
-                            Trạng Thái
+                            Status
                         </dt>
                         <dd class="col-sm-10">
                             @if (Model.Status == 1)
@@ -66,13 +66,13 @@
                             }
                         </dd>
                         <dt class="col-sm-2">
-                            Người Viết
+                            Person Writing
                         </dt>
                         <dd class="col-sm-10">
                             @Html.DisplayFor(model => model.UserName)
                         </dd>
                         <dt class="col-sm-2">
-                            Lượt Xem
+                            View
                         </dt>
                         <dd class="col-sm-10">
                             @Html.DisplayFor(model => model.ViewCount)
@@ -85,7 +85,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 </div>
 

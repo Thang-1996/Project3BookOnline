@@ -8,7 +8,7 @@
     <div class="alert alert-light alert-elevate" role="alert">
         <div class="alert-icon"><i class="la la-folder kt-font-brand"></i></div>
         <div class="alert-text">
-            Cập Nhật Thông Tin Nhà Xuất Bản
+            Update Publisher Information
         </div>
     </div>
     <div class="kt-portlet kt-portlet--mobile">
@@ -26,7 +26,7 @@
                 <div class="kt-portlet__head-wrapper">
                     <a asp-action="Index" asp-area="admin" asp-controller="publishers" class="btn btn-clean btn-icon-sm">
                         <i class="la la-long-arrow-left"></i>
-                        Trở Về
+                        Back
                     </a>
                     &nbsp;
 
@@ -42,7 +42,7 @@
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <input type="hidden" asp-for="PublisherID" />
                         <div class="form-group">
-                            <label asp-for="PublisherName" class="control-label">Tên Nhà Xuất Bản</label>
+                            <label asp-for="PublisherName" class="control-label">Publisher Name</label>
                             <input asp-for="PublisherName" class="form-control" />
                             <span asp-validation-for="PublisherName" class="text-danger"></span>
                         </div>
@@ -52,17 +52,17 @@
                             <span asp-validation-for="Email" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="Address" class="control-label">Địa Chỉ</label>
+                            <label asp-for="Address" class="control-label">Address</label>
                             <input asp-for="Address" class="form-control" />
                             <span asp-validation-for="Address" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="PhoneNumber" class="control-label">Số Điện Thoại </label>
+                            <label asp-for="PhoneNumber" class="control-label"> Phone Number </label>
                             <input asp-for="PhoneNumber" class="form-control" />
                             <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="Status" class="control-label">Trạng Thái</label>
+                            <label asp-for="Status" class="control-label"> Status </label>
 
                             <select asp-for="Status" class="form-control">
                                 <option value="1">Active</option>
@@ -71,7 +71,7 @@
                             <span asp-validation-for="Status" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <input type="submit" value="Cập Nhật" class="btn btn-primary" />
+                            <input type="submit" value="Update" class="btn btn-primary" />
                         </div>
                     </form>
                 </div>

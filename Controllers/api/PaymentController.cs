@@ -52,10 +52,10 @@ namespace BookOnlineShop.Controllers.api
         }
         [HttpGet]
         [ActionName("reactAPICall")]
-        public async Task<ActionResult<ReactAPIModel>> reactAPICall()
+        public ActionResult<ReactAPIModel> reactAPICall()
         {
         
-            var product =  await _context.Products
+            var product =   _context.Products
                 .Include(at => at.AuthorProducts)
                 .ThenInclude(a => a.Author)
                   .Include(pp => pp.PublisherProducts)
@@ -67,9 +67,9 @@ namespace BookOnlineShop.Controllers.api
                      .Include(op => op.OrderProducts)
                 .ThenInclude(o => o.Orders)
                 .Include(c => c.Category) 
-                .ToListAsync();
-            var category = await _context.Categories.ToListAsync();
-            var blogs = await _context.Blogs.ToListAsync();
+                .ToList();
+            var category =  _context.Categories.ToList();
+            var blogs =  _context.Blogs.ToList();
             var reactapicall = new  ReactAPIModel();
             reactapicall.Blogs = blogs;
             reactapicall.Products = product;
@@ -85,10 +85,10 @@ namespace BookOnlineShop.Controllers.api
             if (currentUser == null) return null;
             
            
-            var orders = await _context.Orders
+            var orders = _context.Orders
                 .Include(od => od.OrderProducts)
                 .ThenInclude(p => p.Products)
-                .Where(od => od.UserID == currentUser.Id).ToListAsync();
+                .Where(od => od.UserID == currentUser.Id).ToList();
             var reactapicallwithuser = new ReactAPIModelWithUser();
             reactapicallwithuser.currentUser = currentUser;
          

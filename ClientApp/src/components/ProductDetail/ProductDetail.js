@@ -202,7 +202,7 @@ class ProductDetail extends Component {
         await API.post(Adapter.sendReview.url, review)
             .then(res => {
              
-                res.data == true ? notification("success", "Đánh giá sản phẩm thành công") : notification("warning", "Cần mua sản phẩm để đánh giá")
+                res.data == true ? notification("success", "Successful product reviews") : notification("warning", "Need to buy products for evaluation")
                 
             }).catch(err => {
 
@@ -242,10 +242,10 @@ class ProductDetail extends Component {
                     }).catch(err => {
 
                     });
-                    notification("success", "Thêm vào danh sách yêu thích thành công")
+                    notification("success", "Add to list of favorites successfully")
                 }
                 if (res.data == false) {
-                    notification("warning", "Đã có sản phẩm trong danh sách yêu thích")
+                    notification("warning", "There are products in the favorites list")
                 }
             }).catch(err => {
 
@@ -314,9 +314,9 @@ class ProductDetail extends Component {
                             <div className="col-lg-12">
                                 <div className="breadcrumbs-menu">
                                     <ul>
-                                        <li><Link to="/">Trang chủ</Link></li>
-                                        <li><Link to="/category/0">Sản phẩm</Link></li>
-                                        <li>Chi tiết sản phẩm</li>
+                                        <li><Link to="/">HOME</Link></li>
+                                        <li><Link to="/category/0">PRODUCT</Link></li>
+                                        <li>PRODUCT DETAILS</li>
                                     </ul>
                                 </div>
                             </div>
@@ -341,18 +341,18 @@ class ProductDetail extends Component {
                                                     <h1>{ product ? product.productName : ""}</h1>
                                                 </div>
                                                 <div className="product-info-stock-sku">
-                                                    <span>{product ? product.quantity > 0 ? "Còn Hàng" : "Hết Hàng" : ''}</span>
+                                                    <span>{product ? product.quantity > 0 ? "Stocking" : "Out of stock" : ''}</span>
                                                     <div className="product-attribute">
                                                         <span></span>
-                                                        <span className="value">Còn lại {product ? product.quantity : 0} Sản phẩm</span>
+                                                        <span className="value">Rest {product ? product.quantity : 0} product</span>
                                                     </div>
                                                 </div>
                                                 <div className="product-reviews-summary">
                                                     <div className="reviews-actions">
-                                                        <a>{reviewProduct.length} Đánh giá</a> | 
+                                                        <a>{reviewProduct.length} Evaluate </a> | 
 
-                                                        <a>{product ? product.viewCount : ''} Lượt xem</a> | 
-                                                        <span style={{ cursor: "pointer", color: "orange" }} data-toggle="modal" data-target=".bd-example-modal-lg">  Đọc thử </span>
+                                                        <a>{product ? product.viewCount : ''} View </a> | 
+                                                        <span style={{ cursor: "pointer", color: "orange" }} data-toggle="modal" data-target=".bd-example-modal-lg">  View content </span>
 
                                                     </div>
                                                 </div>
@@ -366,7 +366,7 @@ class ProductDetail extends Component {
                                                         <div className="quality-button">
                                                             <input className="qty" value={this.state.quantity} onChange={this.changeQuantity} type="number" />
                                                         </div>
-                                                        <a onClick={this.addToCart} style={{ cursor: "pointer", color:"white" }} title="Add to cart" >Thêm vào giỏ hàng</a>
+                                                        <a onClick={this.addToCart} style={{ cursor: "pointer", color: "white" }} title="Add to cart" >Add to cart</a>
                                                     </form>
                                                 </div>
                                                 <div className="product-social-links">
@@ -374,7 +374,7 @@ class ProductDetail extends Component {
                                                         <a onClick={this.saveWishList.bind(this, product)} style={{cursor: "pointer"}}><i className="fa fa-heart" /></a>
                                                     </div>
                                                     <div className="product-addto-links-text">
-                                                        <p>Bạn hãy NHẬP ĐỊA CHỈ nhận hàng để được dự báo thời gian & chi phí giao hàng một cách chính xác nhất. </p>
+                                                        <p>Please enter your delivery address to get the most accurate delivery time & cost forecast. </p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -382,24 +382,24 @@ class ProductDetail extends Component {
                                     </div>
                                 </div>
                                 <div className="left">
-                                    <h4 className="BlockTitle__Wrapper-qpz3fo-0 jHTCJn">Thông tin chi tiết</h4>
+                                    <h4 className="BlockTitle__Wrapper-qpz3fo-0 jHTCJn">Details</h4>
                                     <div className="group">
                                     <div className="content has-table" >
                                     <table>
                                         <tbody>
                                             <tr>
-                                                        <td>Thuộc thể loại</td><td>{ product ? product.category.categoryName : ''}</td>
+                                                <td>Categories</td><td>{ product ? product.category.categoryName : ''}</td>
                                             </tr>
                                             <tr>
-                                                        <td>Ngày xuất bản</td>
+                                                        <td>Publication date</td>
                                                         <td>{product ? Adapter.formatDate(product.publishingTime) : ''}</td>
                                             </tr>
                                             <tr>
-                                                <td>Kích thước</td>
+                                                        <td>Size</td>
                                                 <td>14 x 20.5 cm</td>
                                             </tr>
                                             <tr>
-                                                <td>Tác giả</td>
+                                                <td>Author</td>
                                                         <td>{
                                                             product ? product.authorProducts.map((item, index) => {
                                                                 return (
@@ -407,7 +407,7 @@ class ProductDetail extends Component {
                                                                         onClick={this.viewProducts.bind(this, item.author.authorProducts)}
                                                                         data-toggle="modal" data-target=".view-products"
                                                                         key={index}>
-                                                                        {item.author.authorName} |
+                                                                        {item.author.authorName}
                                                                     </span>
                                                                 )
                                                             }): null
@@ -415,16 +415,16 @@ class ProductDetail extends Component {
                                                         }</td>
                                             </tr>
                                             <tr>
-                                                <td>Loại bìa</td>
-                                                <td>Bìa mềm</td>
+                                                        <td>Cover type</td>
+                                                        <td>Paperback</td>
                                             </tr>
                                             <tr>
-                                                <td>Số trang</td>
+                                                        <td>Number of pages</td>
                                                 <td>432</td>
                                             </tr>
                                           
                                             <tr>
-                                                <td>Nhà xuất bản</td>
+                                                        <td>Publisher</td>
                                                         <td>{
                                                             product ? product.publisherProducts.map((item, index) => {
 
@@ -432,7 +432,7 @@ class ProductDetail extends Component {
                                                                     onClick={this.viewProducts.bind(this, item.publisher.publisherProducts)}
                                                                     data-toggle="modal" data-target=".view-products"
                                                                     key={index}>{item.publisher.publisherName}
-                                                                    | </span>
+                                                                    </span>
                                                             }) : null
 
                                                         }</td>
@@ -445,8 +445,8 @@ class ProductDetail extends Component {
                                 <div className="product-info-area mt-80">
                            
                                     <ul className="nav">
-                                        <li><a className="active" href="#Reviews" data-toggle="tab">Đánh giá</a></li>
-                                        <li><a  href="#Details" data-toggle="tab">Mô tả sách</a></li>
+                                        <li><a className="active" href="#Reviews" data-toggle="tab">REVIEW</a></li>
+                                        <li><a href="#Details" data-toggle="tab">Book description</a></li>
                                     </ul>
                                     <div className="tab-content">
                                         <div className="tab-pane fade" id="Details">
@@ -461,12 +461,12 @@ class ProductDetail extends Component {
                                             <div className="valu valu-2">
                                                 <div className="section-title mb-60 mt-60">
                                                             <div className="review-add">
-                                                                <h6>Sản phẩm: {product ? product.productName : ""}</h6>
+                                                                <h6>Product : {product ? product.productName : ""}</h6>
                                                             </div>
-                                                    <h2>Khách hàng đánh giá</h2>
+                                                            <h2>Customer reviews</h2>
                                                         </div>
                                                         <div className="comment-title-wrap mt-20">
-                                                            <h6>{reviewProduct.length} Đánh giá  </h6>
+                                                            <h6>{reviewProduct.length} Review  </h6>
                                                         </div>
                                                         <div className="comment-reply-wrap mt-20">
                                                             <ul>
@@ -550,7 +550,7 @@ class ProductDetail extends Component {
                                                         </div>
                                          
                                                 <div className="review-field-ratings">
-                                                    <span>Đánh giá của bạn<sup>*</sup></span>
+                                                            <span>Your review<sup>*</sup></span>
                                                     <div className="control">
                                                         <div className="single-control">
                                                                     <ReactStars
@@ -570,29 +570,27 @@ class ProductDetail extends Component {
                                                         </form>
                                                     </div>
                                                 </div>
-                                                <button className="btn btn-primary" type="submit" onClick={this.sendReview} >Gửi đánh giá</button>
+                                                        <button className="btn btn-primary" type="submit" onClick={this.sendReview} >Submit a review</button>
                                             </div>
                                                 </div> : 
                                                 <div className="tab-pane fade" id="Reviews">
                                                     <div className="valu valu-2">
                                                         <div className="section-title mb-60 mt-60">
-                                                            <h2>Khách hàng đánh giá</h2>
+                                                            <h2>Customer reviews</h2>
                                                         </div>
                                                         <div className="review-add">
-                                                            <h4>Sản phẩm: {product ? product.productName : ""}</h4>
+                                                            <h4>Product: {product ? product.productName : ""}</h4>
                                                         </div>
                                                         <div className="review-field-ratings">
-                                                                <p>Bạn phải đăng nhập để có thể đánh giá</p>
+                                                            <p>You must login to be able to evaluate</p>
                                                         </div>
-                                                 
-                                                
                                                     </div>
                                                 </div>
                                         }
                                     </div>
                                 </div>
                                 <div className="section-title text-center mb-30">
-                                    <h3 style={{ margin: "30px 0 -25px" }}>Sản phẩm liên quan</h3>
+                                    <h3 style={{ margin: "30px 0 -25px" }}>Related products</h3>
                                 </div>
                                 <div className="new-book-area mt-60">
                                     <Owldemo1 setProduct={this.setProduct} products={product ? product.category.products : []} />
@@ -601,7 +599,7 @@ class ProductDetail extends Component {
                             <div className="col-lg-3 col-md-12 col-12 order-lg-2 order-2">
                                 <div className="shop-left">
                                     <div className="left-title mb-20">
-                                        <h4>Ưu đãi ngay hôm nay</h4>
+                                        <h4>Deals today</h4>
                                     </div>
                                     <div className="banner-area mb-30">
                                         <div className="banner-img-2">
@@ -609,10 +607,8 @@ class ProductDetail extends Component {
                                         </div>
                                     </div>
                                     <div className="left-title-2">
-                                        <h2><Link to="/wishlist">Những cuốn bạn thích</Link></h2>
-
+                                        <h2><Link to="/wishlist">Books you like</Link></h2>
                                         <MyWishList wishlist={this.state.wishlistUser} />
-
                                     </div>
                                 </div>
                             </div>
@@ -625,7 +621,7 @@ class ProductDetail extends Component {
                             <div className="modal-content p-4" >
                                 <div className="col-md-12 row">
                                     <div className="col-md-10">
-                                        Đọc thử cuốn: <h4> {product ? product.productName : null} </h4>
+                                        Try reading the book : <h4> {product ? product.productName : null} </h4>
 
                                     </div>
                                     <div className="col-md-2">
@@ -634,10 +630,7 @@ class ProductDetail extends Component {
                                     <div dangerouslySetInnerHTML={{ __html: product?  product.productContent : null }} className="col-md-12" style={{ width: "100%", height: "700px", overflow: "scroll" }}>
                                        
                                     </div>
-                                    
-                                </div>
-
-                                
+                                </div>   
                             </div>
                         </div>
                     </div>

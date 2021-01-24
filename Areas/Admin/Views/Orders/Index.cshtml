@@ -12,7 +12,7 @@
                     <i class="kt-font-brand flaticon2-line-chart"></i>
                 </span>
                 <h3 class="kt-portlet__head-title">
-                    Danh Sách Đơn Hàng
+                    Order List
                 </h3>
             </div>
 
@@ -28,25 +28,25 @@
                                 <div class="col-md-2 kt-margin-b-20-tablet-and-mobile">
                                     <div class="kt-form__group">
                                         <div class="kt-form__label">
-                                            <label>Số Điện Thoại :</label>
+                                            <label>Phone number :</label>
                                         </div>
                                         <div class="kt-form__control">
-                                            <input style="margin-top: 1px" name="telephone" type="text" class="form-control" placeholder="Nhập vào số điện thoại ..." />
+                                            <input style="margin-top: 1px" name="telephone" type="text" class="form-control" placeholder="Enter the phone number ..." />
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-3 kt-margin-b-20-tablet-and-mobile">
                                     <div class="kt-form__group">
                                         <div class="kt-form__label">
-                                            <label>Trạng Thái :</label>
+                                            <label>Status :</label>
                                         </div>
                                         <div class="kt-form__control">
                                             <select class="form-control kt-select2" id="kt_select2_1" name="status">
                                                 <option value="">All</option>
-                                                <option value="1">Đang giao hàng(Chưa TT)</option>
-                                                <option value="4">Đang giao hàng(Đã TT)</option>
-                                                <option value="2">Hoàn thành</option>
-                                                <option value="3">Đã hủy</option>
+                                                <option value="1">Delivering(Unpaid)</option>
+                                                <option value="4">Delivering(Paid)</option>
+                                                <option value="2">Completed</option>
+                                                <option value="3">Cancelled</option>
 
                                             </select>
                                         </div>
@@ -55,13 +55,13 @@
                                 <div class="col-md-3 kt-margin-b-20-tablet-and-mobile">
                                     <div class="kt-form__group">
                                         <div class="kt-form__label">
-                                            <label>Kiểu Thanh Toán :</label>
+                                            <label>Payment Type :</label>
                                         </div>
                                         <div class="kt-form__control">
                                             <select class="form-control kt-select2" id="kt_select2_2" name="paymenttype">
                                                 <option value="">All</option>
                                                 <option value="1">COD</option>
-                                                <option value="0">Ngân Hàng</option>
+                                                <option value="0">Bank</option>
                                             </select>
                                         </div>
                                     </div>
@@ -69,7 +69,7 @@
                                 <div class="col-md-3 kt-margin-b-20-tablet-and-mobile">
                                     <div class="kt-form__group">
                                         <div class="kt-form__label">
-                                            <label>Ngày Đặt Hàng :</label>
+                                            <label>Order date :</label>
                                         </div>
                                         <div class='input-group' id='kt_daterangepicker_2'>
                                             <input type="text" class="form-control" name="paydate" readonly placeholder="Select date range" />
@@ -85,7 +85,7 @@
                                             <label></label>
                                         </div>
                                         <div class="kt-form__control">
-                                            <button style="margin-top: 5px" type="submit" class="form-control btn btn-primary">LỌC</button>
+                                            <button style="margin-top: 5px" type="submit" class="form-control btn btn-primary">FILTER</button>
                                         </div>
                                     </div>
                                 </div>
@@ -131,26 +131,26 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <td>Tên Khách Hàng </td>
+                            <td>Customer name </td>
                             <th>
-                                Địa Chỉ Giao Hàng
+                                Delivery address
                             </th>
                             <th>
-                                Số Điện Thoại
-                            </th>
-
-                            <th>
-                                Ngày Đặt Hàng
+                                Phone number
                             </th>
 
                             <th>
-                                Kiểu Thanh Toán
+                                Order date
+                            </th>
+
+                            <th>
+                                Payment Type
                             </th>
                             <th>
-                                Trạng Thái
+                                Status
                             </th>
                             <th>
-                                Tổng Tiền
+                                Total
                             </th>
 
                             <th></th>
@@ -175,30 +175,30 @@
                                 <td>
                                     @if (item.paymenttype == 1)
                                     {
-                                        <span>Thanh toán sau khi nhận hàng</span>
+                                        <span>Pay after recieve</span>
                                     }
                                     @if (item.paymenttype == 2)
                                     {
-                                        <span>Thanh toán PayPal</span>
+                                        <span>PayPal payments</span>
                                     }
 
                                 </td>
                                 <td>
                                     @if (item.Status == 1)
                                     {
-                                        <span class="kt-badge  kt-badge--warning kt-badge--inline kt-badge--pill">Đang giao hàng(Chưa TT)</span>
+                                        <span class="kt-badge  kt-badge--warning kt-badge--inline kt-badge--pill">Delivering(Unpaid)</span>
                                     }
                                     @if (item.Status == 2)
                                     {
-                                        <span class="kt-badge  kt-badge--success kt-badge--inline kt-badge--pill">Đã hoàn thành</span>
+                                        <span class="kt-badge  kt-badge--success kt-badge--inline kt-badge--pill">Completed</span>
                                     }
                                     @if (item.Status == 3)
                                     {
-                                        <span class="kt-badge  kt-badge--danger kt-badge--inline kt-badge--pill">Đã hủy</span>
+                                        <span class="kt-badge  kt-badge--danger kt-badge--inline kt-badge--pill">Cancelled</span>
                                     }
                                     @if (item.Status == 4)
                                     {
-                                        <span class="kt-badge  kt-badge--brand kt-badge--inline kt-badge--pill">Đang giao hàng(Đã TT)</span>
+                                        <span class="kt-badge  kt-badge--brand kt-badge--inline kt-badge--pill">Delivering(Paid)</span>
                                     }
                                 </td>
                                 <td>
@@ -208,7 +208,7 @@
                                 <td>
                                     @if (item.Status == 2 || item.Status == 3)
                                     {
-                                        <a class="btn btn-sm btn-clean btn-icon btn-icon-md" onclick="return alert('Không thể cập nhật đơn hàng đã hoàn thành hoặc hủy');"><i class="la la-edit"></i></a>
+                                        <a class="btn btn-sm btn-clean btn-icon btn-icon-md" onclick="return alert('Completed or canceled orders cannot be updated');"><i class="la la-edit"></i></a>
                                     }
                                     else
                                     {

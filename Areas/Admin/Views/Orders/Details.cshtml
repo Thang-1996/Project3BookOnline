@@ -15,14 +15,14 @@
                     <i class="kt-font-brand flaticon2-line-chart"></i>
                 </span>
                 <h3 class="kt-portlet__head-title">
-                    Chi Tiết Đơn Hàng 
+                    Order Details
                 </h3>
             </div>
             <div class="kt-portlet__head-toolbar">
                 <div class="kt-portlet__head-wrapper">
                     <a asp-action="Index" asp-area="admin" asp-controller="orders" class="btn btn-clean btn-icon-sm">
                         <i class="la la-long-arrow-left"></i>
-                        Trở Về
+                        Back
                     </a>
                     &nbsp;
 
@@ -31,35 +31,35 @@
         </div>
 
         <div class="kt-portlet__body">
-            <h5>Thông Tin Vận Chuyển :</h5>
+            <h5>Shipping Information :</h5>
             <br />
             <dl class="row">
                 <dt class="col-sm-2">
-                    Tên Người Nhận :
+                    Recipient Name :
                 </dt>
                 <dd class="col-sm-10">
                     @Html.DisplayFor(model => model.CustomerName)
                 </dd>
                 <dt class="col-sm-2">
-                    Địa Chỉ Giao Hàng :
+                    Shipping address :
                 </dt>
                 <dd class="col-sm-10">
                     @Html.DisplayFor(model => model.Address)
                 </dd>
                 <dt class="col-sm-2">
-                    Số Điện Thoại Người Nhận :
+                    Recipient's Phone Number :
                 </dt>
                 <dd class="col-sm-10">
                     @Html.DisplayFor(model => model.Telephone)
                 </dd>
                 <dt class="col-sm-2">
-                    Ghi Chú Đơn Hàng :
+                    Order Notes :
                 </dt>
                 <dd class="col-sm-10">
                     @Html.DisplayFor(model => model.OrderNote)
                 </dd>
                 <dt class="col-sm-2">
-                    Ngày Đặt Hàng :
+                    Order date :
                 </dt>
                 <dd class="col-sm-10">
                     @Html.DisplayFor(model => model.CreateAt)
@@ -69,17 +69,17 @@
 
         </div>
         <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
-            <h5>Thông Tin Đơn Hàng</h5>
+            <h5>Order Information</h5>
             <br />
             <table class="table">
                 <thead>
 
                     <tr>
 
-                        <td>Tên Sản Phẩm</td>
-                        <td>Giá Tiền</td>
-                        <td>Số Lượng</td>
-                        <td>Thành Tiền</td>
+                        <td>Product Name</td>
+                        <td>Price</td>
+                        <td>Quantily</td>
+                        <td>Into money</td>
                     </tr>
                 </thead>
 
@@ -101,7 +101,7 @@
 
                 </div>
                 <div class="col-lg-4">
-                    <p class="text-black-50" style="font-size: 14px; font-weight: bold">Tổng tiền : @Math.Round(Model.GrandTotal) VNĐ</p>
+                    <p class="text-black-50" style="font-size: 14px; font-weight: bold">Total : @Math.Round(Model.GrandTotal) VNĐ</p>
                 </div>
             </div>
 

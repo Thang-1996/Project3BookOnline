@@ -8,7 +8,7 @@
     <div class="alert alert-light alert-elevate" role="alert">
         <div class="alert-icon"><i class="la la-folder kt-font-brand"></i></div>
         <div class="alert-text">
-            Cập Nhật Bài Viết
+            Update Post
         </div>
     </div>
     <div class="kt-portlet kt-portlet--mobile">
@@ -25,7 +25,7 @@
                 <div class="kt-portlet__head-wrapper">
                     <a asp-action="Index" asp-area="admin" asp-controller="Blogs" class="btn btn-clean btn-icon-sm">
                         <i class="la la-long-arrow-left"></i>
-                        Quay lại
+                        Back
                     </a>
                     &nbsp;
 
@@ -42,27 +42,27 @@
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <input type="hidden" asp-for="BlogID" />
                         <div class="form-group">
-                            <label asp-for="Title" class="control-label">Tiêu Đề</label>
+                            <label asp-for="Title" class="control-label">Title</label>
                             <input asp-for="Title" class="form-control" />
                             <span asp-validation-for="Title" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="Description" class="control-label">Mô Tả Ngắn</label>
+                            <label asp-for="Description" class="control-label">Description</label>
                             <input asp-for="Description" class="form-control" />
                             <span asp-validation-for="Description" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="Content" class="control-label">Nội Dung Bài Viết</label>
+                            <label asp-for="Content" class="control-label">Content</label>
                             <textarea asp-for="Content" id="content" class="form-control"></textarea>
                             <span asp-validation-for="Content" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="BlogImage" class="control-label">Ảnh Bìa</label>
+                            <label asp-for="BlogImage" class="control-label">Blog Image</label>
                             <input asp-for="BlogImage" class="form-control" />
                             <span asp-validation-for="BlogImage" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="Status" class="control-label">Trạng Thái</label>
+                            <label asp-for="Status" class="control-label">Status</label>
 
                             <select asp-for="Status" class="form-control">
                                 <option value="1">Active</option>
@@ -72,7 +72,7 @@
                         </div>
 
                         <div class="form-group">
-                            <input type="submit" value="Cập Nhật" class="btn btn-primary" />
+                            <input type="submit" value="Update" class="btn btn-primary" />
                         </div>
                     </form>
                 </div>

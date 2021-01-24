@@ -114,9 +114,9 @@ export class Home extends Component {
                     <div className="row">
                         <div className="col-lg-12">
                             <div className="section-title text-center mb-30">
-                                <h2>QUAN TÂM HÀNG ĐẦU</h2>
-                                <p>Duyệt qua bộ sưu tập các sản phẩm bán chạy nhất và hàng đầu của chúng tôi.<br />
-                                    Tôi chắc chắn sẽ tìm thấy những gì bạn đang tìm kiếm.</p>
+                                <h2>TOP INTERESTING</h2>
+                                <p>Browse the collection of our best selling and top interresting products.<br />
+                                    ll definitely find what you are looking for.</p>
                             </div>
                         </div>
                         <div className="col-lg-12">
@@ -133,90 +133,14 @@ export class Home extends Component {
                             <div className="banner-img-2">
                                 <a href="#"><img src="img/banner/5.jpg" alt="banner" /></a>
                                 <div className="banner-text">
-                                    <h2>Giảm giá lên tới 30%</h2>
+                                    <h2>SALE UP TO 30% OFF</h2>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div className="recent-post-area pt-95 pb-100">
-                <div className="container">
-                    <div className="row">
-                        <div className="col-lg-12">
-                            <div className="section-title text-center mb-30 section-title-res">
-                                <h2>Latest from our blog</h2>
-                            </div>
-                        </div>
-                        <div className="post-active owl-carousel text-center">
-                            <div className="col-lg-12">
-                                <div className="single-post">
-                                    <div className="post-img">
-                                        <a href="#"><img src="img/post/1.jpg" alt="post" /></a>
-                                        <div className="blog-date-time">
-                                            <span className="day-time">06</span>
-                                            <span className="moth-time">Dec</span>
-                                        </div>
-                                    </div>
-                                    <div className="post-content">
-                                        <h3><a href="#">Nam tincidunt vulputate felis</a></h3>
-                                        <span className="meta-author"> Demo koparion </span>
-                                        <p>Discover five of our favourite dresses from our new collection that are destined to be worn and loved immediately.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-lg-12">
-                                <div className="single-post">
-                                    <div className="post-img">
-                                        <a href="blog-details.html"><img src="img/post/2.jpg" alt="post" /></a>
-                                        <div className="blog-date-time">
-                                            <span className="day-time">06</span>
-                                            <span className="moth-time">Dec</span>
-                                        </div>
-                                    </div>
-                                    <div className="post-content">
-                                        <h3><a href="blog-details.html">Interdum et malesuada</a></h3>
-                                        <span className="meta-author"> Demo koparion </span>
-                                        <p>Discover five of our favourite dresses from our new collection that are destined to be worn and loved immediately.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-lg-12">
-                                <div className="single-post">
-                                    <div className="post-img">
-                                        <a href="blog-details.html"><img src="img/post/3.jpg" alt="post" /></a>
-                                        <div className="blog-date-time">
-                                            <span className="day-time">07</span>
-                                            <span className="moth-time">Dec</span>
-                                        </div>
-                                    </div>
-                                    <div className="post-content">
-                                        <h3><a href="blog-details.html">What is Bootstrap?</a></h3>
-                                        <span className="meta-author"> Demo koparion </span>
-                                        <p>Discover five of our favourite dresses from our new collection that are destined to be worn and loved immediately.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-lg-12">
-                                <div className="single-post">
-                                    <div className="post-img">
-                                        <a href="blog-details.html"><img src="img/post/4.jpg" alt="post" /></a>
-                                        <div className="blog-date-time">
-                                            <span className="day-time">08</span>
-                                            <span className="moth-time">Dec</span>
-                                        </div>
-                                    </div>
-                                    <div className="post-content">
-                                        <h3><a href="blog-details.html">Etiam eros massa</a></h3>
-                                        <span className="meta-author"> Demo koparion </span>
-                                        <p>Discover five of our favourite dresses from our new collection that are destined to be worn and loved immediately.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+           
             <div className="banner-area banner-res-large pb-100">
                 <div className="container">
                     <div className="row">
@@ -226,8 +150,8 @@ export class Home extends Component {
                                     <a href="#"><img src="img/banner/1.png" alt="banner" /></a>
                                 </div>
                                 <div className="banner-text">
-                                    <h4>Miễn phí vận chuyển</h4>
-                                    <p>Với tất cả đơn hàng lớn hơn 300.000đ</p>
+                                    <h4>Free shipping item</h4>
+                                    <p>For all orders over 300.000đ</p>
                                 </div>
                             </div>
                         </div>
@@ -237,8 +161,8 @@ export class Home extends Component {
                                     <a href="#"><img src="img/banner/2.png" alt="banner" /></a>
                                 </div>
                                 <div className="banner-text">
-                                    <h4>Đảm bảo</h4>
-                                    <p>Hoàn tiền 100%</p>
+                                    <h4>Money back guarantee</h4>
+                                    <p>100% money back guarante</p>
                                 </div>
                             </div>
                         </div>
@@ -248,8 +172,8 @@ export class Home extends Component {
                                     <a href="#"><img src="img/banner/3.png" alt="banner" /></a>
                                 </div>
                                 <div className="banner-text">
-                                    <h4>Thanh toán khi giao hàng</h4>
-                                    <p>Phương thức thanh toán đa dạng</p>
+                                    <h4>Cash on delivery</h4>
+                                    <p>Lorem ipsum dolor consecte</p>
                                 </div>
                             </div>
                         </div>
@@ -259,7 +183,7 @@ export class Home extends Component {
                                     <a href="#"><img src="img/banner/4.png" alt="banner" /></a>
                                 </div>
                                 <div className="banner-text">
-                                    <h4>Liên hệ hỗ trợ</h4>
+                                    <h4>Help & Support</h4>
                                     <p>Call us : + 0123.4567.89</p>
                                 </div>
                             </div>

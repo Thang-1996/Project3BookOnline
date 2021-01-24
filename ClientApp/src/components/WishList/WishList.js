@@ -35,7 +35,7 @@ export default class WishList extends Component {
     addToCart = (item) => {
     
         if (Number(item.product.quantity) == 0) {
-            alert("Hàng trong kho không đủ");
+            alert("Inventory is not enough");
         } else {
             let cart = localStorage.getItem("cart");
             if (cart === null) cart = [];
@@ -46,14 +46,14 @@ export default class WishList extends Component {
                     if (cart[i].quantity < Number(item.product.quantity) || Number(item.product.quantity) != 0) {
                         cart[i].quantity++;
                     } else {
-                        alert("Hàng trong kho không đủ");
+                        alert("Inventory is not enough");
                     }
                     count++;
                 }
             }
             if (count === 0) {
                 cart.push({ product: item.product, quantity: 1 });
-                alert("Thêm hàng vào giỏ thành công")
+                alert("Add items to cart successfully")
             }
             localStorage.setItem("cart", JSON.stringify(cart));
 
@@ -66,7 +66,7 @@ export default class WishList extends Component {
             .then(res => {
                 console.log(res.data);
                 if (res.data == true) {
-                    notification('success', 'Xóa thành công sản phẩm');
+                    notification('success', 'Successfully deleted the product');
                 }
                 this.props.updateWishList();
             }).catch(err => {
@@ -86,8 +86,8 @@ export default class WishList extends Component {
                             <div className="col-lg-12">
                                 <div className="breadcrumbs-menu">
                                     <ul>
-                                        <li><a href="#">Home</a></li>
-                                        <li><a href="#" className="active">wishlist</a></li>
+                                        <li><a href="#">HOME</a></li>
+                                        <li><a href="#" className="active">WISHLIST</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -134,7 +134,7 @@ export default class WishList extends Component {
                                                                 <td className="product-name"><Link to={"product/" + e.product.productID}>{e.product.productName}</Link></td>
                                                                 <td className="product-price"><span className="amount">{e.product.price}</span></td>
                                                                 <td className="product-stock-status"><span className="wishlist-in-stock">{
-                                                                    e.product.quantity > 0 ? 'Còn hàng' : 'Hết Hàng' 
+                                                                    e.product.quantity > 0 ? 'Stocking' : 'Out of stock' 
                                                                 }</span></td>
                                                                 <td className="product-add-to-cart"><a onClick={this.addToCart.bind(this,e)}> Add to Cart</a></td>
                                                             </tr>

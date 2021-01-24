@@ -12,8 +12,8 @@ class Contact extends Component {
                             <div className="col-lg-12">
                                 <div className="breadcrumbs-menu">
                                     <ul>
-                                        <li><a href="#">Trang chủ</a></li>
-                                        <li><a href="#" className="active">Liên hệ</a></li>
+                                        <li><a href="#">HOME</a></li>
+                                        <li><a href="#" className="active">CONTACT</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -34,15 +34,15 @@ class Contact extends Component {
                         <div className="row">
                             <div className="col-lg-6 col-md-6 col-12">
                                 <div className="contact-info">
-                                    <h3>Thông tin liên hệ</h3>
+                                    <h3>Contact info</h3>
                                     <ul>
                                         <li>
                                             <i className="fa fa-map-marker" />
-                                                <span>Địa chỉ: </span>Số 8, Tôn Thất Thuyết, Mỹ Đình, Hà Nội
+                                                <span>Adress: </span>Số 8, Tôn Thất Thuyết, Mỹ Đình, Hà Nội
                                         </li>
                                         <li>
                                             <i className="fa fa-envelope" />
-                                                <span>Số điện thoại: </span>0989899988
+                                                <span>Phone: </span>0989899988
                                             </li>
                                         <li>
                                             <i className="fa fa-mobile" />
@@ -54,12 +54,12 @@ class Contact extends Component {
                             </div>
                             <div className="col-lg-6 col-md-6 col-12">
                                 <div className="contact-form">
-                                    <h3><i className="fa fa-envelope-o" />Gửi tin nhắn cho chúng tôi</h3>
+                                    <h3><i className="fa fa-envelope-o" />Leave a Message</h3>
                                     <form id="contact-form" action="https://demo.hasthemes.com/koparion-preview/koparion/mail.php" method="post">
                                         <div className="row">
                                             <div className="col-lg-6">
                                                 <div className="single-form-3">
-                                                    <input name="name" type="text" placeholder="Tên" />
+                                                    <input name="name" type="text" placeholder="Name" />
                                                 </div>
                                             </div>
                                             <div className="col-lg-6">
@@ -69,13 +69,13 @@ class Contact extends Component {
                                             </div>
                                             <div className="col-lg-12">
                                                 <div className="single-form-3">
-                                                    <input name="subject" type="text" placeholder="Vấn đề" />
+                                                    <input name="subject" type="text" placeholder="Subject" />
                                                 </div>
                                             </div>
                                             <div className="col-lg-12">
                                                 <div className="single-form-3">
-                                                    <textarea name="message" placeholder="Thông điệp" defaultValue={""} />
-                                                    <button className="submit" type="submit">Gửi tin nhắn</button>
+                                                    <textarea name="message" placeholder="Message" defaultValue={""} />
+                                                    <button className="submit" type="submit">SEND MESSAGE</button>
                                                 </div>
                                             </div>
                                         </div>
